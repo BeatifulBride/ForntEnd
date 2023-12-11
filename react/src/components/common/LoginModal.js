@@ -31,6 +31,7 @@ function LoginModal({setLoginModal}) {
             form: form
         }));
 
+
         setLoginModal(false);
         console.log('[LoginModal] Login Process End!!');
         alert('로그인이 완료되었습니다.');

@@ -13,16 +13,18 @@ import LoginModal from './LoginModal';
 
 function Header() {
 
-    //const isLogin = false;
+    // const isLogin = false;
     const navigate = useNavigate();
+
 
     // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
     const dispatch = useDispatch();
-    const loginMember = useSelector(state => state.memberReducer);  // 저장소에서 가져온 loginMember 정보
+    const loginMember = useSelector(state => state.memberReducer);  // 저장소에서 가져온 loginMember 정보(이름,디데이)
     const isLogin = window.localStorage.getItem('accessToken');    // Local Storage 에 token 정보 확인
     const [search, setSearch] = useState('');
 
     const [loginModal, setLoginModal] = useState(false);
+
 
     const onSearchChangeHandler = (e) => {
         setSearch(e.target.value);
@@ -41,9 +43,14 @@ function Header() {
         }
     }
 
-    const onClickLogoHandler = () => {
-        // 로고 클릭시 메인 페이지로 이동
-        navigate("/", { replace: true })
+    // const onClickLogoHandler = () => {
+    //     //     // 로고 클릭시 메인 페이지로 이동
+    //     //     navigate("/", { replace: true })
+    //     // }
+
+    //드레스 리스트 핸들러
+    const onClickDressHandler = () => {
+        navigate("/dress", {replace: true})
     }
 
     const onClickMypageHandler = () => {    
@@ -74,7 +81,7 @@ function Header() {
 
         return (
             <div>
-                <NavLink to="/login">로그인</NavLink>  |  <NavLink to="/register">회원가입</NavLink>
+                <NavLink to="/login">로그인</NavLink>
             </div>
         );
     }
@@ -83,7 +90,14 @@ function Header() {
 
         return (            
             <div>
-                <button className={ HeaderCSS.HeaderBtn } onClick={ onClickMypageHandler }>마이페이지</button>  | <button className={ HeaderCSS.HeaderBtn } onClick={ onClickLogoutHandler }>로그아웃</button>
+                <div>
+                    {loginMember && <b>{`${loginMember?.data?.memberName}님 환영합니다`}</b>}
+                    &nbsp;&nbsp;&nbsp;
+                    {loginMember && <b>{`${loginMember?.data?.memberName}`}</b>}
+                <button className={ HeaderCSS.HeaderBtn } onClick={ onClickDressHandler }>드레스보기</button>  |
+                <button className={ HeaderCSS.HeaderBtn } onClick={ onClickMypageHandler }>마이페이지</button>  |
+                <button className={ HeaderCSS.HeaderBtn } onClick={ onClickLogoutHandler }>로그아웃</button>
+                </div>
             </div>
         );
     }
@@ -92,24 +106,11 @@ function Header() {
         <>
             { loginModal ? <LoginModal setLoginModal={ setLoginModal }/> : null}
             <div className={ HeaderCSS.HeaderDiv }>
-                <button
-                    className={ HeaderCSS.LogoBtn }
-                    onClick={ onClickLogoHandler }
-                >
-                    OHGIRAFFERS
-                </button>
-                <input 
-                    className={ HeaderCSS.InputStyle }
-                    type="text" 
-                    placeholder="검색" 
-                    value={ search }
-                    onKeyUp={ onEnterkeyHandler }
-                    onChange={ onSearchChangeHandler }
-                />
                 
                 {/* 로그인 상태에 따라 다른 컴포넌트 랜더링 */}
                 { (isLogin == null || isLogin === undefined) ? <BeforeLogin /> : <AfterLogin />}
             </div>
+
         </>
     );
 }
