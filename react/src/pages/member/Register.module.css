@@ -1,0 +1,382 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+.backgroundDiv{
+    height: 100vh;
+    display: flex;
+    flex-direction: column; /*수평 정렬*/
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    background-color: #EDE9E6;
+}
+
+.registerDiv{
+    height: 700px;
+    width: 800px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column; /*수평 정렬*/
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background-color: #EDE9E6;
+    margin-top: 40px;
+    /* border: solid 1px black; */
+    border-radius: 25px;
+}
+
+.h1{
+    color: #000;
+    text-align: center;
+    font-family: 'Pretendard-Regular';
+    font-size: 40px;
+    font-style: normal;
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+.userid {
+    /* background-color: #000; */
+    height: 45px;
+    width: 370px;
+    margin-top: 25px;
+    margin-bottom: -30px;
+    border-radius: 10px;
+    border: 1px solid #A8A8A9;
+    background: #F3F3F3;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding-bottom: 3px;
+
+}
+
+.userid input {
+    width: 200px;
+    height: 35px;
+    margin-top: 6px;
+    margin-left: 50px;
+    border: none;
+    background: #F3F3F3;
+
+
+}
+
+.userid_btn{
+    /* width: 84px; */
+    font-family: 'Pretendard-Regular';
+    font-size: 17px;
+    padding-bottom: 3px;
+    margin-left: 15px;
+    height: 25px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: 1px solid #A8A8A9;
+    background:  RGB(164,198,222);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.icon_id{
+    /*background-color: black;*/
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: -10px;
+    left: -160px;
+
+}
+
+.userpw {
+    margin-top: 20px;
+    height: 45px;
+    width: 370px;
+    z-index: 2;
+    position: relative;
+    border-radius: 10px;
+    border: 1px solid #A8A8A9;
+    background: #F3F3F3;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    position: relative;
+}
+
+.userpw input {
+    width: 310px;
+    height: 35px;
+    border-radius: 10px;
+    margin-top: 3px;
+    margin-left: 50px;
+    top: 2px;
+    position: relative;
+    border: none;
+    background: #F3F3F3;
+    z-index: 1;
+
+}
+
+.icon_pw{
+    /*background-color: black;*/
+    position: relative;
+    top: -40px;
+    z-index: 2;
+    width: 45px;
+    height: 30px;
+    margin-bottom: 0;
+    left: -160px;
+
+}
+
+.check_item{
+    z-index: 2;
+    /*background-color: black;*/
+    position: relative;
+    width: 30px;
+    margin-left: 340px;
+    top: -45px;
+}
+
+.userpw2 {
+    margin-top: -10px;
+    margin-bottom: -35px;
+    height: 45px;
+    width: 370px;
+    z-index: 1;
+    position: relative;
+    border-radius: 10px;
+    border: 1px solid #A8A8A9;
+    background: #F3F3F3;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.userpw2 input {
+    width: 310px;
+    height: 35px;
+    margin-top: 5px;
+    position: relative;
+    top: -53px;
+    background: #F3F3F3;
+    border: none;
+    margin-left: 50px;
+    z-index: 0;
+}
+
+.check_item2{
+    z-index: 2;
+    /*background-color: black;*/
+    position: relative;
+    top: -3px;
+    width: 30px;
+    margin-left: 340px;
+
+}
+
+.icon_pw2{
+    /*background-color: black;*/
+    position: relative;
+    top: -5px;
+    z-index: 2;
+    width: 45px;
+    height: 33px;
+    margin-bottom: 0;
+    left: -160px;
+    color:  black;
+}
+
+.username{
+    height: 45px;
+    width: 370px;
+    margin-top: 20px;
+    margin-bottom: -20px;
+    border-radius: 10px;
+    border: 1px solid #A8A8A9;
+    background: #F3F3F3;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.username input{
+    width: 300px;
+    margin-top: 5px;
+    height: 35px;
+    margin-left: 50px;
+    background: #F3F3F3;
+    border: none;
+}
+
+.icon_name{
+    /*background-color: black;*/
+    width: 35px;
+    height: 40px;
+    position: relative;
+    top: -23px;
+    left: -160px;
+    color: black;
+}
+
+.useremail {
+    height: 45px;
+    width: 370px;
+    border-radius: 10px;
+    margin-top: -5px;
+    padding-top: 4px;
+    border: 1px solid #A8A8A9;
+    background: #F3F3F3;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.useremail input {
+    width: 200px;
+    margin-top: 3px;
+    height: 35px;
+    margin-left: 50px;
+    border: none;
+    background: #F3F3F3;
+
+}
+
+.useremail_btn{
+    /* width: 84px; */
+    font-family: 'Pretendard-Regular';
+    font-size: 17px;
+    margin-left: 6px;
+    height: 25px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: 1px solid #A8A8A9;
+    background:  RGB(164,198,222);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.icon_email{
+    /*background-color: black;*/
+    color: black;
+    width: 37px;
+    height: 40px;
+    position: relative;
+    top: -45px;
+    left: -160px;
+    color: black;
+}
+
+.usercode {
+    height: 45px;
+    width: 370px;
+    margin-top: -25px;
+    border-radius: 10px;
+    padding-top: 4px;
+    border: 1px solid #A8A8A9;
+    background: #F3F3F3;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.usercode input {
+    width: 200px;
+    height: 35px;
+    margin-top: 3px;
+    margin-left: 50px;
+    border: none;
+    background: #F3F3F3;
+
+}
+
+.usercode_btn{
+    /* width: 84px; */
+    font-family: 'Pretendard-Regular';
+    font-size: 17px;
+    margin-left: 6px;
+    height: 25px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: 1px solid #A8A8A9;
+    background:  RGB(164,198,222);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.icon_code{
+    /*background-color: black;*/
+    color: black;
+    height: 35px;
+    width: 40px;
+    position: relative;
+    top: -43px;
+    left: -158px;
+}
+
+.userPhoneNumber {
+    height: 45px;
+    width: 370px;
+    margin-top: -20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #A8A8A9;
+    background: #F3F3F3;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.userPhoneNumber input {
+    width: 200px;
+    height: 35px;
+    margin-top: 3px;
+    margin-left: 50px;
+    border: none;
+    background: #F3F3F3;
+}
+
+.icon_phone{
+    /*background-color: black;*/
+    color: black;
+    width: 35px;
+    height: 30px;
+    top: -58px;
+    left: -158px;
+    position: relative;
+}
+
+.userWeddingDate{
+    height: 45px;
+    width: 370px;
+    margin-top: -35px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #A8A8A9;
+    background: #F3F3F3;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.userWeddingDate input{
+    width: 200px;
+    height: 35px;
+    margin-top: 3px;
+    margin-left: 50px;
+    border: none;
+    background: #F3F3F3;
+}
+
+.icon_wedding{
+    color: black;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: -60px;
+    left: -160px;
+}
+
+.submit_btn{
+    height: 45px;
+    width: 370px;
+    display: flex;
+    margin-top: -20px;
+    height: 45px;
+    padding: 21px 109px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    background:  RGB(164,198,222);
+    font-size: 20px;
+    font-family: 'Pretendard-Regular';
+}
