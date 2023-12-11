@@ -3,6 +3,7 @@ import {
     GET_MEMBER
   , POST_LOGIN
   , POST_REGISTER
+  , GET_MEMBER_INFO
 } from '../modules/MemberModule';
 
 export const callGetMemberAPI = ({memberId}) => {
@@ -72,6 +73,7 @@ export const callLogoutAPI = () => {
 }
 
 
+// 회원 정보(이름,디데이정보)
 export const callRegisterAPI = ({form}) => {
     const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/auth/signup`;
 
@@ -97,5 +99,29 @@ export const callRegisterAPI = ({form}) => {
         if(result.status === 201){
             dispatch({ type: POST_REGISTER,  payload: result });
         }        
+    };
+}
+
+export const callMemberInfo = (form) => {
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/mem/maininfo`;
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                memberName: form.memberName,
+                memberWeddingDate: form.memberWeddingDate
+            })
+        })
+            .then(response => response.json());
+
+        console.log('[MemberAPICalls] fetchMemberMainInfo RESULT : ', result);
+
+        if(result.status === 200){
+            dispatch({ type: GET_MEMBER_INFO, payload: result });
+        }
     };
 }

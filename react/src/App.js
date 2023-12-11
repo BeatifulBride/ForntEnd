@@ -18,6 +18,7 @@ import ProductManagement from './pages/admin/ProductManagement';
 import ProductRegistration from './pages/admin/ProductRegistration';
 import ProductUpdate from './pages/admin/ProductUpdate';
 import Search from './pages/products/Search';
+import MainLayout from "./layouts/MainLayout";
 
 
 function App() {
@@ -28,7 +29,8 @@ function App() {
       <Routes>
 
       <Route path="/" element={ <Layout/> }>
-          <Route index element={ <Main/> }/>          
+          <Route index element={ <MainLayout/> }/>
+          {/*<Route path="mainLayout" element={<MainLayout />}/>*/}
           <Route path="search" element={ <Search /> }/>
           <Route path="product/meal" element={ <Meal/> }/>
           <Route path="product/dessert" element={ <Dessert/> }/>
