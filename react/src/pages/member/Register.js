@@ -11,30 +11,30 @@ import moment from 'moment';
 import emailjs from 'emailjs-com'
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Icon } from '@iconify/react';
+import login from "./Login";
 
-import {
-    callRegisterAPI
-} from '../../apis/MemberAPICalls'
-import { POST_LOGIN } from '../../modules/MemberModule';
 
 function Register({history}) {
 
-     // 테스트입니다~ 될거얌
+    //navi
     const navigate = useNavigate();
 
-    //성공바람
-    /* 리덕스를 이용하기 위한 디스패처, 셀렉터 선언 */
-    const dispatch = useDispatch();
-    const member = useSelector(state => state.memberReducer);  // API 요청하여 가져온 loginMember 정보
+    // 일반 회원가입 API
+    // String loginId       : 아이디
+    // String loginPwd      : 비밀번호
+    // String loginEmail    : 이메일
+    // String memName       : 이름
+    // String memPhone      : 전화번호
+    // String memWeddingDate: 결혼예정일
 
     // Id, Password, PasswordCheck, Email, PhoneNumber, WeddingDate 변수 선언
-    const [userId, setUserId] = useState('');
-    const [userPassword, setUserPassword] = useState('');
-    const [userPasswordCheck, setUserPasswordCheck] = useState('');
-    const [userName, setUserNmae] = useState('')
-    const [userEmail, setUserEmail] = useState('');
-    const [userPhoneNumber, setUserPhoneNumber] = useState('');
-    const [userWeddingDate, setUserWeddingDate] = useState('');
+    const [loginId, setLoginId] = useState('');
+    const [loginPwd, setLoginPwd] = useState('');
+    const [loginPwdCheck, setLoginPwdCheck] = useState('');
+    const [memName, setMemName] = useState('')
+    const [loginEmail, setLoginEmail] = useState('');
+    const [memPhone, setMemPhone] = useState('');
+    const [memWeddingDate, setMemWeddingDate] = useState('');
     //달력
     const [value, onChange] = useState(new Date());
 
@@ -48,10 +48,6 @@ function Register({history}) {
     const [passwordOption, setPasswordOption] = useState('');
     //비밀번호 숨기기 기능(눈)
     const [showPassword, setShowPassword] = useState(false);
-
-    //아이디, 이메일 중복 확인
-    let isValidId = false;
-    let isValidEmail = false;
 
     //비밀번호 옵션
     const [passwordInputType, setPasswordInputType] = useState({
@@ -80,13 +76,13 @@ function Register({history}) {
     }, [passwordOption])
 
     //핸들러 정의 - Id, Email, Password, PasswordCheck, PhoneNumber, WeddingDate
-    const handlerChangeUserId = e => setUserId(e.target.value);
-    const handlerChangeUserName = e => setUserNmae(e.target.value)
+    const handlerChangeUserId = e => setLoginId(e.target.value);
+    const handlerChangeUserName = e => setMemName(e.target.value)
     const handlerChangeUserEmail = useCallback((e) => {
         const emailRegex =
             /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
         const emailCurrent = e.target.value
-        setUserEmail(emailCurrent)
+        setLoginEmail(emailCurrent)
         if (!emailRegex.test(emailCurrent)) {
             setUserEmailMessage('이메일 형식이 올바르지 않습니다. 다시 확인해주세요.')
             setIsEmail(false)
@@ -95,18 +91,18 @@ function Register({history}) {
             setIsEmail(true)
         }
     }, [])
-    const handlerChangeUserPassword = e => setUserPassword(e.target.value);
+    const handlerChangeUserPassword = e => setLoginPwd(e.target.value);
     const handlerChangeUserPasswordCheck = useCallback((e) => {
         const passwordCheckCurrent = e.target.value
-        setUserPasswordCheck(passwordCheckCurrent)
-        if (userPassword === passwordCheckCurrent){
+        setLoginPwdCheck(passwordCheckCurrent)
+        if (loginPwd === passwordCheckCurrent){
             setUserPasswordCheckMessage('비밀번호가 일치합니다.')
             setIsPasswordCheck(true)
         }else{
             setUserPasswordCheckMessage('비밀번호가 일치하지 않습니다. 다시 확인해주세요.')
             setIsPasswordCheck(false)
         }
-    }, [userPassword])
+    }, [loginPwd])
 
     const handlerChangeUserPhoneNumber = e => {
         const before = e.target.value.replaceAll('-', '');
@@ -122,43 +118,55 @@ function Register({history}) {
         } else if (numberFormat.length >= 8) {
             numberFormat = numberFormat.substr(0, 3) + '-' + numberFormat.substr(3, 4) + '-' + numberFormat.substr(7, 4);
         }
-        setUserPhoneNumber(numberFormat);
+        setMemPhone(numberFormat);
     }
 
-    const handlerChangeUserWeddingDate = e => setUserWeddingDate(e.target.value);
+    const handlerChangeUserWeddingDate = e => setMemWeddingDate(e.target.value);
 
+    const [id, setId] = useState('');
+    const [isValidId, setIsValidId] = useState(null);
+    const [Email, setEmail] = useState('');
+    const [isValidEmail, setIsValidEmail] = useState();
     //아이디 중복 확인
-    function checkId(){
-        var id = $('#id').val();
-
-        if (id.trim() === '') {
+    const checkId = () => {
+        // 1. 입력값이 비어있는지 확인
+        if (loginId.trim() === '') {
+            // 1-1. 비어있다면 사용자에게 알림
             alert('아이디를 입력해주세요.');
-            return;
-        };
-        $.ajax({
-            url: `http://localhost:8000/api/idCheck`, //Controller에서 요청 받을 주소
-            type: 'post', //POST 방식으로 전달
-            data: { id: id },
-            success: function (cnt) { //컨트롤러에서 넘어온 cnt값을 받는다
-                if (cnt == 0) { //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
-                    $('.id_ok').css("display", "inline-block");
-                    $('.id_already').css("display", "none");
-                    alert('사용가능한 아이디입니다.');
-                    isValidId = true; //사용가능한 아이디로 확인이 되면 true값으로 바뀌면서 회원가입 가능
-                } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
-                    $('.id_already').css("display", "inline-block");
-                    $('.id_ok').css("display", "none");
-                    alert('이미 사용중인 아이디입니다.');
-                    $('#id').val('');
-                    isValidId = false; // 중복확인을 실패한 경우에는 isValidId 값을 false로 변경
-                }
-            },
+            console.log(loginId); // (디버깅용) 입력값 로깅
+            return; // 함수 종료
+        }
 
-            error: function () {
-                alert("에러입니다");
-            }
-        });
+        // 2. 서버에 아이디 중복 여부 확인 요청
+        axios.get(`http://localhost:8080/auth/idcheck/${loginId}`)
+            .then(response => {
+                // 서버로부터 받은 데이터 확인
+                if (response.status === 200) {
+                    const data = response.data;
+                    if (data === "사용 가능한 아이디 입니다.") {
+                        // 200 상태 코드이고 사용 가능한 아이디인 경우
+                        alert('사용 가능한 아이디입니다.');
+                        setIsValidId(true);
+                    } else if (data === "이미 사용 중인 아이디입니다.") {
+                        // 200 상태 코드이고 이미 사용 중인 아이디인 경우
+                        alert('이미 사용 중인 아이디입니다.');
+                        setId('');
+                        setIsValidId(false);
+                    } else {
+                        // 다른 상태 코드에 대한 처리
+                        console.error('Unexpected response data:', data);
+                    }
+                } else {
+                    // 다른 상태 코드에 대한 처리
+                    console.error('Unexpected response status:', response.status);
+                }
+            })
+            .catch(error => {
+                console.error('데이터를 가져오는 도중 오류가 발생했습니다:', error);
+                alert('데이터를 가져오는 도중 오류가 발생했습니다');
+            });
     };
+
 
     //이메일 전송
     const [isEmailSent, setIsEmailSent] = useState(false);
@@ -170,36 +178,43 @@ function Register({history}) {
         return randomNum.toString();
     };
     //이메일 중복 확인
-    function checkEmail(){
-        var email = $('#email').val();
-
-        if (email.trim() === '') {
+    const checkEmail = () => {
+        // 1. 입력값이 비어있는지 확인
+        if (loginEmail.trim() === '') {
+            // 1-1. 비어있다면 사용자에게 알림
             alert('이메일을 입력해주세요.');
-            return;
-        };
-        $.ajax({
-            url: `http://localhost:8000/api/idCheck`, //Controller에서 요청 받을 주소
-            type: 'post', //POST 방식으로 전달
-            data: { email : email },
-            success: function (cnt_e) { //컨트롤러에서 넘어온 cnt값을 받는다
-                if (cnt_e == 0) { //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
-                    $('.email_ok').css("display", "inline-block");
-                    $('.email_already').css("display", "none");
-                    alert('사용가능한 이메일입니다.');
-                    isValidEmail = true; //사용가능한 아이디로 확인이 되면 true값으로 바뀌면서 회원가입 가능
-                } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
-                    $('.email_already').css("display", "inline-block");
-                    $('.email_ok').css("display", "none");
-                    alert('이미 사용중인 이메일입니다.');
-                    $('#email').val('');
-                    isValidEmail = false; // 중복확인을 실패한 경우에는 isValidId 값을 false로 변경
-                }
-            },
+            console.log(loginEmail); // (디버깅용) 입력값 로깅
+            return; // 함수 종료
+        }
 
-            error: function () {
-                alert("에러입니다");
-            }
-        });
+        // 2. 서버에 아이디 중복 여부 확인 요청
+        axios.get(`http://localhost:8080/auth/emailcheck/${loginEmail}`)
+            .then(response => {
+                // 서버로부터 받은 데이터 확인
+                if (response.status === 200) {
+                    const data = response.data;
+                    if (data === "사용 가능한 이메일 입니다.") {
+                        // 200 상태 코드이고 사용 가능한 아이디인 경우
+                        alert('사용 가능한 이메일입니다.');
+                        setIsValidEmail(true);
+                    } else if (data === "이미 사용 중인 이메일입니다.") {
+                        // 200 상태 코드이고 이미 사용 중인 아이디인 경우
+                        alert('이미 사용 중인 이메일입니다.');
+                        setEmail('');
+                        setIsValidEmail(false);
+                    } else {
+                        // 다른 상태 코드에 대한 처리
+                        console.error('Unexpected response data:', data);
+                    }
+                } else {
+                    // 다른 상태 코드에 대한 처리
+                    console.error('Unexpected response status:', response.status);
+                }
+            })
+            .catch(error => {
+                console.error('데이터를 가져오는 도중 오류가 발생했습니다:', error);
+                alert('데이터를 가져오는 도중 오류가 발생했습니다');
+            });
     };
 
     //사용자 인증코드
@@ -219,7 +234,7 @@ function Register({history}) {
 
             // 이메일 보내기
             const templateParams = {
-                to_email: userEmail,
+                to_email: loginEmail,
                 from_name: "memory",
                 message: '인증되었습니다.',
                 code: newRandomCode,
@@ -249,7 +264,7 @@ function Register({history}) {
 
     //이메일 발송 핸들러
     const handleVerification = () => {
-        sendVerificationEamil(userEmail);
+        sendVerificationEamil(loginEmail);
     }
 
     //이메일 인증코드 확인 핸들러
@@ -284,7 +299,7 @@ function Register({history}) {
         }
 
         axios.post(`http://localhost:8000/api/regist`,
-            { userId, userPassword, userPhoneNumber: userPhoneNumber.replaceAll('-', ''), userEmail, userWeddingDate})
+            { loginId, loginPwd, memName, memPhone: memPhone.replaceAll('-', ''), loginEmail, memWeddingDate})
             .then(response => {
                 if (response.data) {
                     alert('정상적으로 가입 되었습니다. 로그인 페이지로 이동합니다.');
@@ -300,56 +315,46 @@ function Register({history}) {
             });
     };
 
-
-
-    const [form, setForm] = useState({
-        memberId: '',
-        memberPassword: '',
-        memberName: '',
-        memberEmail: ''
-    });
-
-    useEffect(() => {
-            if(member.status == 201){
-                console.log("[Login] Register SUCCESS {}", member);
-                navigate("/login", { replace: true })
-            }
-        },
-        [member]);
-
-    const onChangeHandler = (e) => {
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value
-        });
-    };
-
     const onClickBackHandler = () => {
 
         /* 돌아가기 클릭시 메인 페이지로 이동 */
         navigate("/", { replace: true })
     }
 
-    const onClickRegisterHandler = () => {
-        dispatch(callRegisterAPI({
-            form: form
-        }));
-    }
 
     return (
         <div className={ RegisterCSS.backgroundDiv}>
             <div className={ RegisterCSS.registerDiv }>
-                <h1 className={RegisterCSS.h1} >Create Account</h1>
+                <h1 className={RegisterCSS.h1} >Bride Registration</h1>
                 <div className={ RegisterCSS.userid }>
                     <input
                         type="text"
                         name="id"
-                        value={userId}
+                        value={loginId}
                         placeholder="Id"
                         autoComplete='off'
                         onChange={handlerChangeUserId}
                     />
-                    <button className={ RegisterCSS.userid_btn } onClick={checkId}>Id  중복  확인</button>
+                    {/*<button className={ RegisterCSS.userid_btn } onClick={checkId}>Id  중복  확인</button>*/}
+                    <button className={RegisterCSS.userid_btn} onClick={checkId}>아이디 확인</button>
+
+                    {isValidId === true && (
+                        <div className="id_ok" style={{ display: 'inline-block' }}>
+                            사용가능한 아이디입니다.
+                        </div>
+                    )}
+
+                    {isValidId === false && (
+                        <div className="id_already" style={{ display: 'inline-block' }}>
+                            이미 사용중인 아이디입니다.
+                        </div>
+                    )}
+
+                    {isValidId === null && (
+                        <div>
+                            {/* Display a message or UI element when the ID is not yet checked */}
+                        </div>
+                    )}
                 </div>
                 <Icon className={RegisterCSS.icon_id} icon="fa-solid:user" />
                 <div className={ RegisterCSS.userpw }>
@@ -359,7 +364,7 @@ function Register({history}) {
                         password="비밀번호 (숫자+영문자+특수문자 조합으로 8자리 이상)"
                         title="비밀번호"
                         placeholder="Password"
-                        value={userPassword}
+                        value={loginPwd}
                         onChange={handlerChangeUserPassword}
                     />
                     <p className={RegisterCSS.check_item} onClick={handleTogglePassword}>
@@ -376,10 +381,10 @@ function Register({history}) {
                         name="memberPassword"
                         title="비밀번호 확인"
                         placeholder="PasswordCheck"
-                        value={userPasswordCheck}
+                        value={loginPwdCheck}
                         onChange={handlerChangeUserPasswordCheck}
                     />
-                    {userPasswordCheck.length > 0 && (
+                    {loginPwdCheck.length > 0 && (
                         <p className={`message ${isPasswordCheck ? 'success' : 'error'}`}>{userPasswordCheckMessage}</p>
                     )}
                 </div>
@@ -388,7 +393,7 @@ function Register({history}) {
                     <input
                         type="text"
                         name="name"
-                        value={userName}
+                        value={memName}
                         placeholder="Name"
                         autoComplete='off'
                         onChange={handlerChangeUserName}
@@ -400,10 +405,10 @@ function Register({history}) {
                         type="text"
                         name="userEmail"
                         placeholder="Email"
-                        value={userEmail}
+                        value={loginEmail}
                         onChange={handlerChangeUserEmail}
                     />
-                    {userEmail.length > 0 && <span className={`message ${isEmail ? 'success' : 'error'}`}>{userEmailMessage}</span>
+                    {loginEmail.length > 0 && <span className={`message ${isEmail ? 'success' : 'error'}`}>{userEmailMessage}</span>
                     }
                     {isEmailSent ? (
                         <p>인증 이메일이 성공적으로 발송되었습니다. 이메일을 확인해주세요.</p>
@@ -455,7 +460,7 @@ function Register({history}) {
                     className={ RegisterCSS.submit_btn}
                     onClick={handlerOnClick}
                     type="submit"
-                    disabled={!(userId && userPassword && isPasswordCheck && isEmail && userPhoneNumber && isEmailSent && isEmailCode)}
+                    disabled={!(loginId && loginPwd && isPasswordCheck && isEmail && memPhone && isEmailSent && isEmailCode)}
                 >
                     Create Account
                 </button>

@@ -5,6 +5,7 @@ import Register from './pages/member/Register';
 import Error from './pages/Error';
 import Tryon from './pages/products/Tryon';
 import MainLayout from "./layouts/MainLayout";
+import CompanyRegister from "./pages/member/CompanyRegister";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         </Route>
         <Route path="/login" element={ <Login/> } />
         <Route path="/register" element={ <Register/> } />
+        <Route path="/companyregister" element={<CompanyRegister/>} />
         <Route path="*" element={ <Error/> }/>
 
       </Routes>
