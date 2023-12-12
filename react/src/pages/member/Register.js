@@ -19,7 +19,7 @@ import { POST_LOGIN } from '../../modules/MemberModule';
 
 function Register({history}) {
 
-     // 테스트입니다~ 젭알
+     // 테스트입니다~ 될거얌
     const navigate = useNavigate();
 
     //성공바람
