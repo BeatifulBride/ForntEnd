@@ -5,6 +5,8 @@
     height: 50px;
     line-height: 50px;
     min-width: 800px;
+    border-bottom: solid 1px black;
+    background-color: #9bbacc;
 }
 
 .InputStyle {
@@ -33,4 +35,20 @@
     text-decoration: none;
     color: slateblue;
     font-weight: bold;
+}
+.HeaderContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* 컨테이너의 너비를 전체로 설정 */
+}
+
+.MemberInfo {
+    text-align: left; /* 멤버 정보를 왼쪽 정렬 */
+    flex-grow: 1; /* 필요에 따라 추가 공간을 차지하도록 설정 */
+}
+
+.ButtonsGroup {
+    text-align: right; /* 버튼 그룹을 오른쪽 정렬 */
+    flex-grow: 1; /* 필요에 따라 추가 공간을 차지하도록 설정 */
 }

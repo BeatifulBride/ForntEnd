@@ -1,13 +1,39 @@
 
-import { 
+import {
     GET_PRODUCT,
     GET_PRODUCTS,
     GET_PRODUCTS_MEAL,
     GET_PRODUCTS_DESSERT,
     GET_PRODUCTS_BEVERAGE,
     POST_PRODUCT,
-    PUT_PRODUCT
+    PUT_PRODUCT, GET_DRESSLIST
 } from '../modules/ProductModule.js';
+
+// export const callDressSelectAPI = ({form}) => {
+//     const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/dress/list`;
+//
+//     return async (dispatch, getState) => {
+//
+//         const result = await fetch(requestURL, {
+//             method: "GET",
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 "Accept": "*/*"
+//             },
+//             body: JSON.stringify({
+//                 companyName: form.companyName,
+//                 dressPNumber: form.dressPNumber
+//
+//             })
+//         })
+//             .then(response => response.json());
+//
+//         console.log('[ProduceAPICalls] callSearchProductAPI RESULT : ', result);
+//
+//         dispatch({ type: GET_DRESSLIST,  payload: result.data });
+//
+//     };
+// };
 
 export const callSearchProductAPI = ({search}) => {
     console.log('[ProduceAPICalls] callSearchProductAPI Call');

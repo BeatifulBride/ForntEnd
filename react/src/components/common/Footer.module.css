@@ -1,5 +1,19 @@
-.footerDiv {
-    border-top: solid 1px black;
-    display: 'flex';
-    flex-direction: 'center'
+.footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #9bbacc;
+}
+
+.leftContent, .rightContent {
+    width: 45%;
+}
+
+.leftContent h3, .rightContent h3 {
+    margin-bottom: 10px;
+}
+
+.leftContent p, .rightContent p {
+    font-size: 14px;
+    line-height: 1.6;
 }

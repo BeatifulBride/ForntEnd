@@ -1,13 +1,24 @@
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import NavCSS from './Navbar.module.css';
 import { decodeJwt } from '../../utils/tokenUtils';
+import MainLogo from "../image/MainLogo";
+import {useSelector} from "react-redux";
+import Bride from "../image/Bride";
 
 function Navbar() {
-    
-    
+
+    const loginMember = useSelector(state => state.memberReducer);  // 저장소에서 가져온 loginMember 정보(이름,디데이)
+    const navigate = useNavigate();
+    const onClickMain = () => {
+        navigate("/", { replace: true });
+    }
+    const onClickMypage = () => {
+        navigate("/test", { replace: true });
+    }
+
+
     const isLogin = window.localStorage.getItem('accessToken');
     let decoded = null;
-
     if(isLogin !== undefined && isLogin !== null) {
         const temp = decodeJwt(window.localStorage.getItem("accessToken"));
         console.log(temp);
@@ -16,16 +27,27 @@ function Navbar() {
 
     console.log('decoded ', decoded);
     return (
-        <div className={ NavCSS.NavbarDiv }>
-            {/*<ul className={ NavCSS.NavlistUl }>*/}
-            {/*    <li><NavLink to="/">모든 음식</NavLink></li>*/}
-            {/*    <li><NavLink to="/product/meal">식사</NavLink></li>*/}
-            {/*    <li><NavLink to="/product/dessert">디저트</NavLink></li>*/}
-            {/*    <li><NavLink to="/product/beverage">음료</NavLink></li>*/}
-            {/*    { decoded ==="ROLE_ADMIN" && <li><NavLink to="/product-management">상품관리</NavLink></li>}*/}
-            {/*</ul>*/}
-            Navbar test
-        </div>
+        <>
+            <div className={NavCSS.PageContainer}>
+                <div className={NavCSS.Centered}>
+                    <MainLogo onClick={onClickMain}/>
+                </div>
+                <div className={NavCSS.ContentRow}>
+                    <div className={NavCSS.BridePicture}>
+                        <Bride onClick={onClickMypage}/>
+                    </div>
+                    <div>
+                        <div className={NavCSS.NavbarDiv}>
+                            결혼식
+                            {loginMember && <b>{`${loginMember?.data?.memberWeddingDate}`}</b>}
+                        </div>
+                        <div className={NavCSS.NavbarDiv2}>
+                            {loginMember && <b>{`${loginMember?.data?.memberName}님 환영합니다`}</b>}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
     );
 }
 
