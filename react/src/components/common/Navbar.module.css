@@ -1,6 +1,13 @@
 .NavbarDiv {
-    border-top: solid 1px black;
-    border-bottom: solid 1px black;
+    border-top: none;
+    border-bottom: none;
+    text-align: left;
+}
+
+.NavbarDiv2 {
+    border-top: none;
+    border-bottom: none;
+    text-align: center;
 }
 
 .NavlistUl {
@@ -30,5 +37,30 @@ a:focus, a:hover {
     text-decoration: none;
     color: slateblue;
     font-weight: bold;
+}
+
+.MainPicture{
+    text-align: center;
+}
+
+.Centered {
+    text-align: center;
+}
+
+.ContentRow {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 사진과 텍스트를 왼쪽에 정렬합니다 */
+    margin-top: 20px; /* MainLogo와의 간격 조정 */
+}
+
+.BridePicture {
+    /* Bride 사진 관련 스타일 */
+    margin-right: 20px; /* 텍스트와의 간격 조정 */
+}
+
+.PageContainer {
+    border-bottom: solid 1px black;
+    /* 기타 페이지 레이아웃 스타일 */
 }
 

@@ -11,6 +11,7 @@ export const GET_PRODUCTS_DESSERT   = 'product/GET_PRODUCTS_DESSERT';
 export const GET_PRODUCTS_BEVERAGE  = 'product/GET_PRODUCTS_BEVERAGE';
 export const POST_PRODUCT           = 'product/POST_PRODUCT';
 export const PUT_PRODUCT            = 'product/PUT_PRODUCT';
+export const GET_DRESSLIST = 'product/GET_DRESSLIST';
 
 const actions = createActions({
     [GET_PRODUCT]: () => {},
@@ -19,12 +20,16 @@ const actions = createActions({
     [GET_PRODUCTS_DESSERT]: () => {},
     [GET_PRODUCTS_BEVERAGE]: () => {},
     [POST_PRODUCT]: () => {},
-    [PUT_PRODUCT]: () => {}
+    [PUT_PRODUCT]: () => {},
+    [GET_DRESSLIST]: () => {}
 });
 
 /* 리듀서 */
 const productReducer = handleActions(
     {
+        [GET_DRESSLIST]: (state, { payload}) => {
+            return payload;
+        },
         [GET_PRODUCT]: (state, { payload }) => {
             
             return payload;

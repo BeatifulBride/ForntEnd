@@ -1,0 +1,36 @@
+.MainPicture{
+    text-align: center;
+}
+
+.SmallNotice{
+    font-size: 30px;
+}
+
+
+.SmallBoard{
+    font-size: 30px;
+}
+
+.mainnoticelist{
+    /* text-align: center; */
+    width: 600px;
+    font-size: 20px;
+}
+
+.mainboardlist{
+    /* text-align: center; */
+    width: 600px;
+    font-size: 20px;
+}
+
+.mainnoticelist li:hover{
+    background-color: #F5F5F5;
+    cursor: pointer;
+    text-align: center;
+}
+
+.mainboardlist li:hover{
+    background-color: #F5F5F5;
+    cursor: pointer;
+    text-align: center;
+}
