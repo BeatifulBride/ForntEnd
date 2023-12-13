@@ -1,5 +1,5 @@
 import CompanyRegisterCSS from './CompanyRegister.module.css';
-import { useNavigate } from 'react-router-dom';
+import {NavLink, Route, Routes, useNavigate} from 'react-router-dom';
 import { useEffect, useState, useRef, useCallback } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate } from "react-router-dom";
@@ -13,6 +13,8 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Icon } from '@iconify/react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import login from "./Login";
+import SelectRegisterCSS from "./SelectRegister.module.css";
+import Register from "./Register";
 
 
 function CompanyRegister({history}) {
@@ -309,6 +311,7 @@ function CompanyRegister({history}) {
     };
 
     const handlerChangeCompanyAddress = e => setAddress(e.value.target)
+    const handlerChangeBusinessNumber = e => setBusinessNumber(e.value.target)
 
     //회원가입 값 푸쉬 버튼
     const handlerOnClick = e => {
@@ -351,169 +354,196 @@ function CompanyRegister({history}) {
 
 
     return (
-        <div className={ CompanyRegisterCSS.backgroundDiv}>
-            <div className={CompanyRegisterCSS.registerDiv}>
-                <h1 className={CompanyRegisterCSS.h1}>Dress Company Registration</h1>
-                <div className={CompanyRegisterCSS.userid}>
-                    <input
-                        type="text"
-                        name="id"
-                        value={loginId}
-                        placeholder="Id"
-                        autoComplete='off'
-                        onChange={handlerChangeUserId}
-                    />
-                    {/*<button className={ RegisterCSS.userid_btn } onClick={checkId}>Id  중복  확인</button>*/}
-                    <button className={CompanyRegisterCSS.userid_btn} onClick={checkId}>아이디 확인</button>
+        <div className={SelectRegisterCSS.App}>
+            <div className={SelectRegisterCSS.appAside}/>
+            <div className={SelectRegisterCSS.appForm}>
+                <div className={SelectRegisterCSS.pageSwitcher}>
+                    <NavLink
+                        to="/selectregister"
+                        activeClassName="pageSwitcherItem-active"
+                        className={SelectRegisterCSS.pageSwitcherItem}
+                    >
+                        Register(일반회원가입)
+                    </NavLink>
+                    <NavLink
+                        to="/companyregister"
+                        activeClassName="pageSwitcherItem-active"
+                        className={SelectRegisterCSS.pageSwitcherItem}
+                        style={{color:"white"}}
+                    >
+                        CompanyRegister(드레스업체 회원가입)
+                    </NavLink>
+                </div>
+                <div className={ CompanyRegisterCSS.backgroundDiv}>
+                    <div className={CompanyRegisterCSS.registerDiv}>
+                        <h1 className={CompanyRegisterCSS.h1}>Dress Company Registration</h1>
+                        <div className={CompanyRegisterCSS.userid}>
+                            <input
+                                type="text"
+                                name="id"
+                                value={loginId}
+                                placeholder="Id"
+                                autoComplete='off'
+                                onChange={handlerChangeUserId}
+                            />
+                            {/*<button className={ RegisterCSS.userid_btn } onClick={checkId}>Id  중복  확인</button>*/}
+                            <button className={CompanyRegisterCSS.userid_btn} onClick={checkId}>아이디 확인</button>
 
-                    {isValidId === true && (
-                        <div className="id_ok" style={{display: 'inline-block'}}>
-                            사용가능한 아이디입니다.
-                        </div>
-                    )}
+                            {isValidId === true && (
+                                <div className="id_ok" style={{display: 'inline-block'}}>
+                                    사용가능한 아이디입니다.
+                                </div>
+                            )}
 
-                    {isValidId === false && (
-                        <div className="id_already" style={{display: 'inline-block'}}>
-                            이미 사용중인 아이디입니다.
-                        </div>
-                    )}
+                            {isValidId === false && (
+                                <div className="id_already" style={{display: 'inline-block'}}>
+                                    이미 사용중인 아이디입니다.
+                                </div>
+                            )}
 
-                    {isValidId === null && (
-                        <div>
-                            {/* Display a message or UI element when the ID is not yet checked */}
+                            {isValidId === null && (
+                                <div>
+                                    {/* Display a message or UI element when the ID is not yet checked */}
+                                </div>
+                            )}
                         </div>
-                    )}
+                        <Icon className={CompanyRegisterCSS.icon_id} icon="fa-solid:user"/>
+                        <div className={CompanyRegisterCSS.userpw}>
+                            <input
+                                type={passwordInputType.type}
+                                id="password"
+                                password="비밀번호 (숫자+영문자+특수문자 조합으로 8자리 이상)"
+                                title="비밀번호"
+                                placeholder="Password"
+                                value={loginPwd}
+                                onChange={handlerChangeUserPassword}
+                            />
+                            <p className={CompanyRegisterCSS.check_item} onClick={handleTogglePassword}>
+                                {passwordInputType.type === 'password' ? <FaEye/> : <FaEyeSlash/>}
+                            </p>
+                        </div>
+                        <Icon className={CompanyRegisterCSS.icon_pw} icon="mdi:password"/>
+                        <div className={CompanyRegisterCSS.userpw2}>
+                            <p className={CompanyRegisterCSS.check_item2} onClick={handleTogglePassword}>
+                                {passwordInputType.type === 'password' ? <FaEye/> : <FaEyeSlash/>}
+                            </p>
+                            <input
+                                type={passwordInputType.type}
+                                name="memberPassword"
+                                title="비밀번호 확인"
+                                placeholder="PasswordCheck"
+                                value={loginPwdCheck}
+                                onChange={handlerChangeUserPasswordCheck}
+                            />
+                            {loginPwdCheck.length > 0 && (
+                                <p className={`message ${isPasswordCheck ? 'success' : 'error'}`}>{userPasswordCheckMessage}</p>
+                            )}
+                        </div>
+                        <Icon className={CompanyRegisterCSS.icon_pw2} icon="mdi:password"/>
+                        <div className={CompanyRegisterCSS.username}>
+                            <input
+                                type="text"
+                                name="name"
+                                value={companyName}
+                                placeholder="CompanyName"
+                                autoComplete='off'
+                                onChange={handlerChangeUserName}
+                            />
+                        </div>
+                        <Icon className={CompanyRegisterCSS.icon_name} icon="gridicons:nametag"/>
+                        <div className={CompanyRegisterCSS.useremail}>
+                            <input
+                                type="text"
+                                name="userEmail"
+                                placeholder="Email"
+                                value={loginEmail}
+                                onChange={handlerChangeUserEmail}
+                            />
+                            {loginEmail.length > 0 &&
+                                <span className={`message ${isEmail ? 'success' : 'error'}`}>{userEmailMessage}</span>
+                            }
+                            {isEmailSent ? (
+                                <p>인증 이메일이 성공적으로 발송되었습니다. 이메일을 확인해주세요.</p>
+                            ) : (
+                                <button className={CompanyRegisterCSS.useremail_btn} onClick={handleVerification}>인증코드
+                                    받기</button>
+                            )}
+                        </div>
+                        <Icon className={CompanyRegisterCSS.icon_email} icon="mdi:email-heart-outline"/>
+                        <div className={CompanyRegisterCSS.usercode}>
+                            <input
+                                type="text"
+                                name='i_code'
+                                placeholder='인증코드를 입력하세요.'
+                                value={code}
+                                onChange={handleCodeChange}
+                            />
+                            {isEmailCode ? (
+                                <p>인증코드가 확인되었습니다.</p>
+                            ) : (
+                                <button className={CompanyRegisterCSS.usercode_btn} onClick={handlerCode}>인증코드 확인</button>
+                            )}
+                        </div>
+                        <Icon className={CompanyRegisterCSS.icon_code} icon="tabler:mail-code"/>
+                        <div className={CompanyRegisterCSS.userPhoneNumber}>
+                            <input
+                                type="text"
+                                name="memberPhoneNumber"
+                                placeholder="Company Phone Number"
+                                onChange={handlerChangeUserPhoneNumber}
+                            />
+                        </div>
+                        <Icon className={CompanyRegisterCSS.icon_phone} icon="mingcute:phone-call-fill"/>
+                        <div className={CompanyRegisterCSS.businessNumber}>
+                            <input
+                                type="text"
+                                name="BusinessNumber"
+                                placeholder="BusinessNumber"
+                                value={businessNumber}
+                                onChange={handlerChangeBusinessNumber}
+                            />
+                        </div>
+                        <Icon className={CompanyRegisterCSS.icon_business} icon="ant-design:field-number-outlined"/>
+                        <div className={CompanyRegisterCSS.companyAddress}>
+                            <input
+                                type="text"
+                                name="companyAddress"
+                                placeholder="CompanyAddress"
+                                autoComplete='off'
+                                value={address}
+                                onChange={handlerChangeCompanyAddress}
+                                readOnly
+                            />
+                            <button type='button' className={CompanyRegisterCSS.address_btn} onClick={handleClick}>
+                                주소찾기
+                            </button>
+                        </div>
+                        <Icon className={CompanyRegisterCSS.icon_address} icon="mdi:address-marker" />
+                    </div>
+                    <div className={CompanyRegisterCSS.submit_box}>
+                        <button
+                            className={CompanyRegisterCSS.submit_btn}
+                            onClick={handlerOnClick}
+                            type="submit"
+                            disabled={!(loginId && loginPwd && isPasswordCheck && isEmail && companyPhone && isEmailSent && isEmailCode)}
+                        >
+                            Dress Comapany Create Account
+                        </button>
+                    </div>
+                    <div className='login_box'>
+                        <button
+                            className={CompanyRegisterCSS.login_btn}
+                            onClick = { onClickBackHandler }
+                        >
+                            로그인 하기
+                        </button>
+                    </div>
                 </div>
-                <Icon className={CompanyRegisterCSS.icon_id} icon="fa-solid:user"/>
-                <div className={CompanyRegisterCSS.userpw}>
-                    <input
-                        type={passwordInputType.type}
-                        id="password"
-                        password="비밀번호 (숫자+영문자+특수문자 조합으로 8자리 이상)"
-                        title="비밀번호"
-                        placeholder="Password"
-                        value={loginPwd}
-                        onChange={handlerChangeUserPassword}
-                    />
-                    <p className={CompanyRegisterCSS.check_item} onClick={handleTogglePassword}>
-                        {passwordInputType.type === 'password' ? <FaEye/> : <FaEyeSlash/>}
-                    </p>
-                </div>
-                <Icon className={CompanyRegisterCSS.icon_pw} icon="mdi:password"/>
-                <div className={CompanyRegisterCSS.userpw2}>
-                    <p className={CompanyRegisterCSS.check_item2} onClick={handleTogglePassword}>
-                        {passwordInputType.type === 'password' ? <FaEye/> : <FaEyeSlash/>}
-                    </p>
-                    <input
-                        type={passwordInputType.type}
-                        name="memberPassword"
-                        title="비밀번호 확인"
-                        placeholder="PasswordCheck"
-                        value={loginPwdCheck}
-                        onChange={handlerChangeUserPasswordCheck}
-                    />
-                    {loginPwdCheck.length > 0 && (
-                        <p className={`message ${isPasswordCheck ? 'success' : 'error'}`}>{userPasswordCheckMessage}</p>
-                    )}
-                </div>
-                <Icon className={CompanyRegisterCSS.icon_pw2} icon="mdi:password"/>
-                <div className={CompanyRegisterCSS.username}>
-                    <input
-                        type="text"
-                        name="name"
-                        value={companyName}
-                        placeholder="CompanyName"
-                        autoComplete='off'
-                        onChange={handlerChangeUserName}
-                    />
-                </div>
-                <Icon className={CompanyRegisterCSS.icon_name} icon="gridicons:nametag"/>
-                <div className={CompanyRegisterCSS.useremail}>
-                    <input
-                        type="text"
-                        name="userEmail"
-                        placeholder="Email"
-                        value={loginEmail}
-                        onChange={handlerChangeUserEmail}
-                    />
-                    {loginEmail.length > 0 &&
-                        <span className={`message ${isEmail ? 'success' : 'error'}`}>{userEmailMessage}</span>
-                    }
-                    {isEmailSent ? (
-                        <p>인증 이메일이 성공적으로 발송되었습니다. 이메일을 확인해주세요.</p>
-                    ) : (
-                        <button className={CompanyRegisterCSS.useremail_btn} onClick={handleVerification}>인증코드
-                            받기</button>
-                    )}
-                </div>
-                <Icon className={CompanyRegisterCSS.icon_email} icon="mdi:email-heart-outline"/>
-                <div className={CompanyRegisterCSS.usercode}>
-                    <input
-                        type="text"
-                        name='i_code'
-                        placeholder='인증코드를 입력하세요.'
-                        value={code}
-                        onChange={handleCodeChange}
-                    />
-                    {isEmailCode ? (
-                        <p>인증코드가 확인되었습니다.</p>
-                    ) : (
-                        <button className={CompanyRegisterCSS.usercode_btn} onClick={handlerCode}>인증코드 확인</button>
-                    )}
-                </div>
-                <Icon className={CompanyRegisterCSS.icon_code} icon="tabler:mail-code"/>
-                <div className={CompanyRegisterCSS.userPhoneNumber}>
-                    <input
-                        type="text"
-                        name="memberPhoneNumber"
-                        placeholder="Company Phone Number"
-                        onChange={handlerChangeUserPhoneNumber}
-                    />
-                </div>
-                <Icon className={CompanyRegisterCSS.icon_phone} icon="mingcute:phone-call-fill"/>
-                <div className={CompanyRegisterCSS.businessNumber}>
-                    <input
-                        type="text"
-                        name="BusinessNumber"
-                        placeholder="BusinessNumber"
-                        onChange={handlerChangeUserPhoneNumber}
-                    />
-                </div>
-                <Icon className={CompanyRegisterCSS.icon_business} icon="ant-design:field-number-outlined"/>
-                <div className={CompanyRegisterCSS.companyAddress}>
-                    <input
-                        type="text"
-                        name="companyAddress"
-                        placeholder="CompanyAddress"
-                        autoComplete='off'
-                        value={address}
-                        onChange={handlerChangeCompanyAddress}
-                        readOnly
-                    />
-                    <button type='button' className={CompanyRegisterCSS.address_btn} onClick={handleClick}>
-                        주소찾기
-                    </button>
-                </div>
-                <Icon className={CompanyRegisterCSS.icon_address} icon="mdi:address-marker" />
+                <Routes>
+                    <Route path="/companyregister" element={<CompanyRegister/>}/>
+                </Routes>
             </div>
-            <div className={CompanyRegisterCSS.submit_box}>
-                <button
-                    className={CompanyRegisterCSS.submit_btn}
-                    onClick={handlerOnClick}
-                    type="submit"
-                    disabled={!(loginId && loginPwd && isPasswordCheck && isEmail && companyPhone && isEmailSent && isEmailCode)}
-                >
-                    Dress Comapany Create Account
-                </button>
-            </div>
-            <div className='login_box'>
-                <button
-                    style={ { border: 'none', margin: 0, fontSize: '10px', height: '10px' } }
-                    onClick = { onClickBackHandler }
-                >
-                    로그인 하기
-                </button>
-            </div>
+            <div className={SelectRegisterCSS.appAside2}/>
         </div>
     );
 }
