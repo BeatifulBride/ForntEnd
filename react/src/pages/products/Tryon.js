@@ -1,14 +1,27 @@
 
+import React from 'react';
+import { useLocation } from "react-router-dom";
 
 function Tryon() {
 
-    return(
+    const location = useLocation();
+    const selectedDress = location.state?.selectedDress;
+
+
+    return (
         <div>
 
-            여기서 드레스 데이터를 받아야되는데~~~~~~~
-            여기는 옷갈아입히는 곳이에요~~~~~~~~
+            <div>
+                <h2>Selected Dress</h2>
+                <img src={selectedDress.imageUrl} alt="Selected Dress" />
+                <p><b>Dress Name:</b> {selectedDress.companyName}</p>
+                <p><b>Company:</b> {selectedDress.dressPNumber}</p>
+            </div>
+            <div>
+                전신사진 등록하기
+            </div>
         </div>
-    )
+    );
 }
 
-export default Tryon
+export default Tryon;

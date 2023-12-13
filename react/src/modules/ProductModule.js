@@ -11,7 +11,7 @@ export const GET_PRODUCTS_DESSERT   = 'product/GET_PRODUCTS_DESSERT';
 export const GET_PRODUCTS_BEVERAGE  = 'product/GET_PRODUCTS_BEVERAGE';
 export const POST_PRODUCT           = 'product/POST_PRODUCT';
 export const PUT_PRODUCT            = 'product/PUT_PRODUCT';
-export const GET_DRESSLIST = 'product/GET_DRESSLIST';
+export const GET_DRESSLIST          = 'product/GET_DRESSLIST';
 
 const actions = createActions({
     [GET_PRODUCT]: () => {},
