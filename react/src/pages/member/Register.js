@@ -467,7 +467,7 @@ function Register({history}) {
             </div>
             <div className='login_box'>
                 <button
-                    style={ { border: 'none', margin: 0, fontSize: '10px', height: '10px' } }
+                    className={RegisterCSS.login_btn}
                     onClick = { onClickBackHandler }
                 >
                     로그인 하기
