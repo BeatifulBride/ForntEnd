@@ -6,7 +6,7 @@
 }
 
 .backgroundDiv{
-    height: 150vh;
+    height: 80vh;
     display: flex;
     flex-direction: column; /*수평 정렬*/
     align-items: center;
@@ -34,8 +34,9 @@
 .h1{
     color: #000;
     text-align: center;
+    margin-top: -50px;
     font-family: 'Pretendard-Regular';
-    font-size: 40px;
+    font-size: 50px;
     font-style: normal;
     font-weight: bold;
     font-style: normal;
@@ -412,7 +413,7 @@
     height: 45px;
     width: 370px;
     display: flex;
-    margin-top: -20px;
+    margin-top: -80px;
     height: 45px;
     padding: 21px 109px;
     justify-content: center;
@@ -423,4 +424,11 @@
     background:  RGB(164,198,222);
     font-size: 15px;
     font-family: 'Pretendard-Regular';
+}
+
+.login_btn {
+    margin-top: -200px;
+    border: none;
+    fontSize: 10px;
+    height: 10px;
 }

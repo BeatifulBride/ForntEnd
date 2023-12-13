@@ -6,6 +6,9 @@ import Error from './pages/Error';
 import Tryon from './pages/products/Tryon';
 import MainLayout from "./layouts/MainLayout";
 import CompanyRegister from "./pages/member/CompanyRegister";
+import SelectRegister from "./pages/member/SelectRegister";
+import ForgotInfo from "./pages/member/ForgotInfo";
+
 
 
 function App() {
@@ -22,6 +25,8 @@ function App() {
         <Route path="/login" element={ <Login/> } />
         <Route path="/register" element={ <Register/> } />
         <Route path="/companyregister" element={<CompanyRegister/>} />
+        <Route path="/selectregister" element={<SelectRegister/>} />
+        <Route path="/forgotpassword" element={<ForgotInfo/>} />
         <Route path="*" element={ <Error/> }/>
 
       </Routes>
