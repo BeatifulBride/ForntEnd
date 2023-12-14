@@ -1,5 +1,4 @@
 import React from 'react';
-import test from '../../image/jinyang.png';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import dress from '../member/DressSelectTop.module.css';
@@ -27,7 +26,7 @@ function DressSelectTop() {
                 {dressList && dressList.map((item, index) => (
                     <div key={index}>
                         <div className={dress.imageContainer}>
-                            <img src={item.imageUrl ? item.imageUrl : test} alt={`Dress ${index}`} />
+                            <img src={item.imageUrl} alt={`Dress ${index}`} />
                         </div>
                         <div className={dress.textContainer}>
                             <div><b>Dress Name: {item.companyName}</b></div>
