@@ -8,6 +8,8 @@ import MainLayout from "./layouts/MainLayout";
 import CompanyRegister from "./pages/member/CompanyRegister";
 import SelectRegister from "./pages/member/SelectRegister";
 import ForgotInfo from "./pages/member/ForgotInfo";
+import CompanyLogin from "./pages/member/CompanyLogin";
+import ForgotPassword from "./pages/member/ForgotPassword";
 
 
 
@@ -22,11 +24,16 @@ function App() {
           <Route index element={ <MainLayout/> }/>
           <Route path="tryon" element={ <Tryon /> }/>
         </Route>
+        {/*로그인*/}
         <Route path="/login" element={ <Login/> } />
-        <Route path="/register" element={ <Register/> } />
-        <Route path="/companyregister" element={<CompanyRegister/>} />
+        <Route path="/companylogin" element={<CompanyLogin/>} />
+        {/*회원가입*/}
         <Route path="/selectregister" element={<SelectRegister/>} />
-        <Route path="/forgotpassword" element={<ForgotInfo/>} />
+        <Route path="/companyregister" element={<CompanyRegister/>} />
+        {/*아이디&비밀번호 찾기*/}
+        <Route path="/forgotinfo" element={<ForgotInfo/>} />
+        <Route path="/forgotpassword" element={<ForgotPassword/>} />
+        {/*error*/}
         <Route path="*" element={ <Error/> }/>
 
       </Routes>

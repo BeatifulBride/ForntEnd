@@ -242,8 +242,8 @@ function CompanyRegister({history}) {
 
             emailjs
                 .send(
-                    'Beautiful_Bride', // 서비스 Id
-                    'test-template',   // 템플릿 Id
+                    'Beautiful_Bride_code', // 서비스 Id
+                    'Beautiful_Bride_code',   // 템플릿 Id
                     templateParams,
                     'GsD06wf1JCdrh2J04' // public-key
                 )
@@ -282,6 +282,7 @@ function CompanyRegister({history}) {
         setCode(event.target.value);
     };
 
+    //주소 api
     let scriptUrl;
     scriptUrl="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
 
@@ -349,7 +350,7 @@ function CompanyRegister({history}) {
     const onClickBackHandler = () => {
 
         /* 돌아가기 클릭시 메인 페이지로 이동 */
-        navigate("/", { replace: true })
+        navigate("/companylogin", { replace: true })
     }
 
 
