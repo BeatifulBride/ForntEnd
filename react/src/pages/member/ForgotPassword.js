@@ -13,7 +13,7 @@ import ForgotInfoCSS from "./ForgotInfo.module.css"
 import axios from "axios";
 
 
-function ForgotInfo({history}) {
+function ForgotPassword({history}) {
 
     //navi
     const navigate = useNavigate();
@@ -204,7 +204,6 @@ function ForgotInfo({history}) {
                         to="/forgotinfo"
                         activeClassName="pageSwitcherItem-active"
                         className={SelectRegisterCSS.pageSwitcherItem}
-                        style={{color:"white"}}
                     >
                         Forgot Id(아이디 찾기)
                     </NavLink>
@@ -212,6 +211,7 @@ function ForgotInfo({history}) {
                         to="/forgotpassword"
                         activeClassName="pageSwitcherItem-active"
                         className={SelectRegisterCSS.pageSwitcherItem}
+                        style={{color:"white"}}
                     >
                         Forgot Password(비밀번호 찾기)
                     </NavLink>
@@ -324,4 +324,4 @@ function ForgotInfo({history}) {
     );
 }
 
-export default ForgotInfo;
+export default ForgotPassword;
