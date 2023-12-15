@@ -9,7 +9,7 @@ import {
 
 
 export const callLoginAPI = ({form}) => {
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/auth/login`;
+    const requestURL = `http://localhost:8080/auth/loginfrom`;
 
     return async (dispatch, getState) => {
 
@@ -24,8 +24,8 @@ export const callLoginAPI = ({form}) => {
                 "Access-Control-Allow-Origin": "*"      
             },
             body: JSON.stringify({
-                memberId: form.memberId,
-                memberPassword: form.memberPassword
+                LOGIN_ID: form.loginId,
+                LOGIN_PWD: form.loginPwd
             })
         })
         .then(response => response.json());
@@ -53,7 +53,7 @@ export const callLogoutAPI = () => {
 
 // 회원 정보(이름,디데이정보)
 export const callRegisterAPI = ({form}) => {
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/auth/signup`;
+    const requestURL = `http://localhost:8080/auth/signup`;
 
     return async (dispatch, getState) => {
 

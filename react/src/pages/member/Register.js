@@ -242,8 +242,8 @@ function Register({history}) {
 
             emailjs
                 .send(
-                    'Beautiful_Bride', // 서비스 Id
-                    'test-template',   // 템플릿 Id
+                    'Beautiful_Bride_code', // 서비스 Id
+                    'Beautiful_Bride_code',   // 템플릿 Id
                     templateParams,
                     'GsD06wf1JCdrh2J04' // public-key
                 )
@@ -318,7 +318,7 @@ function Register({history}) {
     const onClickBackHandler = () => {
 
         /* 돌아가기 클릭시 메인 페이지로 이동 */
-        navigate("/", { replace: true })
+        navigate("/login", { replace: true })
     }
 
 
