@@ -57,7 +57,7 @@ function Login() {
     };
 
     const onClickRegisterHandler = () => { 
-        navigate("/selectregister", { replace: true })
+        navigate("/register", { replace: true })
     }
 
     /* 로그인 버튼 클릭시 디스패처 실행 및 메인 페이지로 이동 */
@@ -90,7 +90,7 @@ function Login() {
                 </div>
                 <div className={LoginCSS.backgroundDiv}>
                     <div className={LoginCSS.loginDiv}>
-                        <h1 className={LoginCSS.h1}>일반 회원 로그인</h1>
+                        <h1 className={LoginCSS.h1}>로그인</h1>
                         <div className={LoginCSS.userid}>
                             <input
                                 type="text"

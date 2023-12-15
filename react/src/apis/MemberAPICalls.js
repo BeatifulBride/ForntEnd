@@ -9,7 +9,7 @@ import {
 
 
 export const callLoginAPI = ({form}) => {
-    const requestURL = `http://localhost:8080/auth/loginfrom`;
+    const requestURL = `http://localhost:8080/auth/login`;
 
     return async (dispatch, getState) => {
 
@@ -32,7 +32,7 @@ export const callLoginAPI = ({form}) => {
 
         console.log('[MemberAPICalls] callLoginAPI RESULT : ', result);
         if(result.status === 200){
-            window.localStorage.setItem('accessToken', result.data.accessToken);            
+            window.localStorage.setItem('accessToken', result.data);
         }
         dispatch({ type: POST_LOGIN,  payload: result });
         
