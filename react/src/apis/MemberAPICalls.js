@@ -19,23 +19,20 @@ export const callLoginAPI = ({form}) => {
         const result = await fetch(requestURL, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/x-www-form-urlencoded",
                 "Accept": "*/*",
-                "Access-Control-Allow-Origin": "*"      
+                "Access-Control-Allow-Origin": "*"
             },
-            body: JSON.stringify({
-                LOGIN_ID: form.loginId,
-                LOGIN_PWD: form.loginPwd
-            })
+            body: form
         })
-        .then(response => response.json());
+            .then(response => response);
 
         console.log('[MemberAPICalls] callLoginAPI RESULT : ', result);
-        if(result.status === 200){
-            window.localStorage.setItem('accessToken', result.data);
-        }
+        // if(result.status === 200){
+        //     window.localStorage.setItem('accessToken', result.data);
+        // }
         dispatch({ type: POST_LOGIN,  payload: result });
-        
+
     };
 }
 

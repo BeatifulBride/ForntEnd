@@ -339,13 +339,13 @@ function Register({history}) {
                     <button className={RegisterCSS.userid_btn} onClick={checkId}>아이디 확인</button>
 
                     {isValidId === true && (
-                        <div className="id_ok" style={{ display: 'inline-block' }}>
+                        <div className={RegisterCSS.id_ok}>
                             사용가능한 아이디입니다.
                         </div>
                     )}
 
                     {isValidId === false && (
-                        <div className="id_already" style={{ display: 'inline-block' }}>
+                        <div className={RegisterCSS.id_ok}>
                             이미 사용중인 아이디입니다.
                         </div>
                     )}
@@ -368,13 +368,13 @@ function Register({history}) {
                         onChange={handlerChangeUserPassword}
                     />
                     <p className={RegisterCSS.check_item} onClick={handleTogglePassword}>
-                        {passwordInputType.type === 'password' ? <FaEye /> : <FaEyeSlash />}
+                        {passwordInputType.type === 'password' ?  <FaEyeSlash /> :<FaEye />}
                     </p>
                 </div>
                 <Icon className={RegisterCSS.icon_pw} icon="mdi:password" />
                 <div className={ RegisterCSS.userpw2 }>
                     <p className={RegisterCSS.check_item2} onClick={handleTogglePassword}>
-                        {passwordInputType.type === 'password' ? <FaEye /> : <FaEyeSlash />}
+                        {passwordInputType.type === 'password' ? <FaEyeSlash /> :<FaEye />}
                     </p>
                     <input
                         type={passwordInputType.type}
@@ -408,8 +408,8 @@ function Register({history}) {
                         value={loginEmail}
                         onChange={handlerChangeUserEmail}
                     />
-                    {loginEmail.length > 0 && <span className={`message ${isEmail ? 'success' : 'error'}`}>{userEmailMessage}</span>
-                    }
+                   {/* {loginEmail.length > 0 && <span className={`message ${isEmail ? 'success' : 'error'}`}>{userEmailMessage}</span>
+                    }*/}
                     {isEmailSent ? (
                         <p>인증 이메일이 성공적으로 발송되었습니다. 이메일을 확인해주세요.</p>
                     ):(
