@@ -73,6 +73,7 @@ export default function MyDressList() {
   //   const {data} = axios.get('/sdjdsfjlkj')
   //   setDressList(data);
   // }, []);
+  //
   const handleMove = () => {
     navigate("/login");
   };
