@@ -1,68 +1,64 @@
-import React, {useState} from 'react';
-import Box from '../products/Tryon.module.css';
-import {useLocation} from "react-router-dom";
-import {useDispatch} from "react-redux";
-
+import React, { useState } from 'react';
+import styles from '../products/Tryon.module.css'; // 가정한 경로, 실제 경로에 맞게 조정하세요.
+import { useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import Bride from "../../components/image/Bride";
 
 function Tryon() {
-
-    const [dispatch, setDispatch] = useDispatch
-    const [image, setImage] = useState(null); // 이미지 상태
-    const [previewUrl, setPreviewUrl] = useState(''); // 미리보기 URL 상태
+    const dispatch = useDispatch(); // 이 부분은 사용되지 않고 있으므로 필요하다면 로직을 추가해야 합니다.
+    const [image, setImage] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState('');
+    const [liked, setLiked] = useState(false);
 
     const location = useLocation();
     const selectedDress = location.state?.selectedDress;
 
-    // const [form, setForm] = useState({
-    //     memberId: token.sub,
-    // });
-
-
-    // 이미지업로드 핸들러
-    const handleImageChangeHandler = (e) => {
+    const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
             setImage(file);
-            setPreviewUrl(URL.createObjectURL(file)); // 파일을 위한 URL 생성
+            setPreviewUrl(URL.createObjectURL(file));
         }
     };
 
+    const toggleLike = () => {
+        setLiked(!liked);
+    };
+
     return (
-        <div className={Box.imageUploadWrapper}>
-            <div className={Box.imageContainer} onClick={() => document.getElementById('file-input').click()}>
-                {previewUrl && (
-                    <img src={previewUrl} alt="Uploaded" className={Box.imagePreview}/>
-                )}
-                <div className={Box.uploadButtonWrapper}>
-                    <div className={Box.uploadButton}>+</div>
+        <div className={styles.tryonWrapper}>
+            <div className={styles.imageUploadSection}>
+                <div className={styles.imageContainer} onClick={() => document.getElementById('file-input').click()}>
+                    {previewUrl && <img src={previewUrl} alt="Uploaded" className={styles.imagePreview} />}
+                    {!previewUrl && <div className={styles.uploadPlaceholder}>사용자 전신 사진</div>}
+                    <div className={styles.uploadButtonWrapper}>
+                        <div className={styles.uploadButton}>+</div>
+                    </div>
                 </div>
-                <input id="file-input" type="file" onChange={handleImageChangeHandler} style={{display: 'none'}}/>
+                <input id="file-input" type="file" onChange={handleImageChange} style={{ display: 'none' }} />
             </div>
 
-            <div className={Box.centerButton}>
-                <button>123</button>
+            <div className={styles.centerButton}>
+                <button className={styles.tryOnButton}>Try-on</button>
             </div>
-            <div className={Box.rightImageContainer}>
-                <div>
-                    <button>좋아용~~</button>
+
+            <div className={styles.dressInfoSection}>
+                <div className={styles.dressContainer}>
+                    {selectedDress && (
+                        <>
+                            <img src={selectedDress.imageUrl || Bride} alt="Selected Dress" className={styles.dressImage} />
+                            <button onClick={toggleLike} className={styles.likeButton}>
+                                {liked ? '❤️' : '🤍'}
+                            </button>
+                        </>
+                    )}
+                    <div className={styles.dressDetails}>
+                        {/* 드레스 정보 표시 */}
+                    </div>
                 </div>
-
             </div>
-
-
-            {/*<div>*/}
-            {/*   <h2>Selected Dress</h2>*/}
-
-            {/*    <img src={selectedDress.imageUrl} alt="Selected Dress"/>*/}
-
-            {/*   <p><b>Dress Name:</b> {selectedDress.companyName}</p>*/}
-
-            {/*   <p><b>Company:</b> {selectedDress.dressPNumber}</p>*/}
-
-            {/*</div>*/}
         </div>
     );
-
 }
 
-export default Tryon
+export default Tryon;
