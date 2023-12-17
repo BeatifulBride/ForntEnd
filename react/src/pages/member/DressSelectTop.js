@@ -9,10 +9,11 @@ function DressSelectTop() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const dressInfo = useSelector(state => state.productReducer);
+    console.log(dressInfo)
     const dressList = dressInfo.data;
 
 
-    const onClickTryOn = (dressData) => {
+    const onClickTryOnHandler = (dressData) => {
         navigate("/tryon", { state: { selectedDress: dressData } });
     };
 
@@ -25,18 +26,19 @@ function DressSelectTop() {
             <div className={dress.container}>
                 {dressList && dressList.map((item, index) => (
                     <div key={index}>
-                        <div className={dress.imageContainer}>
+                        <div className={dress.imageContainerImg}>
                             <img src={item.imageUrl} alt={`Dress ${index}`} />
                         </div>
                         <div className={dress.textContainer}>
                             <div><b>Dress Name: {item.companyName}</b></div>
                             <div><b>Company: {item.dressPNumber}</b></div>
                         </div>
+                        <div>셀렉</div>
                     </div>
                 ))}
             </div>
             <div>
-                <button onClick={onClickTryOn}>Try-on</button>
+                <button onClick={onClickTryOnHandler}>Try-on</button>
             </div>
         </div>
     )
