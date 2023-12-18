@@ -400,3 +400,31 @@ p {
     fontSize: 10px;
     height: 10px;
 }
+
+.DropdwonButton{
+    width: 200px;
+    height: 48px;
+    border: 0.8px solid #949494;
+    border-radius: 10px;
+    padding: 0px 12px;
+    color: #3a3a3a;
+    font-family: SUIT Variable;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    text-align: start;
+    appearance: none;
+    background-color: white;
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px;
+    position: relative;
+}
+
+.CalendarWrapper{
+    z-index: 2;
+    position: absolute;
+    top: 100%;
+    left: 0;
+}

@@ -10,6 +10,9 @@ import SelectRegister from "./pages/member/SelectRegister";
 import ForgotInfo from "./pages/member/ForgotInfo";
 import CompanyLogin from "./pages/member/CompanyLogin";
 import ForgotPassword from "./pages/member/ForgotPassword";
+import LikeButton from "./pages/list/LikeButton";
+import React from "react";
+import Client from "./pages/list/Client";
 
 
 
@@ -35,6 +38,8 @@ function App() {
         <Route path="/forgotpassword" element={<ForgotPassword/>} />
         {/*error*/}
         <Route path="*" element={ <Error/> }/>
+        {/*좋아요 버튼 확인 페이지*/}
+        <Route path="/likebutton" element={<Client/>}/>
 
       </Routes>
 
