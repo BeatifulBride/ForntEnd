@@ -57,13 +57,14 @@ function Login() {
     };
 
     const onClickRegisterHandler = () => { 
-        navigate("/register", { replace: true })
+        navigate("/selectregister", { replace: true })
     }
 
     /* 로그인 버튼 클릭시 디스패처 실행 및 메인 페이지로 이동 */
-    const onClickLoginHandler = () => { 
+    const onClickLoginHandler = () => {
         dispatch(callLoginAPI({	// 로그인
             form: form
+
         }));
     }
 

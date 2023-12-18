@@ -17,15 +17,15 @@ function Navbar() {
     }
 
 
-    const isLogin = window.localStorage.getItem('accessToken');
-    let decoded = null;
-    if(isLogin !== undefined && isLogin !== null) {
-        const temp = decodeJwt(window.localStorage.getItem("accessToken"));
-        console.log(temp);
-        decoded = temp.auth[0];
-    }
+    // const isLogin = window.localStorage.getItem('accessToken');
+    // let decoded = null;
+    // if(isLogin !== undefined && isLogin !== null) {
+    //     const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    //     console.log(temp);
+    //     decoded = temp.auth[0];
+    // }
 
-    console.log('decoded ', decoded);
+    // console.log('decoded ', decoded);
     return (
         <>
             <div className={NavCSS.PageContainer}>
