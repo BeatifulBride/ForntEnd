@@ -16,7 +16,7 @@
 .title {
     font-size: 2em;
     color: #333;
-    margin-bottom: 16px; /* 제목 아래 여백 추가 */
+    margin-bottom: 16px;
 }
 
 .navigation {
@@ -34,16 +34,15 @@
     font-size: 1em;
     cursor: pointer;
     transition: background-color 0.3s;
-    color: #666; /* 버튼 기본 색상 변경 */
+    color: #666;
 }
 
 .navigation button.active {
-    background-color: #ddd; /* 활성화된 버튼의 배경색 변경 */
-    color: #000; /* 활성화된 버튼의 글자 색상 변경 */
+    background-color: #ddd;
+    color: #000;
 }
 
 .content {
     padding: 20px;
 }
 
-/* 나머지 스타일은 이미지에서 관찰된 내용에 기반하여 추가합니다. */
