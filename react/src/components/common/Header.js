@@ -2,28 +2,42 @@ import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import HeaderCSS from './Header.module.css';
 import { useSelector, useDispatch } from 'react-redux';
+import {useEffect, useState} from "react";
+import jwtDecode from "jwt-decode";
+
 
 
 import {
     callLogoutAPI,
     callMainInfoAPI
 } from '../../apis/MemberAPICalls'
-import memberInfoReducer from "../../modules/MemberInfoModule";
-import {useState} from "react";
 
 
 
 function Header() {
 
-    // const isLogin = false;
-    const navigate = useNavigate()
 
+    const navigate = useNavigate()
     // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
     const dispatch = useDispatch();
-    const loginMember = useSelector(state => state.memberInfoReducer);  // 저장소에서 가져온 loginMember 정보(이름,디데이)
-    console.log(loginMember.data)
-    console.log("testes")
-    const isLogin = window.localStorage.getItem('loginInfo');    // Local Storage 에 token 정보 확인
+    const isLogin = window.sessionStorage.getItem('accessToken');    // Local Storage 에 token 정보 확인
+    const login = useSelector(state => state.memberInfoReducer);
+    console.log(login.data)
+    const accessToken = window.sessionStorage.getItem('accessToken');
+
+
+    useEffect(() => {
+
+        if (accessToken) {
+            const decodedToken = jwtDecode(accessToken);
+            console.log(decodedToken);
+
+            dispatch(callMainInfoAPI(decodedToken.sub));
+        }
+    }, [dispatch, accessToken]);
+
+
+
 
 
     //드레스 리스트 핸들러
@@ -32,6 +46,7 @@ function Header() {
     }
 
     const onClickMypageHandler = () => {
+
         navigate("/mypage", { replace: true });
     }
 
@@ -59,9 +74,11 @@ function Header() {
         return (
             <div className={HeaderCSS.HeaderContainer}>
                 <div className={HeaderCSS.MemberInfo}>
-                    {loginMember && <b>{`${loginMember?.data?.username}님 환영합니다`}</b>}
+                    {/*{loginMember.data.memName}*/}
+                    {login && <b>{`${login?.data?.memName}님 환영합니다`}</b>}
+                    {/*{loginMember.data.memName}*/}
                     &nbsp;&nbsp;&nbsp;
-                    {loginMember && <b>{`${loginMember?.data?.memWeddingDate}`}</b>}
+                    {login && <b>{`${login?.data?.memWeddingDate}`}</b>}
                 </div>
                 <div className={HeaderCSS.ButtonsGroup}>
                     <button className={HeaderCSS.HeaderBtn} onClick={onClickDressHandler}>드레스보기</button>&nbsp;&nbsp;

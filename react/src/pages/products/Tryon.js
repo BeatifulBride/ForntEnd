@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import styles from '../products/Tryon.module.css'; // 가정한 경로, 실제 경로에 맞게 조정하세요.
+import styles from '../products/Tryon.module.css';
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Bride from "../../components/image/Bride";
 
 function Tryon() {
-    const dispatch = useDispatch(); // 이 부분은 사용되지 않고 있으므로 필요하다면 로직을 추가해야 합니다.
+
+    // const dispatch = useDispatch();
     const [image, setImage] = useState(null);
     const [previewUrl, setPreviewUrl] = useState('');
     const [liked, setLiked] = useState(false);
-
     const location = useLocation();
     const selectedDress = location.state?.selectedDress;
 

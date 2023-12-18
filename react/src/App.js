@@ -11,6 +11,7 @@ import ForgotInfo from "./pages/member/ForgotInfo";
 import CompanyLogin from "./pages/member/CompanyLogin";
 import ForgotPassword from "./pages/member/ForgotPassword";
 import Mypage from "./components/common/Mypage";
+import DressList from "./components/common/DressList";
 
 
 
@@ -25,6 +26,7 @@ function App() {
           <Route index element={ <MainLayout/> }/>
           <Route path="mypage" element={ <Mypage/> }/>
           <Route path="tryon" element={ <Tryon /> }/>
+          <Route path="dresslist" element={<DressList/>}/>
         </Route>
         {/*로그인*/}
         <Route path="/login" element={ <Login/> } />

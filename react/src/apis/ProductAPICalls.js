@@ -18,7 +18,7 @@ export const callDressSelectAPI = () => {
             }
         });
 
-        const result = await response.json();
+        const result = await response;
 
         // console.log('[ProduceAPICalls] callDressSelectAPI RESULT : ', result);
 

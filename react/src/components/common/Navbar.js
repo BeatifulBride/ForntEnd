@@ -2,13 +2,28 @@ import { useNavigate } from 'react-router-dom';
 import NavCSS from './Navbar.module.css';
 import { decodeJwt } from '../../utils/tokenUtils';
 import MainLogo from "../image/MainLogo";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import Bride from "../image/Bride";
+import {useEffect} from "react";
+import jwtDecode from "jwt-decode";
+import {callMainInfoAPI} from "../../apis/MemberAPICalls";
 
 function Navbar() {
 
-    const loginMember = useSelector(state => state.memberReducer);  // 저장소에서 가져온 loginMember 정보(이름,디데이)
+    const dispatch = useDispatch()
+    const loginMember = useSelector(state => state.memberInfoReducer);  // 저장소에서 가져온 loginMember 정보(이름,디데이)
     const navigate = useNavigate();
+    const accessToken = window.sessionStorage.getItem('accessToken');
+
+    useEffect(() => {
+        if (accessToken) {
+            const decodedToken = jwtDecode(accessToken);
+            console.log(decodedToken);
+
+            dispatch(callMainInfoAPI(decodedToken.sub));
+        }
+    }, [dispatch, accessToken]);
+
     const onClickMain = () => {
         navigate("/", { replace: true });
     }
@@ -39,10 +54,10 @@ function Navbar() {
                     <div>
                         <div className={NavCSS.NavbarDiv}>
                             결혼식
-                            {loginMember && <b>{`D-${loginMember?.data?.memberWeddingDate}`}</b>}
+                            {loginMember && <b>{`D-${loginMember?.data?.memWeddingDate}`}</b>}
                         </div>
                         <div className={NavCSS.NavbarDiv2}>
-                            {loginMember && <b>{`${loginMember?.data?.memberName}님 환영합니다`}</b>}
+                            {loginMember && <b>{`${loginMember?.data?.memName}님 환영합니다`}</b>}
                         </div>
                     </div>
                 </div>
