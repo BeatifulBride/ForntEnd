@@ -75,7 +75,7 @@ export default function MyDressList() {
   // }, []);
   //
   const handleMove = () => {
-    navigate("/login");
+    navigate("/upload-my-dress");
   };
   return (
     <Container>

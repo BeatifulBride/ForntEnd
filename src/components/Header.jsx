@@ -32,6 +32,7 @@ const Navbar = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0px 50px;
 `;
 const NavbarLeftText = styled.p`
   color: #000;
@@ -40,13 +41,11 @@ const NavbarLeftText = styled.p`
   font-style: normal;
   font-weight: 800;
   line-height: normal;
-  margin-left: 50px;
 `;
 const Buttons = styled.div`
   display: flex;
   align-items: center;
   gap: 30px;
-  margin-right: 50px;
 `;
 const Button = styled.p`
   cursor: pointer;
