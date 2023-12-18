@@ -5,20 +5,25 @@ import { useSelector, useDispatch } from 'react-redux';
 
 
 import {
-    callLogoutAPI
+    callLogoutAPI,
+    callMainInfoAPI
 } from '../../apis/MemberAPICalls'
+import memberInfoReducer from "../../modules/MemberInfoModule";
+import {useState} from "react";
 
 
 
 function Header() {
 
-    const isLogin = false;
+    // const isLogin = false;
     const navigate = useNavigate()
 
     // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
     const dispatch = useDispatch();
-    const loginMember = useSelector(state => state.memberReducer);  // 저장소에서 가져온 loginMember 정보(이름,디데이)
-    // const isLogin = window.localStorage.getItem('accessToken');    // Local Storage 에 token 정보 확인
+    const loginMember = useSelector(state => state.memberInfoReducer);  // 저장소에서 가져온 loginMember 정보(이름,디데이)
+    console.log(loginMember.data)
+    console.log("testes")
+    const isLogin = window.localStorage.getItem('loginInfo');    // Local Storage 에 token 정보 확인
 
 
     //드레스 리스트 핸들러
@@ -31,7 +36,7 @@ function Header() {
     }
 
     const onClickLogoutHandler = () => {
-        window.localStorage.removeItem('accessToken');  
+        window.localStorage.removeItem('loginInfo');
         //로그아웃
         dispatch(callLogoutAPI());
         
@@ -54,9 +59,9 @@ function Header() {
         return (
             <div className={HeaderCSS.HeaderContainer}>
                 <div className={HeaderCSS.MemberInfo}>
-                    {loginMember && <b>{`${loginMember?.data?.memberName}님 환영합니다`}</b>}
+                    {loginMember && <b>{`${loginMember?.data?.username}님 환영합니다`}</b>}
                     &nbsp;&nbsp;&nbsp;
-                    {loginMember && <b>{`${loginMember?.data?.memberWeddingDate}`}</b>}
+                    {loginMember && <b>{`${loginMember?.data?.memWeddingDate}`}</b>}
                 </div>
                 <div className={HeaderCSS.ButtonsGroup}>
                     <button className={HeaderCSS.HeaderBtn} onClick={onClickDressHandler}>드레스보기</button>&nbsp;&nbsp;
