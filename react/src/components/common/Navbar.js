@@ -39,7 +39,7 @@ function Navbar() {
                     <div>
                         <div className={NavCSS.NavbarDiv}>
                             결혼식
-                            {loginMember && <b>{`${loginMember?.data?.memberWeddingDate}`}</b>}
+                            {loginMember && <b>{`D-${loginMember?.data?.memberWeddingDate}`}</b>}
                         </div>
                         <div className={NavCSS.NavbarDiv2}>
                             {loginMember && <b>{`${loginMember?.data?.memberName}님 환영합니다`}</b>}

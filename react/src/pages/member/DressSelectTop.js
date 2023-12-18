@@ -1,44 +1,44 @@
-import test from '../../image/jinyang.png'
-import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import dress from '../member/DressSelectTop.module.css'
-import {useEffect} from "react";
-
-import {
-    callDressSelectAPI, callProductListAboutDessertAPI
-} from "../../apis/ProductAPICalls";
+import React from 'react';
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import dress from '../member/DressSelectTop.module.css';
+import { useEffect } from "react";
+import { callDressSelectAPI } from "../../apis/ProductAPICalls";
 
 function DressSelectTop() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const dressInfo = useSelector(state => state.productReducer);
+    console.log(dressInfo)
+    const dressList = dressInfo.data;
 
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const dressInfo = useSelector(state => state.productReducer)
-    const dressList = dressInfo.data
 
-    const onClickTryOn = () => {
-        navigate("/tryon", {replace: true})
-    }
-    // useEffect(
-    //     () => {
-    //         dispatch(callDressSelectAPI());
-    //     }
-    //     ,[]
-    // );
+    const onClickTryOnHandler = (dressData) => {
+        navigate("/tryon", { state: { selectedDress: dressData } });
+    };
 
+    useEffect(() => {
+        dispatch(callDressSelectAPI());
+    }, [dispatch]);
 
     return(
-        <div> {/* 모든 내용을 감싸는 루트 div 추가 */}
+        <div>
             <div className={dress.container}>
-                <div className={dress.imageContainer}>
-                    <img src={test}/>
-                </div>
-                <div className={dress.textContainer}>
-                    {dressInfo && <div><b>Dress Name: {dressInfo?.data?.companyName}</b>1</div>}
-                    {dressInfo && <div><b>Company: {dressInfo?.data?.dressPNumber}</b>111</div>}
-                </div>
+                {dressList && dressList.map((item, index) => (
+                    <div key={index}>
+                        <div className={dress.imageContainerImg}>
+                            <img src={item.imageUrl} alt={`Dress ${index}`} />
+                        </div>
+                        <div className={dress.textContainer}>
+                            <div><b>Dress Name: {item.companyName}</b></div>
+                            <div><b>Company: {item.dressPNumber}</b></div>
+                        </div>
+                        <div>셀렉</div>
+                    </div>
+                ))}
             </div>
             <div>
-                <button onClick={onClickTryOn}>Try-on</button>
+                <button onClick={onClickTryOnHandler}>Try-on</button>
             </div>
         </div>
     )

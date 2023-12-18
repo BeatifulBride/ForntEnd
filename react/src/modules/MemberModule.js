@@ -9,11 +9,13 @@ export const POST_LOGIN     = 'member/POST_LOGIN';
 export const POST_REGISTER  = 'member/POST_REGISTER';
 export const GET_MEMBER_INFO = 'member/GET_MEMBER_INFO';
 
+
 const actions = createActions({
     [GET_MEMBER]: () => {},
     [POST_LOGIN]: () => {},
     [POST_REGISTER]: () => {},
-    [GET_MEMBER_INFO]: () => {}
+    [GET_MEMBER_INFO]: () => {},
+
 });
 
 /* 리듀서 */
@@ -28,13 +30,15 @@ const memberReducer = handleActions(
             return payload;
         },
         [POST_REGISTER]: (state, { payload }) => {
-            
+
             return payload;
         },
         [GET_MEMBER_INFO]: (state, { payload}) => {
 
             return payload;
-        }
+        },
+
+
 
     },
     initialState

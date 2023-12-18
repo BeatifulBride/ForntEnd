@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './layouts/Layout';
 import Login from './pages/member/Login';
-import Register from './pages/member/Register';
+
 import Error from './pages/Error';
 import Tryon from './pages/products/Tryon';
 import MainLayout from "./layouts/MainLayout";
@@ -10,9 +10,7 @@ import SelectRegister from "./pages/member/SelectRegister";
 import ForgotInfo from "./pages/member/ForgotInfo";
 import CompanyLogin from "./pages/member/CompanyLogin";
 import ForgotPassword from "./pages/member/ForgotPassword";
-import LikeButton from "./pages/list/LikeButton";
-import React from "react";
-import Client from "./pages/list/Client";
+import Mypage from "./components/common/Mypage";
 
 
 
@@ -25,6 +23,7 @@ function App() {
 
         <Route path="/" element={ <Layout/> }>
           <Route index element={ <MainLayout/> }/>
+          <Route path="mypage" element={ <Mypage/> }/>
           <Route path="tryon" element={ <Tryon /> }/>
         </Route>
         {/*로그인*/}
@@ -38,8 +37,6 @@ function App() {
         <Route path="/forgotpassword" element={<ForgotPassword/>} />
         {/*error*/}
         <Route path="*" element={ <Error/> }/>
-        {/*좋아요 버튼 확인 페이지*/}
-        <Route path="/likebutton" element={<Client/>}/>
 
       </Routes>
 

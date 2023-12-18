@@ -1,11 +1,11 @@
 
-import { 
+import {
     GET_MEMBER
-  , POST_LOGIN
-  , POST_REGISTER
-  , GET_MEMBER_INFO
+    , POST_LOGIN
 } from '../modules/MemberModule';
-
+import {
+    GET_MAININFO
+} from "../modules/MemberInfoModule";
 
 
 export const callLoginAPI = ({form}) => {
@@ -21,21 +21,21 @@ export const callLoginAPI = ({form}) => {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
                 "Accept": "*/*",
-                "Access-Control-Allow-Origin": "*"
+                "Access-Control-Allow-Origin": "*"      
             },
             body: form
+            /* 로그인데이터를 가져올때 localStorage에 맴버네임 저장??? */
         })
-            .then(response => response);
+        .then(response => response);
 
         console.log('[MemberAPICalls] callLoginAPI RESULT : ', result);
-        // if(result.status === 200){
-        //     window.localStorage.setItem('accessToken', result.data);
-        // }
+        if(result.status === 200){
+            window.localStorage.setItem('loginInfo', result.data);
+        }
         dispatch({ type: POST_LOGIN,  payload: result });
-
+        
     };
 }
-
 
 
 
@@ -49,33 +49,28 @@ export const callLogoutAPI = () => {
     };
 }
 
-
-// 회원 정보(이름,디데이정보)
-export const callRegisterAPI = ({form}) => {
-    const requestURL = `http://localhost:8080/auth/signup`;
+export const callMainInfoAPI = () => {
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/mem/maininfo`;
 
     return async (dispatch, getState) => {
 
+        /* 클라이언트 fetch mode : no-cors 사용시 application/json 방식으로 요청이 불가능 */
+        /* 서버에서 cors 허용을 해주어야 함 */
+        /* headers에 Access-Control-Allow-Origin을 *로 해서 모든 도메인에 대해 허용한다. */
         const result = await fetch(requestURL, {
-            method: "POST",
+            method: "GET",
             headers: {
-                "Content-Type": "application/json",
-                "Accept": "*/*"
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Accept": "*/*",
+                "Access-Control-Allow-Origin": "*"
             },
-            body: JSON.stringify({
-                memberId: form.memberId,
-                memberPassword: form.memberPassword,
-                memberName: form.memberName,
-                memberEmail: form.memberEmail                
-            })
-        })
-        .then(response => response.json());
 
-        console.log('[MemberAPICalls] callRegisterAPI RESULT : ', result);        
-        
-        if(result.status === 201){
-            dispatch({ type: POST_REGISTER,  payload: result });
-        }        
+        })
+            .then(response => response);
+
+        dispatch({ type: GET_MAININFO,  payload: result });
     };
 }
+
+
 
