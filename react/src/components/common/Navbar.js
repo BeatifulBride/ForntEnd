@@ -7,6 +7,7 @@ import Bride from "../image/Bride";
 import {useEffect} from "react";
 import jwtDecode from "jwt-decode";
 import {callMainInfoAPI} from "../../apis/MemberAPICalls";
+import {calculateDaysLeft} from "./DateUtils";
 
 function Navbar() {
 
@@ -14,6 +15,10 @@ function Navbar() {
     const loginMember = useSelector(state => state.memberInfoReducer);  // 저장소에서 가져온 loginMember 정보(이름,디데이)
     const navigate = useNavigate();
     const accessToken = window.sessionStorage.getItem('accessToken');
+
+    const daysUntilWedding = loginMember?.data?.memWeddingDate
+        ? calculateDaysLeft(loginMember.data.memWeddingDate)
+        : null;
 
     useEffect(() => {
         if (accessToken) {
@@ -27,8 +32,12 @@ function Navbar() {
     const onClickMain = () => {
         navigate("/", { replace: true });
     }
-    const onClickMypage = () => {
-        navigate("/test", { replace: true });
+    // 마이페이지로 이동하는 핸들러
+    const onClickMypageHandler = () => {
+        navigate("/mypage", {
+            replace: true,
+            state: { accessToken: accessToken }
+        });
     }
 
 
@@ -49,12 +58,13 @@ function Navbar() {
                 </div>
                 <div className={NavCSS.ContentRow}>
                     <div className={NavCSS.BridePicture}>
-                        <Bride onClick={onClickMypage}/>
+                        <Bride onClick={onClickMypageHandler}/>
                     </div>
                     <div>
                         <div className={NavCSS.NavbarDiv}>
-                            결혼식
-                            {loginMember && <b>{`D-${loginMember?.data?.memWeddingDate}`}</b>}
+                            {loginMember?.data?.memWeddingDate && (
+                                <b>{`결혼까지 D-${daysUntilWedding}일`}</b>
+                            )}
                         </div>
                         <div className={NavCSS.NavbarDiv2}>
                             {loginMember && <b>{`${loginMember?.data?.memName}님 환영합니다`}</b>}

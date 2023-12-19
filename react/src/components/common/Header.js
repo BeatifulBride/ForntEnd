@@ -4,15 +4,12 @@ import HeaderCSS from './Header.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import {useEffect, useState} from "react";
 import jwtDecode from "jwt-decode";
-
-
+import { calculateDaysLeft } from './DateUtils';
 
 import {
     callLogoutAPI,
     callMainInfoAPI
 } from '../../apis/MemberAPICalls'
-
-
 
 function Header() {
 
@@ -36,23 +33,26 @@ function Header() {
         }
     }, [dispatch, accessToken]);
 
-
-
-
-
-    //드레스 리스트 핸들러
+    // 드레스리스트로 이동하는 핸들러
     const onClickDressHandler = () => {
-        navigate("/dress", {replace: true})
+        navigate("/dresslist", {
+            replace: true,
+            state: { accessToken: accessToken }
+        });
     }
 
+    // 마이페이지로 이동하는 핸들러
     const onClickMypageHandler = () => {
-
-        navigate("/mypage", { replace: true });
+        navigate("/mypage", {
+            replace: true,
+            state: { accessToken: accessToken }
+        });
     }
 
+    // 로그아웃 하는 핸들러
     const onClickLogoutHandler = () => {
-        window.localStorage.removeItem('loginInfo');
-        //로그아웃
+        window.sessionStorage.removeItem('accessToken');
+
         dispatch(callLogoutAPI());
         
         alert('로그아웃이 되어 메인화면으로 이동합니다.');
@@ -71,14 +71,18 @@ function Header() {
 
     function AfterLogin() {
 
+        const daysUntilWedding = login?.data?.memWeddingDate
+            ? calculateDaysLeft(login.data.memWeddingDate)
+            : null;
+
         return (
             <div className={HeaderCSS.HeaderContainer}>
                 <div className={HeaderCSS.MemberInfo}>
-                    {/*{loginMember.data.memName}*/}
                     {login && <b>{`${login?.data?.memName}님 환영합니다`}</b>}
-                    {/*{loginMember.data.memName}*/}
                     &nbsp;&nbsp;&nbsp;
-                    {login && <b>{`${login?.data?.memWeddingDate}`}</b>}
+                    {login?.data?.memWeddingDate && (
+                        <b>{`결혼까지 D-${daysUntilWedding}일`}</b>
+                    )}
                 </div>
                 <div className={HeaderCSS.ButtonsGroup}>
                     <button className={HeaderCSS.HeaderBtn} onClick={onClickDressHandler}>드레스보기</button>&nbsp;&nbsp;
@@ -91,9 +95,9 @@ function Header() {
 
     return (
         <>
-            {/*{ loginModal ? <LoginModal setLoginModal={ setLoginModal }/> : null}*/}
+
             <div className={ HeaderCSS.HeaderDiv }>
-                {/* 로그인 상태에 따라 다른 컴포넌트 랜더링 */}
+
                 { (isLogin == null || isLogin === undefined) ? <BeforeLogin /> : <AfterLogin />}
             </div>
 

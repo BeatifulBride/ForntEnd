@@ -1,3 +1,9 @@
+.Main{
+    height: 80vh;
+
+}
+
+
 .MainPicture{
     text-align: center;
 }
@@ -33,4 +39,11 @@
     background-color: #F5F5F5;
     cursor: pointer;
     text-align: center;
+}
+
+.placeholder-box {
+    width: 100px; /* 원하는 너비 */
+    height: 100px; /* 원하는 높이 */
+    background-color: #e0e0e0; /* 플레이스홀더용 밝은 회색 */
+    margin: 10px; /* 박스 주변에 공간 추가 */
 }

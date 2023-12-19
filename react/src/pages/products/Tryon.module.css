@@ -2,46 +2,36 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 100vh;
+    height: 80vh;
 }
 
-.imageUploadSection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.imageContainer {
+.commonSectionStyle {
     width: 300px;
-    height: 450px;
-    background-color: #F0F0F0;
+    height: 450px; /* 높이를 같게 설정 */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     position: relative;
-    cursor: pointer;
 }
+.parentContainer {
+    display: flex;
+    justify-content: space-around; /* 내부 아이템들이 동일한 간격을 가지고 배치되도록 */
+    align-items: flex-start; /* 내부 아이템들이 상단에 정렬되도록 */
+}
+
 
 .imagePreview {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
-.uploadPlaceholder {
-    font-size: 20px;
-    color: #666;
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+
 
 .uploadButtonWrapper {
     position: absolute;
-    bottom: 20px;
+    bottom: 200px; /* + 버튼의 위치를 조정합니다. */
     left: 50%;
     transform: translateX(-50%);
 }
@@ -66,16 +56,34 @@
     width: 300px;
     height: 450px;
     position: relative;
+    background-color: #F0F0F0; /* 플레이스홀더의 배경색 */
+    border: 2px dashed #ccc; /* 플레이스홀더의 보더 스타일 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dressPlaceholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .dressContainer {
     position: relative;
 }
 
+.dressSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 센터 정렬 */
+}
+
 .dressImage {
     width: 100%;
     height: auto;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .likeButton {
@@ -91,9 +99,83 @@
 .dressDetails {
     position: absolute;
     bottom: 20px;
-    left: 0;
+    left: -350px;
     right: 0;
     background-color: #FFFFFF;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    position: relative;
+    z-index: 0;
+}
+
+.dressSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dressDetails {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.imageUploadSection{
+    width: 300px; /* 너비를 통일합니다 */
+    height: 450px; /* 높이를 통일합니다 */
+    background-color: #F0F0F0;
+    border: 2px dashed #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    /* 여기에 추가적으로 필요한 스타일을 적용할 수 있습니다 */
+}
+
+.dressInfoSection{
+    width: 300px; /* 너비를 통일합니다 */
+    height: 450px; /* 높이를 통일합니다 */
+    background-color: #F0F0F0;
+    border: 2px dashed #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    /* 여기에 추가적으로 필요한 스타일을 적용할 수 있습니다 */
+}
+
+
+.imageContainer {
+    width: 300px;
+    height: 450px;
+    background-color: #F0F0F0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    cursor: pointer;
+}
+
+.uploadPlaceholder {
+    font-size: 15px;
+    color: #666;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px; /* 너비를 통일합니다 */
+    height: 450px; /* 높이를 통일합니다 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.dressImage {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* 이미지가 컨테이너를 가득 채우도록 */
 }
