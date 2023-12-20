@@ -6,7 +6,6 @@ const initialState = {
     data: null
 };
 
-
 export const GET_MAININFO = 'member/GET_MAININFO';
 
 export const { getMaininfo } = createActions({

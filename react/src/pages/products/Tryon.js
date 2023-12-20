@@ -10,7 +10,6 @@ function Tryon() {
     const dispatch = useDispatch();
     const [image, setImage] = useState(null);
     const [previewUrl, setPreviewUrl] = useState('');
-    const [liked, setLiked] = useState(false);
     const location = useLocation();
     const token = decodeJwt(window.sessionStorage.getItem("accessToken"));
 
@@ -19,10 +18,10 @@ function Tryon() {
     console.log("넘어오는 데이터 값은", JSON.stringify(selectedDress, null, 2));
 
 
-    const [form, setForm] = useState({
-        memberId: token.sub,
-        dressImage: ''
-    })
+    // const [form, setForm] = useState({
+    //     memberId: token.sub,
+    //     dressImage: ''
+    // })
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];

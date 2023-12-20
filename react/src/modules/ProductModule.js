@@ -4,24 +4,12 @@ import { createActions, handleActions } from 'redux-actions';
 const initialState = [];
 
 /* 액션 */
-export const GET_PRODUCT            = 'product/GET_PRODUCT';
-export const GET_PRODUCTS           = 'product/GET_PRODUCTS';
-export const GET_PRODUCTS_MEAL      = 'product/GET_PRODUCTS_MEAL';
-export const GET_PRODUCTS_DESSERT   = 'product/GET_PRODUCTS_DESSERT';
-export const GET_PRODUCTS_BEVERAGE  = 'product/GET_PRODUCTS_BEVERAGE';
-export const POST_PRODUCT           = 'product/POST_PRODUCT';
-export const PUT_PRODUCT            = 'product/PUT_PRODUCT';
-export const GET_DRESSLIST          = 'product/GET_DRESSLIST';
+export const GET_DRESSLIST   = 'product/GET_DRESSLIST';
+export const GET_DRESSSELECT = 'product/GET_DRESSSELECT'
 
 const actions = createActions({
-    [GET_PRODUCT]: () => {},
-    [GET_PRODUCTS]: () => {},
-    [GET_PRODUCTS_MEAL]: () => {},
-    [GET_PRODUCTS_DESSERT]: () => {},
-    [GET_PRODUCTS_BEVERAGE]: () => {},
-    [POST_PRODUCT]: () => {},
-    [PUT_PRODUCT]: () => {},
-    [GET_DRESSLIST]: () => {}
+    [GET_DRESSLIST]: () => {},
+    [GET_DRESSSELECT]: () => {}
 });
 
 /* 리듀서 */
@@ -30,34 +18,9 @@ const productReducer = handleActions(
         [GET_DRESSLIST]: (state, { payload}) => {
             return payload;
         },
-        [GET_PRODUCT]: (state, { payload }) => {
-            
+        [GET_DRESSSELECT]: (state, { payload}) => {
             return payload;
-        },
-        [GET_PRODUCTS]: (state, { payload }) => {
-            
-            return payload;
-        },
-        [GET_PRODUCTS_MEAL]: (state, { payload }) => {
-            
-            return payload;
-        },
-        [GET_PRODUCTS_DESSERT]: (state, { payload }) => {
-            
-            return payload;
-        },
-        [GET_PRODUCTS_BEVERAGE]: (state, { payload }) => {
-            
-            return payload;
-        },
-        [POST_PRODUCT]: (state, { payload }) => {
-
-            return payload;
-        },
-        [PUT_PRODUCT]: (state, { payload }) => {
-
-            return payload;
-        }        
+        }
     },
     initialState
 );

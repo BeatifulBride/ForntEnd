@@ -26,6 +26,7 @@ function Login({history}) {
     const dispatch = useDispatch();
     const loginMember = useSelector(state => state.memberReducer);  // API 요청하여 가져온 loginMember 정보
 
+
     /* 폼 데이터 한번에 변경 및 State에 저장 */
     const [form, setForm] = useState({
         loginId: '',
@@ -70,7 +71,8 @@ function Login({history}) {
         });
 
         axios.post(
-            'http://localhost:8080/auth/login',
+            // 'http://localhost:8080/auth/login',
+            'http://1.214.19.22:6900/auth/login',
             formData,
             {
                 headers: {

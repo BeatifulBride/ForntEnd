@@ -19,7 +19,6 @@ function Header() {
     const dispatch = useDispatch();
     const isLogin = window.sessionStorage.getItem('accessToken');    // Local Storage 에 token 정보 확인
     const login = useSelector(state => state.memberInfoReducer);
-    console.log(login.data)
     const accessToken = window.sessionStorage.getItem('accessToken');
 
 

@@ -1,7 +1,6 @@
 
 import {
-    GET_MEMBER
-    , POST_LOGIN
+    POST_LOGIN
 } from '../modules/MemberModule';
 import {
     GET_MAININFO
@@ -10,7 +9,8 @@ import {
 
 
 export const callLoginAPI = ({form}) => {
-    const requestURL = `http://localhost:8080/auth/login`;
+    // const requestURL = `http://localhost:8080/auth/login`;
+    const requestURL = `http://1.214.19.22:6900/auth/login`;
 
     return async (dispatch, getState) => {
 
@@ -54,7 +54,8 @@ export const callLogoutAPI = () => {
 
 
 export const callMainInfoAPI = (loginId) => {
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/mem/maininfoTest?loginId=${loginId}`;
+    const requestURL = `http://1.214.19.22:6900/mem/maininfoTest?loginId=${loginId}`;
+
 
     return async (dispatch) => {
         try {
@@ -71,7 +72,7 @@ export const callMainInfoAPI = (loginId) => {
             }
 
             const data = await response.json();
-            console.log('[MemberAPICalls] callMainInfoAPI RESULT1 : ', data);
+            console.log('[MemberAPICalls] callMainInfoAPI RESULT11111 : ', data);
 
             dispatch({ type: GET_MAININFO, payload: data });
         } catch (error) {

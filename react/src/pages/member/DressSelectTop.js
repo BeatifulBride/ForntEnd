@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import dress from '../member/DressSelectTop.module.css';
 import { useEffect } from "react";
-import { callDressSelectAPI } from "../../apis/ProductAPICalls";
+// import { callDressSelectAPI } from "../../apis/ProductAPICalls";
 import bride from "../../image/bride.png";
 
 
@@ -13,6 +13,10 @@ function DressSelectTop() {
     const dressInfo = useSelector(state => state.productReducer);
     console.log(dressInfo)
     const dressList = dressInfo.data;
+
+
+
+
     const dummyBrides = [
         { name: 'Dress A', type: 'Type A', company: 'Company A', imageUrl: bride },
         { name: 'Dress B', type: 'Type B', company: 'Company B', imageUrl: bride },
@@ -32,9 +36,9 @@ function DressSelectTop() {
         }
     };
 
-    useEffect(() => {
-        dispatch(callDressSelectAPI());
-    }, [dispatch]);
+    // useEffect(() => {
+    //     dispatch(callDressSelectAPI());
+    // }, [dispatch]);
 
     return(
         <div>
