@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import {decodeJwt} from "../../utils/tokenUtils";
 // import {callDressLikeAPI} from "../../apis/ProductAPICalls";
 
+
 function Tryon() {
 
     const dispatch = useDispatch();
@@ -14,7 +15,8 @@ function Tryon() {
     const token = decodeJwt(window.sessionStorage.getItem("accessToken"));
 
     const { selectedDress } = location.state || {};
-    const dressData = selectedDress.dressData || {};
+    // const dressData = selectedDress.dressData || {};
+    const dressData = location.state ? location.state.selectedDress : {};
     console.log("넘어오는 데이터 값은", JSON.stringify(selectedDress, null, 2));
 
 
@@ -64,9 +66,9 @@ function Tryon() {
                 </div>
 
                 <div className={styles.dressDetails}>
-                    <p><b>Name:</b> {dressData.name}</p>
-                    <p><b>Type:</b> {dressData.type}</p>
-                    <p><b>Company:</b> {dressData.company}</p>
+                    <p><b>Name:</b> {dressData.name || 'Unavailable'}</p>
+                    <p><b>Type:</b> {dressData.type || 'Unavailable'}</p>
+                    <p><b>Company:</b> {dressData.company || 'Unavailable'}</p>
                 </div>
             </div>
 

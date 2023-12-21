@@ -1,8 +1,9 @@
 .tryonWrapper {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 80vh;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* 사용자 사진과 드레스 정보 섹션을 나란히 배열합니다. */
+    gap: 20px; /* 섹션 사이의 간격을 설정합니다. */
+    padding: 30px; /* 외부 여백을 설정합니다. */
+    align-items: start; /* 섹션들을 상단에 정렬합니다. */
 }
 
 .commonSectionStyle {
@@ -13,6 +14,10 @@
     align-items: center;
     flex-direction: column;
     position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
 }
 .parentContainer {
     display: flex;
@@ -47,9 +52,14 @@
 }
 
 .tryOnButton {
-    font-size: 20px;
-    padding: 10px 20px;
-    cursor: pointer;
+    margin-top: 15px; /* 버튼과 섹션 사이의 여백을 설정합니다. */
+    background-color: #007bff; /* 버튼의 배경색을 설정합니다. */
+    color: white; /* 버튼의 텍스트 색상을 설정합니다. */
+    border-radius: 5px; /* 버튼의 모서리를 둥글게 처리합니다. */
+    padding: 10px 20px; /* 버튼의 내부 여백을 설정합니다. */
+    cursor: pointer; /* 마우스 커서를 포인터로 설정합니다. */
+    border: none; /* 버튼의 테두리를 제거합니다. */
+    outline: none; /* 포커스 시 발생하는 외곽선을 제거합니다. */
 }
 
 .dressInfoSection {
@@ -98,8 +108,8 @@
 
 .dressDetails {
     position: absolute;
-    bottom: 20px;
-    left: -350px;
+    bottom: 100px;
+    left: 350px;
     right: 0;
     background-color: #FFFFFF;
     padding: 20px;
@@ -120,31 +130,15 @@
     text-align: center;
 }
 
-.imageUploadSection{
-    width: 300px; /* 너비를 통일합니다 */
-    height: 450px; /* 높이를 통일합니다 */
-    background-color: #F0F0F0;
-    border: 2px dashed #ccc;
+.imageUploadSection, .dressInfoSection {
+    /* 공통 섹션 스타일을 적용합니다. */
+    composes: commonSectionStyle;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-
-    /* 여기에 추가적으로 필요한 스타일을 적용할 수 있습니다 */
+    flex-direction: column;
 }
 
-.dressInfoSection{
-    width: 300px; /* 너비를 통일합니다 */
-    height: 450px; /* 높이를 통일합니다 */
-    background-color: #F0F0F0;
-    border: 2px dashed #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-
-    /* 여기에 추가적으로 필요한 스타일을 적용할 수 있습니다 */
-}
 
 
 .imageContainer {

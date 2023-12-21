@@ -51,20 +51,27 @@ import {
 export const callDressListAPI = () => {
     const requestURL = `http://1.214.19.22:6900/dress/list`;
 
-    return async  (dispatch, getState) => {
-        const response = await fetch(requestURL, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/x-www.form.urlencoded",
-                "Accept": "*/*"
+    return async (dispatch, getState) => {
+        try {
+            const response = await fetch(requestURL, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                }
+            });
+            const result = await response.json();
+            if (response.ok) {
+                console.log('[ProductAPICalls] callDressListAPI RESULT1 : ', result);
+                dispatch({ type: GET_DRESSLIST, payload: result });
+            } else {
+                // 오류 처리
+                console.error('API Error:', result);
             }
-        });
-
-        const result = await  response.json()
-        console.log('[ProductAPICalls] callDressListAPI RESULT1 : ', result);
-
-        dispatch({ type: GET_DRESSLIST, payload: result.data })
-    }
+        } catch (error) {
+            console.error('Fetch Error:', error);
+        }
+    };
 
 }
 

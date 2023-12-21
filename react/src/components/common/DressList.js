@@ -18,6 +18,7 @@ function DressList() {
     const dispatch = useDispatch();
     const dressInfo = useSelector(state => state.productReducer);
     const dressList = dressInfo.data;
+    console.log(dressInfo.data)
 
     const [currentItems, setCurrentItems] = useState([]);
     const [hasMore, setHasMore] = useState(true);
@@ -64,11 +65,16 @@ function DressList() {
         dispatch(callDressListAPI)
     }, []);
 
-
     useEffect(() => {
         setCurrentItems(dummyBrides.slice(0, 12));
     }, []);
 
+    // useEffect(() => {
+    //     if(dressList && dressList.length > 0) {
+    //
+    //         setCurrentItems(dressList.slice(0, 12));
+    //     }
+    // }, [dressList]);
 
     const fetchMoreData = () => {
         if (currentItems.length >= dummyBrides.length) {

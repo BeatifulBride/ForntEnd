@@ -1,7 +1,9 @@
 import { createActions, handleActions } from 'redux-actions';
 
 /* 초기값 */
-const initialState = [];
+const initialState = {
+    data: []
+};
 
 /* 액션 */
 export const GET_DRESSLIST   = 'product/GET_DRESSLIST';
@@ -15,11 +17,12 @@ const actions = createActions({
 /* 리듀서 */
 const productReducer = handleActions(
     {
-        [GET_DRESSLIST]: (state, { payload}) => {
-            return payload;
+        [GET_DRESSLIST]: (state, { payload }) => {
+
+            return { ...state, data: payload };
         },
         [GET_DRESSSELECT]: (state, { payload}) => {
-            return payload;
+            return { ...state, data: payload}
         }
     },
     initialState
