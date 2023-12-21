@@ -1,7 +1,17 @@
 .container {
     display: flex;
     align-items: center;
+    width: 90%;
+    padding: 30px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    flex-wrap: wrap; /* 항목들이 부모 컨테이너를 넘어갈 경우 다음 줄로 넘김 */
+    justify-content: space-between;
 }
+
 
 .imageContainerImg {
     max-width: 200px; /* 이미지의 최대 너비를 제한 */
@@ -9,5 +19,7 @@
 }
 
 .textContainer {
-    margin-left: 20px;
+    display: flex;
+    flex-direction: row; /* 항목들이 수평으로 나열되도록 설정 */
+    align-items: center;
 }

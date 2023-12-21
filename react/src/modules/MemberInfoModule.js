@@ -1,22 +1,24 @@
+
 import { createActions, handleActions } from 'redux-actions';
 
-/* 초기값 */
-const initialState = [];
 
-/* 액션 */
+const initialState = {
+    data: null
+};
+
 export const GET_MAININFO = 'member/GET_MAININFO';
 
-const actions = createActions({
-    [GET_MAININFO]: () => {}
+export const { getMaininfo } = createActions({
+    [GET_MAININFO]: data => data
 });
 
-/* 리듀서 */
+// 리듀서
 const memberInfoReducer = handleActions(
     {
-        [GET_MAININFO]: (state, { payload}) => {
+        [GET_MAININFO]: (state, { payload }) => {
 
-            return payload
-        }
+            return { ...state, data: payload };
+        },
     },
     initialState
 );
