@@ -15,6 +15,8 @@ import DressList from "./components/common/DressList";
 import Test1 from "./pages/products/Test1";
 import Test2 from "./pages/products/Test2";
 import Test3 from "./pages/products/Test3";
+import TryonResult from "./pages/products/TryonResult";
+
 
 
 
@@ -27,17 +29,16 @@ function App() {
 
         <Route path="/" element={ <Layout/> }>
           <Route index element={ <MainLayout/> }/>
-
           <Route path="mypage" element={ <Mypage/> }>
             <Route index element={ <Test1/>}/>
             <Route path="/mypage/test2" element={ <Test2/>}/>
             <Route path="/mypage/test3" element={ <Test3/>}/>
-
-
           </Route>
 
 
           <Route path="tryon" element={ <Tryon /> }/>
+          <Route path="tryonresult" element={ <TryonResult />}/>
+
           <Route path="dresslist" element={<DressList/>}/>
         </Route>
         {/*로그인*/}

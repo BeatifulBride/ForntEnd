@@ -1,25 +1,76 @@
+/* DressSelectTop.module.css 수정 */
 .container {
-    display: flex;
-    align-items: center;
-    width: 90%;
-    padding: 30px 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 4개의 칼럼으로 그리드 설정 */
+    gap: 20px; /* 카드 사이의 간격 */
+    padding: 30px; /* 컨테이너 내부 여백 */
+    justify-content: center;
+    align-items: start;
+    margin: 0 auto;
+}
+
+.brideContainer {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 10px;
-
-    flex-wrap: wrap; /* 항목들이 부모 컨테이너를 넘어갈 경우 다음 줄로 넘김 */
-    justify-content: space-between;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+    margin: 0 auto;
 }
 
-
-.imageContainerImg {
-    max-width: 200px; /* 이미지의 최대 너비를 제한 */
-    height: auto; /* 비율을 유지하면서 높이 조절 */
+.brideContainer img {
+    width: 100%;
+    height: auto;
 }
+
 
 .textContainer {
     display: flex;
-    flex-direction: row; /* 항목들이 수평으로 나열되도록 설정 */
+    flex-direction: column;
     align-items: center;
+    padding: 15px;
+}
+
+
+.info {
+    text-align: left;
+}
+
+.name {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+.brideContainer b {
+    display: block;
+    margin-bottom: 10px;
+}
+.brideContainer button {
+    width: 80%;
+    padding: 10px 20px;
+    margin: 0 auto 20px;
+    display: block;
+    background-color: #007bff; /* 버튼 기본 색상 */
+    color: white; /* 버튼 텍스트 색상 */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+.brideContainer button:hover {
+    background-color: #0056b3;
+}
+
+/* 반응형 디자인을 위한 미디어 쿼리 */
+@media screen and (max-width: 768px) {
+    .container {
+        grid-template-columns: repeat(2, 1fr); /* 중간 크기의 화면에서는 2열 */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .container {
+        grid-template-columns: repeat(1, 1fr); /* 작은 화면에서는 1열 */
+    }
 }

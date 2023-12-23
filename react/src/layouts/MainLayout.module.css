@@ -1,49 +1,51 @@
-.Main{
-    height: 80vh;
-
+/* MainLayout.module.css */
+.Main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px; /* 컴포넌트 간의 간격 */
 }
 
-
-.MainPicture{
-    text-align: center;
+/* 이미지를 담고 있는 div에 대한 스타일 */
+.MainImagesContainer {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 1200px; /* 최대 너비 설정 */
+    margin-bottom: 20px; /* 제목과의 간격 */
 }
 
-.SmallNotice{
-    font-size: 30px;
+/* DressSelectTop.module.css */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px; /* 항목들 사이의 간격 */
+    margin-top: 20px; /* 제목과의 간격 */
 }
 
-
-.SmallBoard{
-    font-size: 30px;
+.brideContainer {
+    border: 1px solid #ccc; /* 테두리 */
+    padding: 10px;
+    border-radius: 10px; /* 모서리 둥글게 */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 그림자 효과 */
+    width: 200px; /* 카드 너비 */
+    text-align: center; /* 텍스트 중앙 정렬 */
 }
 
-.mainnoticelist{
-    /* text-align: center; */
-    width: 600px;
-    font-size: 20px;
+/* 이미지에 대한 스타일 */
+.brideContainer img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px; /* 이미지 모서리 둥글게 */
 }
 
-.mainboardlist{
-    /* text-align: center; */
-    width: 600px;
-    font-size: 20px;
-}
-
-.mainnoticelist li:hover{
-    background-color: #F5F5F5;
-    cursor: pointer;
-    text-align: center;
-}
-
-.mainboardlist li:hover{
-    background-color: #F5F5F5;
-    cursor: pointer;
-    text-align: center;
-}
-
-.placeholder-box {
-    width: 100px; /* 원하는 너비 */
-    height: 100px; /* 원하는 높이 */
-    background-color: #e0e0e0; /* 플레이스홀더용 밝은 회색 */
-    margin: 10px; /* 박스 주변에 공간 추가 */
+/* 텍스트 컨테이너 스타일 */
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* 텍스트 사이 간격 */
+    margin-top: 10px; /* 이미지와 텍스트 사이 간격 */
 }

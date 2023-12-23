@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import styles from '../products/Tryon.module.css';
-import { useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import {decodeJwt} from "../../utils/tokenUtils";
-// import {callDressLikeAPI} from "../../apis/ProductAPICalls";
+import {useLocation, useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    callTryOnAPI
+} from "../../apis/ProductAPICalls";
 
 
 function Tryon() {
@@ -12,18 +13,12 @@ function Tryon() {
     const [image, setImage] = useState(null);
     const [previewUrl, setPreviewUrl] = useState('');
     const location = useLocation();
-    const token = decodeJwt(window.sessionStorage.getItem("accessToken"));
+    const navigate = useNavigate();
 
     const { selectedDress } = location.state || {};
-    // const dressData = selectedDress.dressData || {};
     const dressData = location.state ? location.state.selectedDress : {};
     console.log("넘어오는 데이터 값은", JSON.stringify(selectedDress, null, 2));
 
-
-    // const [form, setForm] = useState({
-    //     memberId: token.sub,
-    //     dressImage: ''
-    // })
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -32,6 +27,14 @@ function Tryon() {
             setPreviewUrl(URL.createObjectURL(file));
         }
     };
+
+    const handleTryOn = () => {
+        if (image && dressData) {
+            dispatch(callTryOnAPI(image, dressData));
+            navigate("/tryonresult");
+        }
+    };
+
 
     return (
         <div className={styles.tryonWrapper}>
@@ -48,16 +51,13 @@ function Tryon() {
             </div>
 
             <div className={styles.centerButton}>
-                {/*API 미작성으로 인하여 버튼기능만 추가(추가 API 작성시 적용시켜야됨*/}
-                <button className={styles.tryOnButton}>Try-on</button>
+                <button className={styles.tryOnButton} onClick={handleTryOn}>Try-on</button>
             </div>
 
             <div className={styles.dressSection}>
-
-
                 <div className={styles.dressInfoSection}>
                     {dressData ? (
-                        <img src={dressData.imageUrl} alt={`Dress: ${dressData.name}`} className={styles.dressImage}/>
+                        <img src={dressData.dressPath} className={styles.dressImage}/>
                     ) : (
                         <div className={styles.dressPlaceholder}>
                             <p>No dress data available</p>
@@ -66,9 +66,9 @@ function Tryon() {
                 </div>
 
                 <div className={styles.dressDetails}>
-                    <p><b>Name:</b> {dressData.name || 'Unavailable'}</p>
-                    <p><b>Type:</b> {dressData.type || 'Unavailable'}</p>
-                    <p><b>Company:</b> {dressData.company || 'Unavailable'}</p>
+                    <p><b>Name:</b> {dressData.dressName || 'Unavailable'}</p>
+                    <p><b>Type:</b> {dressData.dressType || 'Unavailable'}</p>
+                    <p><b>Company:</b> {dressData.dressCompany || 'Unavailable'}</p>
                 </div>
             </div>
 
