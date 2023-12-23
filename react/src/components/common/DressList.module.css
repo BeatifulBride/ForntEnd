@@ -7,8 +7,6 @@
     align-items: start;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
 }
 
 /* 중간 화면에 대한 스타일 */
@@ -23,14 +21,11 @@
     .container {
         grid-template-columns: repeat(1, 1fr);
     }
-}
 
-@media screen and (max-width: 480px) {
     .card {
         width: 90%;
     }
 }
-
 .card {
     display: flex;
     flex-direction: column;
@@ -75,14 +70,4 @@
 
 .tryOnButton:hover {
     background-color: #0056b3;
-}
-
-.blur {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    backdrop-filter: blur(5px);
-    z-index: 10;
 }
