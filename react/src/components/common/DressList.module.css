@@ -1,0 +1,73 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 30px;
+    justify-content: center;
+    align-items: start;
+    margin: 0 auto;
+    display: grid;
+}
+
+/* 중간 화면에 대한 스타일 */
+@media screen and (max-width: 768px) {
+    .container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 작은 화면에 대한 스타일 */
+@media screen and (max-width: 480px) {
+    .container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .card {
+        width: 90%;
+    }
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+    margin: 0 auto;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    align-items: center;
+}
+
+.info {
+    text-align: left;
+}
+
+.name {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.tryOnButton {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    white-space: nowrap;
+}
+
+.tryOnButton:hover {
+    background-color: #0056b3;
+}

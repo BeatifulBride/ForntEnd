@@ -17,7 +17,7 @@ import axios from "axios";
 import qs from 'qs';
 
 function Login({history}) {
-        
+
     const navigate = useNavigate();
 
     const [loginId, setLoginId] = useState('');
@@ -25,39 +25,40 @@ function Login({history}) {
     /* 리덕스를 이용하기 위한 디스패처, 셀렉터 선언 */
     const dispatch = useDispatch();
     const loginMember = useSelector(state => state.memberReducer);  // API 요청하여 가져온 loginMember 정보
-    
-    /* 폼 데이터 한번에 변경 및 State에 저장 */   
+
+
+    /* 폼 데이터 한번에 변경 및 State에 저장 */
     const [form, setForm] = useState({
         loginId: '',
         loginPwd: ''
     });
 
     useEffect(() => {
-        
-        if(loginMember.status === 200){
-            console.log("[Login] Login SUCCESS {}", loginMember);
-            navigate("/", { replace: true });
+
+            if(loginMember.status === 200){
+                console.log("[Login] Login SUCCESS {}", loginMember);
+                navigate("/", { replace: true });
+            }
+
+            /* 회원 가입 후 로그인 페이지로 안내 되었을 때 */
+            if(loginMember.status === 201){
+
+                loginMember.status = 100  // Continue
+                dispatch({ type: POST_REGISTER,  payload: loginMember });
+            }
         }
+        ,[loginMember]);
 
-        /* 회원 가입 후 로그인 페이지로 안내 되었을 때 */
-        if(loginMember.status === 201){
-
-            loginMember.status = 100  // Continue
-            dispatch({ type: POST_REGISTER,  payload: loginMember });
-        }  
-    }
-    ,[loginMember]);
-    
     /* 로그인 상태일 시 로그인페이지로 접근 방지 */
     if(loginMember.length > 0) {
-        console.log("[Login] Login is already authenticated by the server");        
+        console.log("[Login] Login is already authenticated by the server");
         return <Navigate to="/"/>
     }
 
     const handlerChangeUserId = e => setLoginId(e.target.value);
     const handlerChangeUserPwd = e => setLoginPwd(e.target.value);
 
-    const onClickRegisterHandler = () => { 
+    const onClickRegisterHandler = () => {
         navigate("/selectregister", { replace: true })
     }
 
@@ -70,7 +71,8 @@ function Login({history}) {
         });
 
         axios.post(
-            'http://localhost:8080/auth/login',
+            // 'http://localhost:8080/auth/login',
+            'http://1.214.19.22:6900/auth/login',
             formData,
             {
                 headers: {
@@ -87,8 +89,6 @@ function Login({history}) {
                 if (response.data) {
                     // 성공적인 로그인 처리
                     sessionStorage.setItem("accessToken", response.data);
-                    sessionStorage.setItem("loginId", loginId);
-                    console.log(loginId);
                     navigate('/');
                 } else {
                     sessionStorage.clear();

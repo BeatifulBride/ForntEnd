@@ -1,47 +1,42 @@
 .tryonWrapper {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* 사용자 사진과 드레스 정보 섹션을 나란히 배열합니다. */
+    gap: 20px; /* 섹션 사이의 간격을 설정합니다. */
+    padding: 30px; /* 외부 여백을 설정합니다. */
+    align-items: start; /* 섹션들을 상단에 정렬합니다. */
 }
 
-.imageUploadSection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.imageContainer {
+.commonSectionStyle {
     width: 300px;
-    height: 450px;
-    background-color: #F0F0F0;
+    height: 450px; /* 높이를 같게 설정 */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     position: relative;
-    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
 }
+.parentContainer {
+    display: flex;
+    justify-content: space-around; /* 내부 아이템들이 동일한 간격을 가지고 배치되도록 */
+    align-items: flex-start; /* 내부 아이템들이 상단에 정렬되도록 */
+}
+
 
 .imagePreview {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
-.uploadPlaceholder {
-    font-size: 20px;
-    color: #666;
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+
 
 .uploadButtonWrapper {
     position: absolute;
-    bottom: 20px;
+    bottom: 200px; /* + 버튼의 위치를 조정합니다. */
     left: 50%;
     transform: translateX(-50%);
 }
@@ -57,25 +52,48 @@
 }
 
 .tryOnButton {
-    font-size: 20px;
-    padding: 10px 20px;
-    cursor: pointer;
+    margin-top: 15px; /* 버튼과 섹션 사이의 여백을 설정합니다. */
+    background-color: #007bff; /* 버튼의 배경색을 설정합니다. */
+    color: white; /* 버튼의 텍스트 색상을 설정합니다. */
+    border-radius: 5px; /* 버튼의 모서리를 둥글게 처리합니다. */
+    padding: 10px 20px; /* 버튼의 내부 여백을 설정합니다. */
+    cursor: pointer; /* 마우스 커서를 포인터로 설정합니다. */
+    border: none; /* 버튼의 테두리를 제거합니다. */
+    outline: none; /* 포커스 시 발생하는 외곽선을 제거합니다. */
 }
 
 .dressInfoSection {
     width: 300px;
     height: 450px;
     position: relative;
+    background-color: #F0F0F0; /* 플레이스홀더의 배경색 */
+    border: 2px dashed #ccc; /* 플레이스홀더의 보더 스타일 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dressPlaceholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .dressContainer {
     position: relative;
 }
 
+.dressSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 센터 정렬 */
+}
+
 .dressImage {
     width: 100%;
     height: auto;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .likeButton {
@@ -90,10 +108,68 @@
 
 .dressDetails {
     position: absolute;
-    bottom: 20px;
-    left: 0;
+    bottom: 100px;
+    left: 350px;
     right: 0;
     background-color: #FFFFFF;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    position: relative;
+    z-index: 0;
+}
+
+.dressSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dressDetails {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.imageUploadSection, .dressInfoSection {
+    /* 공통 섹션 스타일을 적용합니다. */
+    composes: commonSectionStyle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+
+.imageContainer {
+    width: 300px;
+    height: 450px;
+    background-color: #F0F0F0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    cursor: pointer;
+}
+
+.uploadPlaceholder {
+    font-size: 15px;
+    color: #666;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px; /* 너비를 통일합니다 */
+    height: 450px; /* 높이를 통일합니다 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.dressImage {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* 이미지가 컨테이너를 가득 채우도록 */
 }
