@@ -55,6 +55,7 @@ function DressSelectTop() {
                         </button>
                     </div>
                 ))}
+                {/*{currentItems.length === 5 && <div className={dress.brideContainer} style={{ visibility: 'hidden' }}></div>}*/}
             </div>
         </div>
     )

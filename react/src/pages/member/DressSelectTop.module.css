@@ -1,14 +1,22 @@
 /* DressSelectTop.module.css 수정 */
 .container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 4개의 칼럼으로 그리드 설정 */
-    gap: 20px; /* 카드 사이의 간격 */
-    padding: 30px; /* 컨테이너 내부 여백 */
+    grid-template-columns: repeat(3, 1fr);
+    /*grid-template-columns: 1fr auto 1fr;*/
+    gap: 20px;
+    padding: 30px;
     justify-content: center;
     align-items: start;
     margin: 0 auto;
 }
 
+.container > :nth-child(4) {
+    grid-column: 2 / 3;
+}
+
+.container > :nth-child(5) {
+    grid-column: 3 / 4;
+}
 .brideContainer {
     display: flex;
     flex-direction: column;
@@ -62,15 +70,22 @@
     background-color: #0056b3;
 }
 
-/* 반응형 디자인을 위한 미디어 쿼리 */
 @media screen and (max-width: 768px) {
     .container {
-        grid-template-columns: repeat(2, 1fr); /* 중간 크기의 화면에서는 2열 */
+        grid-template-columns: repeat(2, 1fr); /* 중간 크기의 화면에서는 2개의 칼럼 */
+    }
+    /* 중간 크기 화면에서는 모든 아이템을 기본 설정으로 재설정 */
+    .container > :nth-child(n) {
+        grid-column: auto;
     }
 }
 
 @media screen and (max-width: 480px) {
     .container {
-        grid-template-columns: repeat(1, 1fr); /* 작은 화면에서는 1열 */
+        grid-template-columns: 1fr; /* 작은 화면에서는 1개의 칼럼 */
+    }
+    /* 작은 화면에서는 모든 아이템을 기본 설정으로 재설정 */
+    .container > :nth-child(n) {
+        grid-column: auto;
     }
 }
