@@ -11,7 +11,9 @@ import moment from 'moment';
 import emailjs from 'emailjs-com'
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Icon } from '@iconify/react';
+import "react-calendar/dist/Calendar.css";
 import login from "./Login";
+import styled from "styled-components";
 
 
 function Register({history}) {
@@ -38,7 +40,7 @@ function Register({history}) {
     //달력
     const [value, onChange] = useState(new Date());
     const [isOpen, setIsOpen] = useState(false);
-    const [nowDate, setNowDate] = useState("날짜");
+    const [nowDate, setNowDate] = useState("결혼예정일       ▼ ");
 
     //비밀번호 확인, 이메일 - 오류 메시지 상태 저장
     const [userPasswordCheckMessage, setUserPasswordCheckMessage] = useState('');
@@ -319,13 +321,13 @@ function Register({history}) {
 
     //달력 열고 닫기
     const handleToggleCalendar = () => {
-        setIsOpen(!isOpen);
+        setIsOpen((prevIsOpen) => !prevIsOpen);
     };
 
     const handleDateChange = (selectedDate) =>{
         onChange(selectedDate);
         setIsOpen(false);
-        setNowDate(moment(selectedDate).format("YYYY년 MM월 DD일"));
+        setNowDate(moment(selectedDate).format("YYYY-MM-DD"));
     }
 
 
@@ -334,6 +336,8 @@ function Register({history}) {
         /* 돌아가기 클릭시 메인 페이지로 이동 */
         navigate("/login", { replace: true })
     }
+
+
 
     return (
         <div className={ RegisterCSS.backgroundDiv}>
@@ -455,7 +459,7 @@ function Register({history}) {
                 </div>
                 <Icon className={ RegisterCSS.icon_phone} icon="mingcute:phone-call-fill" />
                 <div className={RegisterCSS.userWeddingDate}>
-                    <input
+                    {/*<input
                         type="text"
                         name="memberWeddingDate"
                         placeholder="Wedding Date"
@@ -463,16 +467,18 @@ function Register({history}) {
                         value={moment(value).format("YYYY-MM-DD")}
                         onChange={handlerChangeUserWeddingDate}
                         readOnly
-                    />
-                    <button className={RegisterCSS.DropdwonButton} onClick={handleToggleCalendar}>{nowDate}</button>
-                    <button classNme={RegisterCSS.CalendarWrapper} isOpen={isOpen} ><calendar onChange={handleDateChange} value={value}></calendar>
-                    </button>
-                    {/* <Calendar onChange={onChange} value={value} /> */}
+                    />*/}
+                    <div className={RegisterCSS.CalendarContainer}>
+                        <button className={RegisterCSS.DropdownButton} onClick={handleToggleCalendar}>{nowDate}</button>
+                        <div className={RegisterCSS.CalendarWrapper}style={{ display: isOpen ? 'block' : 'none' }} isOpen={isOpen}>
+                            <Calendar onChange={handleDateChange} value={value}></Calendar>
+                        </div>
+                    </div>
                 </div>
                 <Icon className={RegisterCSS.icon_wedding} icon="file-icons:ring"/>
             </div>
             <div className={RegisterCSS.submit_box}>
-                <button
+            <button
                     className={RegisterCSS.submit_btn}
                     onClick={handlerOnClick}
                     type="submit"

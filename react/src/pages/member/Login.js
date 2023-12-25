@@ -12,11 +12,16 @@ import RegisterCSS from "./Register.module.css";
 import CompanyRegisterCSS from "./CompanyRegister.module.css";
 import {Icon} from "@iconify/react";
 import SelectRegisterCSS from "./SelectRegister.module.css";
+import jwtDecode from "jwt-decode";
+import axios from "axios";
+import qs from 'qs';
 
-function Login() {
+function Login({history}) {
         
     const navigate = useNavigate();
 
+    const [loginId, setLoginId] = useState('');
+    const [loginPwd, setLoginPwd] = useState('');
     /* 리덕스를 이용하기 위한 디스패처, 셀렉터 선언 */
     const dispatch = useDispatch();
     const loginMember = useSelector(state => state.memberReducer);  // API 요청하여 가져온 loginMember 정보
@@ -49,12 +54,8 @@ function Login() {
         return <Navigate to="/"/>
     }
 
-    const onChangeHandler = (e) => {
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value
-        });
-    };
+    const handlerChangeUserId = e => setLoginId(e.target.value);
+    const handlerChangeUserPwd = e => setLoginPwd(e.target.value);
 
     const onClickRegisterHandler = () => { 
         navigate("/selectregister", { replace: true })
@@ -62,11 +63,43 @@ function Login() {
 
     /* 로그인 버튼 클릭시 디스패처 실행 및 메인 페이지로 이동 */
     const onClickLoginHandler = () => {
-        dispatch(callLoginAPI({	// 로그인
-            form: form
+        // 폼 데이터 생성
+        const formData = qs.stringify({
+            LOGIN_ID: loginId,
+            LOGIN_PWD: loginPwd,
+        });
 
-        }));
-    }
+        axios.post(
+            'http://localhost:8080/auth/login',
+            formData,
+            {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            }
+        )
+            .then(response => {
+                const token = response.data;
+                const decode_token = jwtDecode(token);
+
+                console.log(decode_token);
+
+                if (response.data) {
+                    // 성공적인 로그인 처리
+                    sessionStorage.setItem("accessToken", response.data);
+                    sessionStorage.setItem("loginId", loginId);
+                    console.log(loginId);
+                    navigate('/');
+                } else {
+                    sessionStorage.clear();
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                sessionStorage.clear();
+            });
+    };
+
 
     return (
         <div className={SelectRegisterCSS.App}>
@@ -97,8 +130,9 @@ function Login() {
                                 type="text"
                                 name='loginId'
                                 placeholder="아이디"
+                                value={loginId}
                                 autoComplete='off'
-                                onChange={onChangeHandler}
+                                onChange={handlerChangeUserId}
                             />
                         </div>
                         <Icon className={LoginCSS.icon_id} icon="fa-solid:user"/>
@@ -107,8 +141,9 @@ function Login() {
                                 type="password"
                                 name='loginPwd'
                                 placeholder="패스워드"
+                                value={loginPwd}
                                 autoComplete='off'
-                                onChange={onChangeHandler}
+                                onChange={handlerChangeUserPwd}
                             />
                         </div>
                         <Icon className={LoginCSS.icon_pw} icon="mdi:password"/>

@@ -8,8 +8,9 @@ import {
 } from "../modules/MemberInfoModule";
 
 
+
 export const callLoginAPI = ({form}) => {
-    const requestURL = `http://localhost:8080/auth/login`;
+    const requestURL = `http://localhost :8080/auth/login`;
 
     return async (dispatch, getState) => {
 
@@ -19,24 +20,25 @@ export const callLoginAPI = ({form}) => {
         const result = await fetch(requestURL, {
             method: "POST",
             headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
+                "Content-Type": "application/json",
                 "Accept": "*/*",
-                "Access-Control-Allow-Origin": "*"      
+                "Access-Control-Allow-Origin": "*"
             },
-            body: form
-            /* 로그인데이터를 가져올때 localStorage에 맴버네임 저장??? */
+            body: JSON.stringify({
+                memberId: form.memberId,
+                memberPwd: form.memberPwd
+            })
         })
-        .then(response => response);
+            .then(response => response.json());
 
         console.log('[MemberAPICalls] callLoginAPI RESULT : ', result);
         if(result.status === 200){
-            window.localStorage.setItem('loginInfo', result.data);
+            window.localStorage.setItem('accessToken', result.data.accessToken);
         }
         dispatch({ type: POST_LOGIN,  payload: result });
-        
+
     };
 }
-
 
 
 export const callLogoutAPI = () => {
@@ -50,7 +52,7 @@ export const callLogoutAPI = () => {
 }
 
 export const callMainInfoAPI = () => {
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/mem/maininfo`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/mem/maininfoTest`;
 
     return async (dispatch, getState) => {
 
