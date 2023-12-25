@@ -1,0 +1,70 @@
+/* TryonResult.module.css */
+.card {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 25px auto; /* 상하 마진 유지, 좌우 마진을 auto로 설정하여 중앙 정렬 */
+    max-width: 600px; /* 카드의 최대 너비 설정 */
+    overflow: hidden;
+}
+
+.imageSection {
+    flex: 1;
+    max-width: 50%;
+}
+
+.imageSection img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.detailsSection {
+    flex: 1;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.detailsSection h2 {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.detailsSection p {
+    margin: 5px 0;
+}
+
+.buttonsContainer {
+    display: flex;
+    flex-direction: row; /* column 대신 row로 변경하여 가로로 배열 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    margin-top: 20px; /* 상단 카드와의 간격 */
+}
+
+.button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0 10px;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .buttonsContainer {
+        flex-direction: column; /* 화면이 작아질 때 버튼을 세로로 배열 */
+    }
+    .button {
+        margin-top: 10px;
+    }
+}

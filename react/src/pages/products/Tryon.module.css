@@ -3,7 +3,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr)); /* 사용자 사진과 드레스 정보 섹션을 나란히 배열합니다. */
     gap: 20px; /* 섹션 사이의 간격을 설정합니다. */
     padding: 30px; /* 외부 여백을 설정합니다. */
-    align-items: start; /* 섹션들을 상단에 정렬합니다. */
+    align-items: center; /* 섹션들을 상단에 정렬합니다. */
 }
 
 .commonSectionStyle {
