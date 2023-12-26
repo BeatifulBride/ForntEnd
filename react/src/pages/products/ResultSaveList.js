@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Test3 = () => {
+const ResultSaveList = () => {
     return (
         <div>
 
@@ -9,4 +9,4 @@ const Test3 = () => {
     );
 };
 
-export default Test3;
+export default ResultSaveList;

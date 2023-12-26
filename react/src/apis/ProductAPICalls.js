@@ -99,10 +99,8 @@ export const callTryOnAPI = (image, dressData) => {
 
             if (response.ok) {
                 console.log('[TryOnAPICalls] callTryOnAPI RESULT: ', result);
-                // 성공 액션 디스패치
                 dispatch({ type: TRY_ON_SUCCESS, payload: result });
             } else {
-                // 오류 액션 디스패치
                 dispatch({ type: TRY_ON_FAIL, payload: result });
             }
         } catch (error) {

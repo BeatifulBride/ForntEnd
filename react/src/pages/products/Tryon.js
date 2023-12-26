@@ -28,10 +28,14 @@ function Tryon() {
         }
     };
 
+
     const handleTryOn = () => {
         if (image && dressData) {
-            dispatch(callTryOnAPI(image, dressData));
-            navigate("/tryonresult");
+            dispatch(callTryOnAPI(image, dressData)).then(() => {
+                navigate("/tryonresult");
+            }).catch((error) => {
+                console.error('Try-on API call failed:', error);
+            });
         }
     };
 
@@ -39,7 +43,7 @@ function Tryon() {
     return (
         <div className={styles.tryonWrapper}>
 
-            <div className={styles.imageUploadSection}>
+            <div className={`${styles.commonSectionStyle} ${styles.imageUploadSection}`}>
                 <div className={styles.imageContainer} onClick={() => document.getElementById('file-input').click()}>
                     {previewUrl && <img src={previewUrl} alt="Uploaded" className={styles.imagePreview}/>}
                     {!previewUrl && <div className={styles.uploadPlaceholder}>사용자 전신 사진</div>}
@@ -54,7 +58,7 @@ function Tryon() {
                 <button className={styles.tryOnButton} onClick={handleTryOn}>Try-on</button>
             </div>
 
-            <div className={styles.dressSection}>
+            <div className={`${styles.commonSectionStyle} ${styles.dressSection}`}>
                 <div className={styles.dressInfoSection}>
                     {dressData ? (
                         <img src={dressData.dressPath} className={styles.dressImage}/>
@@ -65,11 +69,11 @@ function Tryon() {
                     )}
                 </div>
 
-                <div className={styles.dressDetails}>
-                    <p><b>Name:</b> {dressData.dressName || 'Unavailable'}</p>
-                    <p><b>Type:</b> {dressData.dressType || 'Unavailable'}</p>
-                    <p><b>Company:</b> {dressData.dressCompany || 'Unavailable'}</p>
-                </div>
+                {/*<div className={styles.dressDetails}>*/}
+                {/*    <p><b>Name:</b> {dressData.dressName || 'Unavailable'}</p>*/}
+                {/*    <p><b>Type:</b> {dressData.dressType || 'Unavailable'}</p>*/}
+                {/*    <p><b>Company:</b> {dressData.dressCompany || 'Unavailable'}</p>*/}
+                {/*</div>*/}
             </div>
 
         </div>
