@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Test1 = () => {
+const ResultList = () => {
     return (
         <div >
             저장목록 페이지입니다.
@@ -8,4 +8,4 @@ const Test1 = () => {
     );
 };
 
-export default Test1;
+export default ResultList;

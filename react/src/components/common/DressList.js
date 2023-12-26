@@ -44,7 +44,6 @@ function DressList() {
     }, [dressList]);
 
 
-// 실제 데이터로 currentItems 업데이트
     const fetchMoreData = () => {
         if (currentItems.length >= dressList.length) {
             setHasMore(false);

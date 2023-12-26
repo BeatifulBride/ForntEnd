@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Test1 from '../../pages/products/Test1';
-import Test2 from '../../pages/products/Test2';
-import Test3 from '../../pages/products/Test3';
+import ResultList from '../../pages/products/ResultList';
+import DressLikeList from '../../pages/products/DressLikeList';
+import ResultSaveList from '../../pages/products/ResultSaveList';
 import styles from '../common/Mypage.module.css';
 
 const Mypage = () => {
@@ -32,9 +32,9 @@ const Mypage = () => {
                 </button>
             </nav>
             <main className={styles.content}>
-                {page === 'test1' && <Test1/>}
-                {page === 'test2' && <Test2/>}
-                {page === 'test3' && <Test3/>}
+                {page === 'test1' && <ResultList/>}
+                {page === 'test2' && <DressLikeList/>}
+                {page === 'test3' && <ResultSaveList/>}
             </main>
         </div>
     );

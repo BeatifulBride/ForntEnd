@@ -3,7 +3,7 @@ import { createActions, handleActions } from 'redux-actions';
 /* 초기값 */
 const initialState = {
     data: [],
-    tryOnResult: null, // 또는 초기값으로 빈 객체 {}
+    tryOnResult: null,
     tryOnError: null
 };
 

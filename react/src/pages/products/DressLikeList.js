@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Test2 = () => {
+const DressLikeList = () => {
     return (
         <div>
 
@@ -9,4 +9,4 @@ const Test2 = () => {
     );
 };
 
-export default Test2;
+export default DressLikeList;
