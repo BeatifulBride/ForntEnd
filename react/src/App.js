@@ -29,16 +29,16 @@ function App() {
 
         <Route path="/" element={ <Layout/> }>
           <Route index element={ <MainLayout/> }/>
+          {/*마이페이지*/}
           <Route path="mypage" element={ <Mypage/> }>
             <Route index element={ <ResultList/>}/>
             <Route path="/mypage/dresslikelist" element={ <DressLikeList/>}/>
             <Route path="/mypage/resultsavelist" element={ <ResultSaveList/>}/>
           </Route>
-
-
+          {/*Tryon*/}
           <Route path="tryon" element={ <Tryon /> }/>
           <Route path="tryonresult" element={ <TryonResult />}/>
-
+          {/*드레스리스트*/}
           <Route path="dresslist" element={<DressList/>}/>
         </Route>
         {/*로그인*/}

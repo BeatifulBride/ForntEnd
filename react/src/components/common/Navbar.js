@@ -32,24 +32,21 @@ function Navbar() {
     const onClickMain = () => {
         navigate("/", { replace: true });
     }
+
     // 마이페이지로 이동하는 핸들러
     const onClickMypageHandler = () => {
-        navigate("/mypage", {
-            replace: true,
-            state: { accessToken: accessToken }
-        });
+        if (accessToken) {
+            navigate("/mypage", {
+                replace: true,
+                state: { accessToken: accessToken }
+            });
+        } else {
+            alert('로그아웃 상태여서 로그인창으로 이동합니다.');
+            navigate("/login", { replace: true });
+        }
     }
 
 
-    // const isLogin = window.localStorage.getItem('accessToken');
-    // let decoded = null;
-    // if(isLogin !== undefined && isLogin !== null) {
-    //     const temp = decodeJwt(window.localStorage.getItem("accessToken"));
-    //     console.log(temp);
-    //     decoded = temp.auth[0];
-    // }
-
-    // console.log('decoded ', decoded);
     return (
         <>
             <div className={NavCSS.PageContainer}>
@@ -67,7 +64,7 @@ function Navbar() {
                             )}
                         </div>
                         <div className={NavCSS.NavbarDiv2}>
-                            {loginMember && <b>{`${loginMember?.data?.memName}님 환영합니다`}</b>}
+                            {loginMember?.data?.memName && <b>{`${loginMember.data.memName}님 환영합니다`}</b>}
                         </div>
                     </div>
                 </div>
