@@ -16,6 +16,9 @@ import ResultList from "./pages/products/ResultList";
 import DressLikeList from "./pages/products/DressLikeList";
 import ResultSaveList from "./pages/products/ResultSaveList";
 import TryonResult from "./pages/products/TryonResult";
+import CompanyMypage from "./pages/company/CompanyMypage";
+import CompanyDressRe from "./pages/company/CompanyDressRe";
+import CompanyDressList from "./pages/company/CompanyDressList";
 
 
 
@@ -53,6 +56,12 @@ function App() {
         {/*error*/}
         <Route path="*" element={ <Error/> }/>
 
+        {/*드레스 업체*/}
+        <Route path="/company" element={<CompanyMypage/>} />
+        {/*  드레스 등록 */}
+         <Route path="/companydress" element={<CompanyDressRe/>} />
+        {/* 업체 드레스 리스트 */}
+        <Route path="/companylist" element={<CompanyDressList/>} />
       </Routes>
 
     </BrowserRouter>
