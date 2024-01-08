@@ -47,15 +47,14 @@ function DressSelectTop() {
                         <img src={dressData.dressPath} alt={`Dress ${index}`}/>
                         <div className={dress.textContainer}>
                             <div><b>Dress Name: {dressData.dressName}</b></div>
-                            {/*<div><b>Type: {dressData.dressType}</b></div>*/}
-                            {/*<div><b>Company: {dressData.dressCompany}</b></div>*/}
+                            <div><b>Type: {dressData.dressLine}</b></div>
+                            <div><b>Company: {dressData.companyName}</b></div>
                         </div>
                         <button onClick={() => onClickTryOnHandler(dressData)}>
                             Try-on
                         </button>
                     </div>
                 ))}
-                {/*{currentItems.length === 5 && <div className={dress.brideContainer} style={{ visibility: 'hidden' }}></div>}*/}
             </div>
         </div>
     )

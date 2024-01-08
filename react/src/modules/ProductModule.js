@@ -3,7 +3,7 @@ import { createActions, handleActions } from 'redux-actions';
 /* 초기값 */
 const initialState = {
     data: [],
-    tryOnResult: null,
+    tryOnResult: [],
     tryOnError: null
 };
 
@@ -32,11 +32,9 @@ const productReducer = handleActions(
             return { ...state, data: payload };
         },
         [TRY_ON_SUCCESS]: (state, { payload }) => {
-            // 'Try-on' 성공 결과를 상태에 반영하는 로직
             return { ...state, tryOnResult: payload };
         },
         [TRY_ON_FAIL]: (state, { payload }) => {
-            // 'Try-on' 실패 결과를 상태에 반영하는 로직
             return { ...state, tryOnError: payload };
         }
     },

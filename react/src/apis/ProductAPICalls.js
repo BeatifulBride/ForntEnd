@@ -81,26 +81,42 @@ export const callDressSelectTopAPI =() => {
 }
 
 export const callTryOnAPI = (image, dressData) => {
-    const requestURL = 'http://1.214.19.22:6900/tryon/starttryon';
+    // const requestURL = 'http://1.214.19.22:6900/tryon/starttryon';
+    const requestURL = 'http://127.0.0.1:8000/tryon/starttryon';
+
 
     return async (dispatch) => {
         try {
             const formData = new FormData();
-            formData.append('multipartFile', image);
+            formData.append('multipartfile', image);
             formData.append('companyName', dressData.companyName);
             formData.append('dressIndex', dressData.dressIndex);
+            formData.append('dressPath', dressData.dressPath);
+            console.log('Image:', image);
+            console.log('Company Name:', dressData.companyName);
+            console.log('Dress Index:', dressData.dressIndex);
+            console.log('Dress Path:', dressData.dressPath);
+
 
             const response = await fetch(requestURL, {
                 method: 'POST',
                 body: formData
             });
 
+            // const resultImage = await response.blob();
+            // const imageObjectURL = URL.createObjectURL(resultImage);
+            // const errorBlob = await response.blob();
+            // const errorText = await new Response(errorBlob).text();
             const result = await response.json();
+            // const result1 = await response.blob()
 
             if (response.ok) {
                 console.log('[TryOnAPICalls] callTryOnAPI RESULT: ', result);
+                // console.log('[TryOnAPICalls] callTryOnAPI RESULT: ', imageObjectURL);
                 dispatch({ type: TRY_ON_SUCCESS, payload: result });
+                // dispatch({ type: TRY_ON_SUCCESS, payload: { dressImageUrl: imageObjectURL}})
             } else {
+                const error = await response.json()
                 dispatch({ type: TRY_ON_FAIL, payload: result });
             }
         } catch (error) {

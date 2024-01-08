@@ -203,3 +203,41 @@
     grid-column: 2; /* 버튼을 두 번째 컬럼에 배치합니다. */
     /* 필요한 경우 추가 스타일 */
 }
+
+.heart {
+    position: relative;
+    width: 100px; /* or any size */
+    height: 90px; /* or any size */
+    background-color: red;
+    transform: rotate(-45deg);
+    margin: 50px;
+}
+
+.heart:before,
+.heart:after {
+    content: "";
+    position: absolute;
+    width: 100px; /* same as parent */
+    height: 100px; /* same as parent */
+    background-color: #ccc;
+}
+.heart.filled:before,
+.heart.filled:after {
+    background-color: red; /* 채워진 하트 색상: 빨간색으로 설정 */
+}
+
+.heart:before {
+    border-radius: 100px 100px 0 0;
+    top: -50px; /* half of the width/height */
+    left: 0;
+}
+
+
+
+.heart:after {
+    border-radius: 100px 100px 0 0;
+    top: 0;
+    left: 50px; /* half of the width */
+}
+
+
