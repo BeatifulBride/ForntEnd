@@ -46,7 +46,7 @@ function App() {
         </Route>
         {/*로그인*/}
         <Route path="/login" element={ <Login/> } />
-        <Route path="/companylogin" element={<CompanyLogin/>} />
+        {/*<Route path="/companylogin" element={<CompanyLogin/>} />*/}
         {/*회원가입*/}
         <Route path="/selectregister" element={<SelectRegister/>} />
         <Route path="/companyregister" element={<CompanyRegister/>} />

@@ -71,7 +71,6 @@ function Login({history}) {
         });
 
         axios.post(
-            // 'http://localhost:8080/auth/login',
             'http://1.214.19.22:6900/auth/login',
             formData,
             {
@@ -81,21 +80,42 @@ function Login({history}) {
             }
         )
             .then(response => {
-                const token = response.data;
-                const decode_token = jwtDecode(token);
+                const responseData = response.data;
 
-                console.log(decode_token);
+                if (responseData && responseData.token) {
+                    // 서버 응답에서 토큰과 company 정보를 꺼내기
+                    const token = responseData.token;
+                    const company = responseData.company;
 
-                if (response.data) {
-                    // 성공적인 로그인 처리
-                    sessionStorage.setItem("accessToken", response.data);
-                    navigate('/');
+                    try {
+                        // 토큰 디코딩
+                        const decode_token = jwtDecode(token);
+                        console.log("Decoded Token:", decode_token);
+                        console.log("Company:", company);
+
+                        // 성공적인 로그인 처리
+                        sessionStorage.setItem("accessToken", token);
+
+                        // company에 따라 페이지 이동
+                        if (company === "true") {
+                            navigate('/company');
+                        } else {
+                            navigate('/');
+                        }
+                    } catch (decodeError) {
+                        console.error("Error decoding token:", decodeError);
+                        // 디코딩 에러 처리
+                        sessionStorage.clear();
+                    }
                 } else {
+                    console.error("No token received from the server.");
+                    // 토큰이 없을 때의 처리
                     sessionStorage.clear();
                 }
             })
             .catch(error => {
-                console.log(error);
+                console.error("Error during login request:", error);
+                // 로그인 요청 중에 발생한 에러 처리
                 sessionStorage.clear();
             });
     };
@@ -106,21 +126,21 @@ function Login({history}) {
             <div className={SelectRegisterCSS.appAside}/>
             <div className={SelectRegisterCSS.appForm}>
                 <div className={SelectRegisterCSS.pageSwitcher}>
-                    <NavLink
-                        to="/login"
-                        activeClassName="pageSwitcherItem-active"
-                        className={SelectRegisterCSS.pageSwitcherItem}
-                        style={{color:"white"}}
-                    >
-                        Bride Login(일반 로그인)
-                    </NavLink>
-                    <NavLink
-                        to="/companylogin"
-                        activeClassName="pageSwitcherItem-active"
-                        className={SelectRegisterCSS.pageSwitcherItem}
-                    >
-                        Company Login(드레스업체  로그인)
-                    </NavLink>
+                    {/*<NavLink*/}
+                    {/*    to="/login"*/}
+                    {/*    activeClassName="pageSwitcherItem-active"*/}
+                    {/*    className={SelectRegisterCSS.pageSwitcherItem}*/}
+                    {/*    style={{color:"white"}}*/}
+                    {/*>*/}
+                    {/*    Bride Login(일반 로그인)*/}
+                    {/*</NavLink>*/}
+                    {/*<NavLink*/}
+                    {/*    to="/companylogin"*/}
+                    {/*    activeClassName="pageSwitcherItem-active"*/}
+                    {/*    className={SelectRegisterCSS.pageSwitcherItem}*/}
+                    {/*>*/}
+                    {/*    Company Login(드레스업체  로그인)*/}
+                    {/*</NavLink>*/}
                 </div>
                 <div className={LoginCSS.backgroundDiv}>
                     <div className={LoginCSS.loginDiv}>

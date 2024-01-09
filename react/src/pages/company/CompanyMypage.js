@@ -96,7 +96,7 @@ function  CompanyMypage() {
                 <div className={CompanyMypageCSS.name}>
                     업체명 : <input type="text" placeholder="업체명" value={companyName}/>
                 </div>
-                <div className={CompanyMypageCSS.address}>
+                <div className={CompanyMypageCSS.address}>`
                     주소 : <input type="text" placeholder="주소" value={address} onChange={handlerChangeCompanyAddress} />
                     <button type='button' className={CompanyMypageCSS.address_btn} onClick={handleClick}>
                         주소찾기
