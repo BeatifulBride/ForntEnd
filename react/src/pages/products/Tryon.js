@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styles from '../products/Tryon.module.css';
 import {useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
+import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 
 
 import {
@@ -43,7 +44,8 @@ function Tryon() {
         }
     };
     const heartChange = () => {
-        alert('하트가 왜안되~')
+
+        alert('하트가 나와라 뾰옹~')
         setHeart(!heart);
     };
 
@@ -71,7 +73,9 @@ function Tryon() {
                         {dressData ? (
                             <>
                                 <img src={dressData.dressPath} className={styles.dressImage}/>
-                                <div className={`${styles.heart} ${heart ? styles.filled : ''}`} onClick={heartChange}></div>
+                                <div className={styles.heart} onClick={heartChange}>
+                                    {heart ? <MdFavorite size="2.2em"/> : <MdFavoriteBorder size="2.2em"/>}
+                                </div>
                             </>
                         ) : (
                             <div className={styles.dressPlaceholder}>

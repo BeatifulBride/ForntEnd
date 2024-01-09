@@ -78,13 +78,13 @@ export const callMainInfoAPI = (loginId) => {
     };
 };
 
-export const callDressLikeAPI = () => {
+export const callDressLikeAPI = ({dressIndex}) => {
     const requestURL = `http://1.214.19.22:6900/dress/like`;
 
     return async (dispatch) => {
         try {
             const response = await fetch(requestURL, {
-                method: "PUT",
+                method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "Accept": "application/json",
