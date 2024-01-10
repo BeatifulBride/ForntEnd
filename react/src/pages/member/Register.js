@@ -494,6 +494,7 @@ function Register({history}) {
                 >
                     로그인 하기
                 </button>
+                <Icon className={ RegisterCSS.login_icon} icon="line-md:login" />
             </div>
         </div>
     );

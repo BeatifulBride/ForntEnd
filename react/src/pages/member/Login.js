@@ -59,6 +59,10 @@ function Login({history}) {
     const handlerChangeUserPwd = e => setLoginPwd(e.target.value);
 
     const onClickRegisterHandler = () => {
+        navigate("/companyregister", { replace: true })
+    }
+
+    const onClickUserRegisterHandler = () => {
         navigate("/selectregister", { replace: true })
     }
 
@@ -93,13 +97,12 @@ function Login({history}) {
                         console.log("Decoded Token:", decode_token);
                         console.log("Company:", company);
 
-                        // 성공적인 로그인 처리
-                        sessionStorage.setItem("accessToken", token);
-
                         // company에 따라 페이지 이동
                         if (company === "true") {
+                            sessionStorage.setItem("accessToken", JSON.stringify(token));
                             navigate('/company');
                         } else {
+                            sessionStorage.setItem("accessToken", JSON.stringify(token));
                             navigate('/');
                         }
                     } catch (decodeError) {
@@ -122,34 +125,14 @@ function Login({history}) {
 
 
     return (
-        <div className={SelectRegisterCSS.App}>
-            <div className={SelectRegisterCSS.appAside}/>
-            <div className={SelectRegisterCSS.appForm}>
-                <div className={SelectRegisterCSS.pageSwitcher}>
-                    {/*<NavLink*/}
-                    {/*    to="/login"*/}
-                    {/*    activeClassName="pageSwitcherItem-active"*/}
-                    {/*    className={SelectRegisterCSS.pageSwitcherItem}*/}
-                    {/*    style={{color:"white"}}*/}
-                    {/*>*/}
-                    {/*    Bride Login(일반 로그인)*/}
-                    {/*</NavLink>*/}
-                    {/*<NavLink*/}
-                    {/*    to="/companylogin"*/}
-                    {/*    activeClassName="pageSwitcherItem-active"*/}
-                    {/*    className={SelectRegisterCSS.pageSwitcherItem}*/}
-                    {/*>*/}
-                    {/*    Company Login(드레스업체  로그인)*/}
-                    {/*</NavLink>*/}
-                </div>
                 <div className={LoginCSS.backgroundDiv}>
                     <div className={LoginCSS.loginDiv}>
-                        <h1 className={LoginCSS.h1}>로그인</h1>
+                        <h1 className={LoginCSS.h1}>LOGIN</h1>
                         <div className={LoginCSS.userid}>
                             <input
                                 type="text"
                                 name='loginId'
-                                placeholder="아이디"
+                                placeholder="ID"
                                 value={loginId}
                                 autoComplete='off'
                                 onChange={handlerChangeUserId}
@@ -160,7 +143,7 @@ function Login({history}) {
                             <input
                                 type="password"
                                 name='loginPwd'
-                                placeholder="패스워드"
+                                placeholder="PASSWORD"
                                 value={loginPwd}
                                 autoComplete='off'
                                 onChange={handlerChangeUserPwd}
@@ -172,18 +155,23 @@ function Login({history}) {
                         <button className={LoginCSS.login_btn}
                                 onClick={onClickLoginHandler}
                         >
-                            로그인
+                            LOGIN
                         </button>
                     </div>
+                    <div className={LoginCSS.btn}>
+                        <Icon className={LoginCSS.bride} icon="material-symbols:girl" />
                     <button
-                        style={{border: 'none', margin: 0, fontSize: '10px', height: '10px'}}
-                        onClick={onClickRegisterHandler}
-                    >
-                        회원가입
+                        className={LoginCSS.uregbtn}
+                        onClick={onClickUserRegisterHandler}
+                    ><span>예비 신부 회원가입</span>
                     </button>
-                </div>
-            </div>
-            <div className={SelectRegisterCSS.appAside2}/>
+                        <Icon className={LoginCSS.dress} icon="game-icons:large-dress" />
+                    <button
+                        className={LoginCSS.regbtn}
+                        onClick={onClickRegisterHandler}
+                    ><span>드레스 업체 회원가입</span>
+                    </button>
+                    </div>
         </div>
     );
 }

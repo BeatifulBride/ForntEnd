@@ -1,6 +1,6 @@
 import CompanyRegisterCSS from './CompanyRegister.module.css';
 import {NavLink, Route, Routes, useNavigate} from 'react-router-dom';
-import { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate } from "react-router-dom";
 import $ from 'jquery';
@@ -15,6 +15,7 @@ import { useDaumPostcodePopup } from 'react-daum-postcode';
 import login from "./Login";
 import SelectRegisterCSS from "./SelectRegister.module.css";
 import Register from "./Register";
+import RegisterCSS from "./Register.module.css";
 
 
 function CompanyRegister({history}) {
@@ -350,31 +351,32 @@ function CompanyRegister({history}) {
     const onClickBackHandler = () => {
 
         /* 돌아가기 클릭시 메인 페이지로 이동 */
-        navigate("/companylogin", { replace: true })
+        navigate("/login", { replace: true })
     }
 
 
     return (
+        <div className={SelectRegisterCSS.Background}>
+            <div className={SelectRegisterCSS.pageSwitcher}>
+                <NavLink
+                    to="/selectregister"
+                    activeClassName="pageSwitcherItem-active"
+                    className={SelectRegisterCSS.pageSwitcherItem}
+                >
+                    Register(일반회원가입)
+                </NavLink>
+                <NavLink
+                    to="/companyregister"
+                    activeClassName="pageSwitcherItem-active"
+                    className={SelectRegisterCSS.pageSwitcherItem}
+                    style={{color:"white"}}
+                >
+                    CompanyRegister(드레스업체 회원가입)
+                </NavLink>
+            </div>
         <div className={SelectRegisterCSS.App}>
             <div className={SelectRegisterCSS.appAside}/>
             <div className={SelectRegisterCSS.appForm}>
-                <div className={SelectRegisterCSS.pageSwitcher}>
-                    <NavLink
-                        to="/selectregister"
-                        activeClassName="pageSwitcherItem-active"
-                        className={SelectRegisterCSS.pageSwitcherItem}
-                    >
-                        Register(일반회원가입)
-                    </NavLink>
-                    <NavLink
-                        to="/companyregister"
-                        activeClassName="pageSwitcherItem-active"
-                        className={SelectRegisterCSS.pageSwitcherItem}
-                        style={{color:"white"}}
-                    >
-                        CompanyRegister(드레스업체 회원가입)
-                    </NavLink>
-                </div>
                 <div className={ CompanyRegisterCSS.backgroundDiv}>
                     <div className={CompanyRegisterCSS.registerDiv}>
                         <h1 className={CompanyRegisterCSS.h1}>Dress Company Registration</h1>
@@ -528,7 +530,7 @@ function CompanyRegister({history}) {
                             type="submit"
                             disabled={!(loginId && loginPwd && isPasswordCheck && isEmail && companyPhone && isEmailSent && isEmailCode)}
                         >
-                            Dress Comapany Create Account
+                            Create Account
                         </button>
                     </div>
                     <div className='login_box'>
@@ -538,6 +540,7 @@ function CompanyRegister({history}) {
                         >
                             로그인 하기
                         </button>
+                        <Icon className={ RegisterCSS.login_icon} icon="line-md:login" />
                     </div>
                 </div>
                 <Routes>
@@ -545,6 +548,8 @@ function CompanyRegister({history}) {
                 </Routes>
             </div>
             <div className={SelectRegisterCSS.appAside2}/>
+
+        </div>
         </div>
     );
 }
