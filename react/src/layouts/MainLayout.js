@@ -11,12 +11,11 @@ function MainLayout() {
     return (
         <div className={Main.Main}>
             <div className={Main.MainImagesContainer}>
-                <MainSampleImage/>
-                <MainSampleImage/>
+
                 <MainSampleImage/>
 
             </div>
-            <div>Select Top5</div>
+            <div className={Main.select}>Select Top5</div>
             <DressSelectTop items={items} />
 
         </div>

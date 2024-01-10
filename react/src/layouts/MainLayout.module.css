@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Hahmlet-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/Hahmlet-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* MainLayout.module.css */
 .Main {
     display: flex;
@@ -6,6 +13,13 @@
     justify-content: center;
     padding: 20px;
     gap: 20px; /* 컴포넌트 간의 간격 */
+}
+
+.select{
+    font-size: 50px;
+    font-family: 'Hahmlet-Regular';
+    font-weight: bold;
+    margin-top: 150px;
 }
 
 /* 이미지를 담고 있는 div에 대한 스타일 */

@@ -38,13 +38,46 @@ function DressSelectTop() {
         }
     }, [dreesSelectList]);
 
+
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const elements = document.querySelectorAll('.brideContainer, .brideContainerbest');
+        elements.forEach((el) => observer.observe(el));
+
+        // 컴포넌트가 언마운트 될 때 observer를 정리합니다.
+        return () => elements.forEach((el) => observer.unobserve(el));
+    }, []);
+
+
     return(
-        <div>
+        <div className={dress.back}>
+            <div className={dress.best}>
+                {currentItems.slice(0,1).map((dressData, index) => (
+                    <div key={index} className={dress.brideContainerbest}>
+                        <img src={dressData.dressPath} alt={`Dress ${index}`}/>
+                        <div className={dress.textContainertu}>
+                            <div><b>Dress Name: {dressData.dressName}</b></div>
+                            <div><b>Type: {dressData.dressLine}</b></div>
+                            <div><b>Company: {dressData.companyName}</b></div>
+                        </div>
+                        <button onClick={() => onClickTryOnHandler(dressData)}>
+                            Try-on
+                        </button>
+                    </div>
+                ))}
+            </div>
 
             <div className={dress.container}>
-                {currentItems.map((dressData, index) => (
+                {currentItems.slice(1, 5).map((dressData, index) => (
                     <div key={index} className={dress.brideContainer}>
-                        <img src={dressData.dressPath} alt={`Dress ${index}`}/>
+                        <img src={dressData.dressPath} alt={`Dress ${index + 1}`}/>
                         <div className={dress.textContainer}>
                             <div><b>Dress Name: {dressData.dressName}</b></div>
                             <div><b>Type: {dressData.dressLine}</b></div>

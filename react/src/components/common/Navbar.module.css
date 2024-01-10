@@ -35,7 +35,7 @@ a {
 
 a:focus, a:hover {
     text-decoration: none;
-    color: white;
+    color: black;
     font-weight: bold;
 }
 
@@ -60,7 +60,7 @@ a:focus, a:hover {
 }
 
 .PageContainer {
-    border-bottom: solid 1px black;
+    border-bottom: solid 1px #A8A8A9;
     /* 기타 페이지 레이아웃 스타일 */
 }
 

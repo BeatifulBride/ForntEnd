@@ -4,7 +4,7 @@
     color: black;
 }
 .Background{
-    background-image: url('J:\frontend\ForntEnd\react\src\image\main.png');
+    background-image: url('../../image/main.png');
     filter: brightness(115%);
     background-attachment: fixed;
     padding-top: 50px;

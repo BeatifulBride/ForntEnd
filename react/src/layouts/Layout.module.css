@@ -1,4 +1,9 @@
-
+.background{
+    background-image: url('../image/main.png');
+    filter: brightness(115%);
+    background-attachment: fixed;
+    padding-top: 50px;
+}
 .main {
     width: 100%;
     height: 80vh;
