@@ -1,9 +1,10 @@
 @font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
+    font-family: 'Hahmlet-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/Hahmlet-Regular.woff2') format('woff2');
+    font-weight: normal;
     font-style: normal;
 }
+
 
 .backgroundDiv{
     height: 100vh;
@@ -13,28 +14,25 @@
     justify-content: center;
     margin: 0;
     padding: 0;
-    background-color: #EDE9E6;
+    background-color: #none;
 }
 
 .registerDiv{
-    height: 1000px;
+    height: 790px;
     width: 900px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column; /*수평 정렬*/
     align-items: center;
     justify-content: center;
-    padding: 0;
-    background-color: #EDE9E6;
-    margin-top: 220px;
-    /* border: solid 1px black; */
-    border-radius: 25px;
+    background-color: none;
+    margin-top: -230px;
 }
 
 .h1{
     color: #000;
     text-align: center;
-    font-family: 'Pretendard-Regular';
+    font-family: 'Hahmlet-Regular';
     margin-top: -20px;
     font-size: 50px;
     font-style: normal;
@@ -78,7 +76,7 @@
     flex-shrink: 0;
     border-radius: 10px;
     border: 1px solid #A8A8A9;
-    background:  RGB(164,198,222);
+    background: #A8A8A9;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
@@ -258,7 +256,7 @@ p {
     flex-shrink: 0;
     border-radius: 10px;
     border: 1px solid #A8A8A9;
-    background:  RGB(164,198,222);
+    background: #A8A8A9;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
@@ -303,7 +301,7 @@ p {
     flex-shrink: 0;
     border-radius: 10px;
     border: 1px solid #A8A8A9;
-    background:  RGB(164,198,222);
+    background: #A8A8A9;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
@@ -380,26 +378,41 @@ p {
     height: 45px;
     width: 370px;
     display: flex;
-    margin-top: 10px;
+    margin-top: -50px;
     height: 45px;
     padding: 21px 109px;
     justify-content: center;
     align-items: center;
     gap: 10px;
     flex-shrink: 0;
+    border: none;
     border-radius: 4px;
-    background: RGB(164, 198, 222);
-    font-size: 20px;
-    font-family: 'Pretendard-Regular';
+    background: #A8A8A9;
+    font-size: 18px;
+    font-family: 'Hahmlet-Regular';
 
 }
 
 .login_btn{
-    margin-top: -100px;
+    margin-top: 20px;
+    margin-left: 280px;
     border: none;
-    fontSize: 10px;
-    height: 10px;
+    font-size: 15px;
+    height: 20px;
+    background-color: rgb(0, 0, 0, 0);
+    font-weight: bold;
 }
+.login_btn:hover {
+    border-bottom: 1px solid black; /* hover 시에 테두리를 1px의 검은색 테두리로 설정 */
+}
+
+.login_icon{
+    margin-bottom: -4px;
+    margin-left: -5px;
+    width: 20px;
+    height: 20px;
+}
+
 
 .CalendarContainer{
     position: relative;

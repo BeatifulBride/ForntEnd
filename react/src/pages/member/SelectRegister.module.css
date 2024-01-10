@@ -3,28 +3,29 @@
     display: flex;
     color: black;
 }
-
+.Background{
+    background-image: url('J:\frontend\ForntEnd\react\src\image\main.png');
+    filter: brightness(115%);
+    background-attachment: fixed;
+    padding-top: 50px;
+}
 .appAside {
     width:25%;
-    background-color: #9BBACC;
 }
 
 .appAside2 {
     width:25%;
-    background-color: #9BBACC;
 }
 
 .appForm {
     width: 50%;
-    background-color: #EDE9E6;
     padding: 25px 40px;
     overflow: auto;
 }
 
 .pageSwitcher {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 10%;
+    margin-bottom: 10px;
+    margin-left: 1350px;
 }
 
 .pageSwitcherItem {
