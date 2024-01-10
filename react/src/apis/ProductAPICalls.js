@@ -6,27 +6,6 @@ import {
 
 
 
-// Dress 좋아요 버튼 API
-// export const callDressLikeAPI = (form) => {
-//     const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/dress/like?`;
-//
-//     return async (dispatch, getState) => {
-//         const response = await fetch(requestURL, {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/x-www-form-urlencoded",
-//                 "Accept": "*/*"
-//             },
-//             body: form
-//         });
-//
-//         const result = await response
-//
-//         dispatch({ type: POST_DRESSLIKE, payload: result.data })
-//     }
-// }
-
-
 export const callDressListAPI = () => {
     const requestURL = `http://1.214.19.22:6900/dress/list`;
 
@@ -84,7 +63,6 @@ export const callTryOnAPI = (image, dressData) => {
     // const requestURL = 'http://1.214.19.22:6900/tryon/starttryon';
     const requestURL = 'http://127.0.0.1:8000/tryon/starttryon';
 
-
     return async (dispatch) => {
         try {
             const formData = new FormData();
@@ -103,18 +81,13 @@ export const callTryOnAPI = (image, dressData) => {
                 body: formData
             });
 
-            // const resultImage = await response.blob();
-            // const imageObjectURL = URL.createObjectURL(resultImage);
-            // const errorBlob = await response.blob();
-            // const errorText = await new Response(errorBlob).text();
             const result = await response.json();
-            // const result1 = await response.blob()
+
 
             if (response.ok) {
                 console.log('[TryOnAPICalls] callTryOnAPI RESULT: ', result);
-                // console.log('[TryOnAPICalls] callTryOnAPI RESULT: ', imageObjectURL);
                 dispatch({ type: TRY_ON_SUCCESS, payload: result });
-                // dispatch({ type: TRY_ON_SUCCESS, payload: { dressImageUrl: imageObjectURL}})
+
             } else {
                 const error = await response.json()
                 dispatch({ type: TRY_ON_FAIL, payload: result });

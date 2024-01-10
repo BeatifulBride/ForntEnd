@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styles from '../products/Tryon.module.css';
 import {useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
+import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 
 
 import {
@@ -20,10 +21,19 @@ function Tryon() {
     const [previewUrl, setPreviewUrl] = useState('');
     const [heart, setHeart] = useState(false);
 
-    const { selectedDress } = location.state || {};
+    const {selectedDress} = location.state || {};
     const dressData = location.state ? location.state.selectedDress : {};
+
+    const [userLoginId, setUserLoginId] = useState('test');
+
+    console.log("이거는 뭐야?", dressData)
     console.log("넘어오는 데이터 값은", JSON.stringify(selectedDress, null, 2));
 
+
+    useEffect(() => {
+
+
+    }, []);
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -42,28 +52,41 @@ function Tryon() {
             });
         }
     };
+
     const heartChange = () => {
-        alert('하트가 왜안되~')
-        setHeart(!heart);
+        if (dressData) {
+            const { dressIndex } = dressData;
+
+            setHeart(current => !current);
+            dispatch(callDressLikeAPI(dressIndex)).then((response) => {
+                if (response.ok) {
+                } else {
+                    setHeart(current => !current);
+                }
+            }).catch((error) => {
+                console.error('Dress Like API call failed:', error);
+                setHeart(current => current);
+            });
+        }
     };
 
     return (
-        <div className={styles.tryonWrapper}>
-
-            <div className={`${styles.commonSectionStyle} ${styles.imageUploadSection}`}>
-                <div className={styles.imageContainer} onClick={() => document.getElementById('file-input').click()}>
-                    {previewUrl && <img src={previewUrl} alt="Uploaded" className={styles.imagePreview}/>}
-                    {!previewUrl && <div className={styles.uploadPlaceholder}>사용자 전신 사진</div>}
-                    <div className={styles.uploadButtonWrapper}>
-                        <div className={styles.uploadButton}>+</div>
+            <div className={styles.tryonWrapper}>
+                <div className={`${styles.commonSectionStyle} ${styles.imageUploadSection}`}>
+                    <div className={styles.imageContainer}
+                         onClick={() => document.getElementById('file-input').click()}>
+                        {previewUrl && <img src={previewUrl} alt="Uploaded" className={styles.imagePreview}/>}
+                        {!previewUrl && <div className={styles.uploadPlaceholder}>사용자 전신 사진</div>}
+                        <div className={styles.uploadButtonWrapper}>
+                            <div className={styles.uploadButton}>+</div>
+                        </div>
                     </div>
+                    <input id="file-input" type="file" onChange={handleImageChange} style={{display: 'none'}}/>
                 </div>
-                <input id="file-input" type="file" onChange={handleImageChange} style={{display: 'none'}}/>
-            </div>
 
-            <div className={styles.centerButton}>
-                <button className={styles.tryOnButton} onClick={handleTryOn}>Try-on</button>
-            </div>
+                <div className={styles.centerButton}>
+                    <button className={styles.tryOnButton} onClick={handleTryOn}>Try-on</button>
+                </div>
 
 
                 <div className={`${styles.commonSectionStyle} ${styles.dressSection}`}>
@@ -71,7 +94,9 @@ function Tryon() {
                         {dressData ? (
                             <>
                                 <img src={dressData.dressPath} className={styles.dressImage}/>
-                                <div className={`${styles.heart} ${heart ? styles.filled : ''}`} onClick={heartChange}></div>
+                                <div className={styles.heart} onClick={heartChange}>
+                                    {heart ? <MdFavorite size="2.2em"/> : <MdFavoriteBorder size="2.2em"/>}
+                                </div>
                             </>
                         ) : (
                             <div className={styles.dressPlaceholder}>
@@ -80,8 +105,9 @@ function Tryon() {
                         )}
                     </div>
                 </div>
-        </div>
-    );
-}
+            </div>
+        );
+    }
+
 
 export default Tryon;

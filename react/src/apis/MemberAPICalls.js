@@ -1,7 +1,7 @@
 
 import {
     POST_LOGIN,
-    PUT_DRESSLIKE
+    GET_DRESSLIKE
 } from '../modules/MemberModule';
 import {
     GET_MAININFO
@@ -30,7 +30,7 @@ export const callLoginAPI = ({form}) => {
         })
         .then(response => response);
 
-        console.log('[MemberAPICalls] callLoginAPI RESULT : ', result);
+        console.log('[MemberAPICalls] callLoginAPI RESULT11111111111111: ', result);
         if(result.status === 200){
             window.localStorage.setItem('loginInfo', result.data);
         }
@@ -53,6 +53,7 @@ export const callLogoutAPI = () => {
 
 export const callMainInfoAPI = (loginId) => {
     const requestURL = `http://1.214.19.22:6900/mem/maininfoTest?loginId=${loginId}`;
+
 
     return async (dispatch) => {
         try {
@@ -78,34 +79,29 @@ export const callMainInfoAPI = (loginId) => {
     };
 };
 
-export const callDressLikeAPI = () => {
-    const requestURL = `http://1.214.19.22:6900/dress/like`;
-
+export const callDressLikeAPI = ( dressIndex ) => {
+    const requestURL = `http://1.214.19.22:6900/mem/mark/${dressIndex}`;
     return async (dispatch) => {
         try {
             const response = await fetch(requestURL, {
-                method: "PUT",
+                method: "GET",
                 headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
                     "Accept": "application/json",
                 }
-            })
+            });
 
             if(!response.ok) {
-                throw  new Error(`HTTP error! status: ${response.status}`)
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            const data = await response.json()
-            console.log('[MemberAPICalls] callDressLikeAPI RESULT : ', data)
-            dispatch({ type: PUT_DRESSLIKE, payload: data })
+            const data = await response.json();
+            console.log('[MemberAPICalls] callDressLikeAPI RESULT : ', data);
+            dispatch({ type: GET_DRESSLIKE, payload: data });
+            return data;
         } catch (error) {
-            console.error('Error fetching error', error)
+            console.error('Error fetching error', error);
         }
-    }
-
-
-}
-
-
+    };
+};
 
 

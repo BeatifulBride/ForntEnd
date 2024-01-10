@@ -11,16 +11,16 @@ const Mypage = () => {
         <div className={styles.container}>
             <nav className={styles.navigation}>
                 <button
-                    className={page === 'mypage' ? styles.active : styles.button}
-                    onClick={() => setPage('mypage')}
-                >
-                    저장목록
-                </button>
-                <button
                     className={page === 'mypage/dresslikelist' ? styles.active : styles.button}
                     onClick={() => setPage('mypage/dresslikelist')}
                 >
-                    좋아요 목록
+                    좋아요 목록ㅈㄴ
+                </button>
+                <button
+                    className={page === 'mypage' ? styles.active : styles.button}
+                    onClick={() => setPage('mypage')}
+                >
+                    좋아요목록
                 </button>
 
                 <button
@@ -31,9 +31,7 @@ const Mypage = () => {
                 </button>
             </nav>
             <main className={styles.content}>
-                {page === 'mypage' && <ResultList/>}
-                {page === 'mypage/dresslikelist' && <DressLikeList/>}
-                {page === 'mypage/resultsavelist' && <ResultSaveList/>}
+                {page === 'mypage' && <DressLikeList/>}
             </main>
         </div>
     );
