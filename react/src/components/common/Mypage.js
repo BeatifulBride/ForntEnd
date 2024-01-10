@@ -10,12 +10,7 @@ const Mypage = () => {
     return (
         <div className={styles.container}>
             <nav className={styles.navigation}>
-                <button
-                    className={page === 'mypage/dresslikelist' ? styles.active : styles.button}
-                    onClick={() => setPage('mypage/dresslikelist')}
-                >
-                    좋아요 목록ㅈㄴ
-                </button>
+
                 <button
                     className={page === 'mypage' ? styles.active : styles.button}
                     onClick={() => setPage('mypage')}
@@ -23,12 +18,12 @@ const Mypage = () => {
                     좋아요목록
                 </button>
 
-                <button
-                    className={page === '/mypage/resultsavelist' ? styles.active : styles.button}
-                    onClick={() => setPage('/mypage/resultsavelist')}
-                >
-                    결과물 저장 목록
-                </button>
+                {/*<button*/}
+                {/*    className={page === '/mypage/resultsavelist' ? styles.active : styles.button}*/}
+                {/*    onClick={() => setPage('/mypage/resultsavelist')}*/}
+                {/*>*/}
+                {/*    결과물 저장 목록*/}
+                {/*</button>*/}
             </nav>
             <main className={styles.content}>
                 {page === 'mypage' && <DressLikeList/>}

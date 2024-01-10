@@ -47,6 +47,7 @@ const DressLikeList = () => {
     };
 
     useEffect(() => {
+
         dispatch(callDressListAPI());
     }, [dispatch]);
 

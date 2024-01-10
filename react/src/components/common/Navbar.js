@@ -22,10 +22,10 @@ function Navbar() {
 
     useEffect(() => {
         if (accessToken) {
-            const decodedToken = jwtDecode(accessToken);
-            console.log(decodedToken);
-
-            dispatch(callMainInfoAPI(decodedToken.sub));
+            /* 백단의 로직으로 인하여 decode 노필요 */
+            // const decodedToken = jwtDecode(accessToken);
+            // console.log(decodedToken);
+            dispatch(callMainInfoAPI(accessToken));
         }
     }, [dispatch, accessToken]);
 

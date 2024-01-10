@@ -4,7 +4,6 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 
-
 import {
     callTryOnAPI
 } from "../../apis/ProductAPICalls";
@@ -23,8 +22,6 @@ function Tryon() {
 
     const {selectedDress} = location.state || {};
     const dressData = location.state ? location.state.selectedDress : {};
-
-    const [userLoginId, setUserLoginId] = useState('test');
 
     console.log("이거는 뭐야?", dressData)
     console.log("넘어오는 데이터 값은", JSON.stringify(selectedDress, null, 2));
@@ -57,11 +54,15 @@ function Tryon() {
         if (dressData) {
             const { dressIndex } = dressData;
 
-            setHeart(current => !current);
-            dispatch(callDressLikeAPI(dressIndex)).then((response) => {
-                if (response.ok) {
+            dispatch(callDressLikeAPI(dressIndex)).then((responseText) => {
+
+                if (responseText === "즐겨찾기에 추가 되었습니다.") {
+                    setHeart(true);
+                    alert(responseText);
+                } else if (responseText === "즐겨찾기가 이미 있습니다.") {
+                    alert(responseText);
                 } else {
-                    setHeart(current => !current);
+                    console.error('Unexpected response:', responseText);
                 }
             }).catch((error) => {
                 console.error('Dress Like API call failed:', error);
@@ -69,6 +70,9 @@ function Tryon() {
             });
         }
     };
+
+
+
 
     return (
             <div className={styles.tryonWrapper}>

@@ -51,9 +51,8 @@ export const callLogoutAPI = () => {
 }
 
 
-export const callMainInfoAPI = (loginId) => {
-    const requestURL = `http://1.214.19.22:6900/mem/maininfoTest?loginId=${loginId}`;
-
+export const callMainInfoAPI = (accessToken) => {
+    const requestURL = `http://1.214.19.22:6900/mem/maininfo`;
 
     return async (dispatch) => {
         try {
@@ -62,22 +61,25 @@ export const callMainInfoAPI = (loginId) => {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "Accept": "application/json",
+                    "Authorization": "Bearer " + accessToken
                 },
             });
-
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
+
             }
 
             const data = await response.json();
+            console.log(accessToken)
             console.log('[MemberAPICalls] callMainInfoAPI RESULT11111 : ', data);
-
             dispatch({ type: GET_MAININFO, payload: data });
         } catch (error) {
             console.error('Error fetching main info:', error);
         }
     };
 };
+
+
 
 export const callDressLikeAPI = ( dressIndex ) => {
     const requestURL = `http://1.214.19.22:6900/mem/mark/${dressIndex}`;
@@ -86,16 +88,17 @@ export const callDressLikeAPI = ( dressIndex ) => {
             const response = await fetch(requestURL, {
                 method: "GET",
                 headers: {
+                    "Content-Type": "application/json",
                     "Accept": "application/json",
+                    "Authorization": "Bearer " + window.sessionStorage.getItem("accessToken")
                 }
             });
 
             if(!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-
-            const data = await response.json();
-            console.log('[MemberAPICalls] callDressLikeAPI RESULT : ', data);
+            const data = await response.text();
+            console.log('[MemberAPICalls] callDressLikeAPI RESULT1111 : ', data);
             dispatch({ type: GET_DRESSLIKE, payload: data });
             return data;
         } catch (error) {

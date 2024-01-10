@@ -8,7 +8,6 @@ import MainLayout from "./layouts/MainLayout";
 import CompanyRegister from "./pages/member/CompanyRegister";
 import SelectRegister from "./pages/member/SelectRegister";
 import ForgotInfo from "./pages/member/ForgotInfo";
-import CompanyLogin from "./pages/member/CompanyLogin";
 import ForgotPassword from "./pages/member/ForgotPassword";
 import Mypage from "./components/common/Mypage";
 import DressList from "./components/common/DressList";
@@ -19,7 +18,6 @@ import TryonResult from "./pages/products/TryonResult";
 import CompanyMypage from "./pages/company/CompanyMypage";
 import CompanyDressRe from "./pages/company/CompanyDressRe";
 import CompanyDressList from "./pages/company/CompanyDressList";
-
 
 
 
@@ -34,9 +32,9 @@ function App() {
           <Route index element={ <MainLayout/> }/>
           {/*마이페이지*/}
           <Route path="mypage" element={ <Mypage/> }>
-            <Route index element={ <ResultList/>}/>
-            <Route path="/mypage/dresslikelist" element={ <DressLikeList/>}/>
-            <Route path="/mypage/resultsavelist" element={ <ResultSaveList/>}/>
+            <Route index element={ <DressLikeList/>}/>
+            {/*<Route path="/mypage/dresslikelist" element={ <DressLikeList/>}/>*/}
+            {/*<Route path="/mypage/resultsavelist" element={ <ResultSaveList/>}/>*/}
           </Route>
           {/*Tryon*/}
           <Route path="tryon" element={ <Tryon /> }/>
