@@ -51,7 +51,7 @@ function DressList() {
         }
     };
 
-    useEffect(() => {
+     useEffect(() => {
         dispatch(callDressListAPI());
     }, [dispatch]);
 
