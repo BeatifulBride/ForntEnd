@@ -19,41 +19,18 @@ import qs from 'qs';
 function Login({history}) {
 
     const navigate = useNavigate();
-
     const [loginId, setLoginId] = useState('');
     const [loginPwd, setLoginPwd] = useState('');
-    /* 리덕스를 이용하기 위한 디스패처, 셀렉터 선언 */
-    const dispatch = useDispatch();
-    const loginMember = useSelector(state => state.memberReducer);  // API 요청하여 가져온 loginMember 정보
 
-
-    /* 폼 데이터 한번에 변경 및 State에 저장 */
-    const [form, setForm] = useState({
-        loginId: '',
-        loginPwd: ''
-    });
-
-    useEffect(() => {
-
-            if(loginMember.status === 200){
-                console.log("[Login] Login SUCCESS {}", loginMember);
-                navigate("/", { replace: true });
-            }
-
-            /* 회원 가입 후 로그인 페이지로 안내 되었을 때 */
-            if(loginMember.status === 201){
-
-                loginMember.status = 100  // Continue
-                dispatch({ type: POST_REGISTER,  payload: loginMember });
-            }
-        }
-        ,[loginMember]);
 
     /* 로그인 상태일 시 로그인페이지로 접근 방지 */
-    if(loginMember.length > 0) {
-        console.log("[Login] Login is already authenticated by the server");
-        return <Navigate to="/"/>
-    }
+    useEffect(() => {
+        const accessToken = sessionStorage.getItem('accessToken');
+        if (accessToken) {
+            navigate('/');
+        }
+    }, [navigate]);
+
 
     const handlerChangeUserId = e => setLoginId(e.target.value);
     const handlerChangeUserPwd = e => setLoginPwd(e.target.value);

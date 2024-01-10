@@ -8,7 +8,7 @@ export const GET_MEMBER     = 'member/GET_MEMBER';
 export const POST_LOGIN     = 'member/POST_LOGIN';
 export const POST_REGISTER  = 'member/POST_REGISTER';
 export const GET_MEMBER_INFO = 'member/GET_MEMBER_INFO';
-export const PUT_DRESSLIKE = 'member/PUT_DRESSLIKE';
+export const GET_DRESSLIKE = 'member/GET_DRESSLIKE';
 
 
 const actions = createActions({
@@ -16,7 +16,7 @@ const actions = createActions({
     [POST_LOGIN]: () => {},
     [POST_REGISTER]: () => {},
     [GET_MEMBER_INFO]: () => {},
-    [PUT_DRESSLIKE]: () => {},
+    [GET_DRESSLIKE]: () => {},
 
 });
 
@@ -39,7 +39,7 @@ const memberReducer = handleActions(
 
             return payload;
         },
-        [PUT_DRESSLIKE]: (state, { payload}) => {
+        [GET_DRESSLIKE]: (state, { payload}) => {
 
             return payload;
         }

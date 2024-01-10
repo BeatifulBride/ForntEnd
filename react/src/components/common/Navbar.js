@@ -64,7 +64,9 @@ function Navbar() {
                             )}
                         </div>
                         <div className={NavCSS.NavbarDiv2}>
-                            {loginMember?.data?.memName && <b>{`${loginMember.data.memName}님 환영합니다`}</b>}
+                            {loginMember?.data?.memName && (
+                                <b>{`${loginMember.data.memName}님 환영합니다`}</b>
+                                )}
                         </div>
                     </div>
                 </div>
