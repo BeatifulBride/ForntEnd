@@ -51,11 +51,11 @@ function Navbar() {
         <>
             <div className={NavCSS.PageContainer}>
                 <div className={NavCSS.Centered}>
-                    <MainLogo onClick={onClickMain}/>
+                    {/*<MainLogo onClick={onClickMain}/>*/}
                 </div>
                 <div className={NavCSS.ContentRow}>
                     <div className={NavCSS.BridePicture}>
-                        <Bride onClick={onClickMypageHandler}/>
+                        {/*<Bride onClick={onClickMypageHandler}/>*/}
                     </div>
                     <div>
                         <div className={NavCSS.NavbarDiv}>

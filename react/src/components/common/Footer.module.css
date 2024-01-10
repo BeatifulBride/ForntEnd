@@ -2,7 +2,8 @@
     display: flex;
     justify-content: space-between;
     padding: 20px;
-    background-color: #9bbacc;
+    height: 200px;
+    background-color:  #E9E9E9;
 }
 
 .leftContent, .rightContent {

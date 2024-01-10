@@ -2,11 +2,42 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px;
-    line-height: 50px;
+    height: 30px;
+    margin-top: -50px;
+    line-height: 40px;
     min-width: 800px;
-    border-bottom: solid 1px black;
-    background-color: #9bbacc;
+    border-bottom: solid 1px #E9E9E9;
+    background-color: #E9E9E9;
+}
+.back{
+    width: 600px;
+    margin-left: 1300px;
+}
+
+a:focus, a:hover {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.res_icon{
+    width: 25px;
+    height: 25px;
+    margin-bottom: -7px;
+    margin-right: 30px;
+}
+.comres_icon{
+    width: 40px;
+    height: 40px;
+    margin-left: -9px;
+    margin-right: 30px;
+    margin-bottom: -15px;
+}
+
+.login_icon{
+    width: 20px;
+    height: 20px;
+    margin-bottom: -4px;
 }
 
 .InputStyle {
