@@ -27,11 +27,6 @@ function Tryon() {
     console.log("넘어오는 데이터 값은", JSON.stringify(selectedDress, null, 2));
 
 
-    useEffect(() => {
-
-
-    }, []);
-
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {

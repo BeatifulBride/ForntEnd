@@ -1,7 +1,8 @@
 
 import {
     POST_LOGIN,
-    GET_DRESSLIKE
+    GET_DRESSLIKE,
+    GET_DRESSLIKEINDEX
 } from '../modules/MemberModule';
 import {
     GET_MAININFO
@@ -106,5 +107,31 @@ export const callDressLikeAPI = ( dressIndex ) => {
         }
     };
 };
+
+export const callDressLikeIndexAPI = () => {
+    const requestURL = `http://1.214.19.22:6900/mem/mark/mymark`;
+    return async(dispatch) => {
+        try {
+            const response = await fetch(requestURL, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": "Bearer " + window.sessionStorage.getItem("accessToken")
+                }
+            });
+
+            if(!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`)
+            }
+            const data = await response.json()
+            console.log('[MemberAPICalls] callDressLikeIndexAPI RESULT : ', data)
+            dispatch( { type: GET_DRESSLIKEINDEX, payload: data })
+            return data
+        } catch (error){
+            console.error('Error fetching error', error)
+        }
+    }
+}
 
 
