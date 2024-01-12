@@ -68,6 +68,7 @@
     background-color: #007bff;
     color: white;
     border-radius: 5px;
+
     cursor: pointer;
     outline: none;
     white-space: nowrap;
@@ -75,9 +76,4 @@
 
 .tryOnButton:hover {
     background-color: #0056b3;
-}
-
-.heart {
-    transform: translateX(-10px);
-    color: red;
 }
