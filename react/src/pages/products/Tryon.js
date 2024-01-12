@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import styles from '../products/Tryon.module.css';
 import {useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
-import LikeButton from "../../components/common/LikeButton"
+import LikeButton from "../../components/common/LikeButton";
 
 import {
     callTryOnAPI
 } from "../../apis/ProductAPICalls";
 import {callDressLikeAPI} from "../../apis/MemberAPICalls";
+
 
 
 function Tryon() {
@@ -17,8 +17,6 @@ function Tryon() {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const likedDresses = useSelector(state => state.memberReducer.likedDresses)
-    // const { selectedDress } = useSelector(state => state.productReducer.data)
 
     const [image, setImage] = useState(null);
     const [previewUrl, setPreviewUrl] = useState('');
@@ -27,8 +25,20 @@ function Tryon() {
     const {selectedDress} = location.state || {};
     const dressData = location.state ? location.state.selectedDress : {};
 
-    console.log("이거는 뭐야?", dressData)
+    const likedDresses = useSelector(state => state.memberReducer.likedDresses);
+    console.log("likeDresses는? ", likedDresses)
+    const isLiked = likedDresses && likedDresses[selectedDress.dressIndex]
+    console.log("isLiked는?" , isLiked)
+
+    console.log("dressData로 오는 이거는 뭐야?", dressData)
     console.log("넘어오는 데이터 값은", JSON.stringify(selectedDress, null, 2));
+
+    useEffect(() => {
+        if (selectedDress && likedDresses && selectedDress.dressIndex in likedDresses) {
+            setHeart(likedDresses[selectedDress.dressIndex]);
+        }
+    }, [likedDresses, selectedDress]);
+
 
 
     const handleImageChange = (e) => {
@@ -49,29 +59,15 @@ function Tryon() {
         }
     };
 
-    const heartChange = () => {
-        if (dressData) {
-            const { dressIndex } = dressData;
 
-            dispatch(callDressLikeAPI(dressIndex)).then((responseText) => {
-
-                if (responseText === "즐겨찾기에 추가 되었습니다.") {
-                    setHeart(true);
-                    alert(responseText);
-                } else if (responseText === "즐겨찾기가 이미 있습니다.") {
-                    alert(responseText);
-                } else {
-                    console.error('Unexpected response:', responseText);
-                }
-            }).catch((error) => {
-                console.error('Dress Like API call failed:', error);
-                setHeart(current => current);
-            });
-        }
+    const handleLikeToggle = () => {
+        dispatch(callDressLikeAPI(selectedDress.dressIndex)).then(() => {
+                console.log("여기는 뭐가나올까?", selectedDress.dressIndex)
+            setHeart(currentHeart => !currentHeart);
+        }).catch((error) => {
+            console.error('Dress Like API call failed:', error);
+        });
     };
-
-
-
 
     return (
             <div className={styles.tryonWrapper}>
@@ -96,15 +92,7 @@ function Tryon() {
                     <div className={styles.dressInfoSection}>
                         {dressData ? (
                             <>
-                                <img src={dressData.dressPath} className={styles.dressImage}/>
-                                <div className={styles.heart} onClick={heartChange}>
-                                    {heart ? <MdFavorite size="2.2em"/> : <MdFavoriteBorder size="2.2em"/>}
-                                </div>
-                                <LikeButton
-                                    dressIndex={selectedDress.dressIndex}
-                                    isLiked={likedDresses[selectedDress.dressIndex]}
-                                    onToggleLike={heartChange}
-                                />
+                                <img src={dressData.dressImagePath} className={styles.dressImage}/>
                             </>
                         ) : (
                             <div className={styles.dressPlaceholder}>
@@ -112,6 +100,12 @@ function Tryon() {
                             </div>
                         )}
                     </div>
+
+                    <LikeButton
+                        dressIndex={selectedDress.dressIndex}
+                        isLiked={heart}
+                        onToggleLike={handleLikeToggle}
+                    />
                 </div>
             </div>
         );

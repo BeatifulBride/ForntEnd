@@ -23,7 +23,6 @@ function DressList() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    // const dressInfo = useSelector(state => state.productReducer);
     const { data : dressList } = useSelector(state => state.productReducer)
     const likeDressIndex = useSelector(state => state.memberReducer);
     console.log("드레스리스트에 넘어오는 데이터 값은? : ", dressList)
@@ -133,14 +132,9 @@ function DressList() {
             >
                 {currentItems.map((dressData, index) => (
                     <div key={index} className={dresslist.card}>
-                        <img src={dressData.dressPath} alt={`Dress ${index}`} className={dresslist.image} />
+                        <img src={dressData.dressPath}  className={dresslist.image} />
                         <div className={dresslist.content}>
                             <div className={dresslist.info}>
-                                <div className={dresslist.heart} onClick={() => heartChange(dressData.dressIndex)}>
-                                    {likedDresses[dressData.dressIndex] ?
-                                        <MdFavorite size="2.2em" className={dresslist.activeHeart}/> :
-                                        <MdFavoriteBorder size="2.2em"/>}
-                                </div>
 
                                 <div className={dresslist.name}>{dressData.dressName}</div>
                                 <div>Type: {dressData.dressLine}</div>
