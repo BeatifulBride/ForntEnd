@@ -50,6 +50,7 @@ export const callDressLikeListAPI = () => {
             if(response.ok) {
                 console.log('[ProductAPICalls] callDressLikeListAPI RESULT : ', result)
                 dispatch( { type: GET_DRESSLIKELIST, payload: result})
+                return result
             } else {
                 // 오류 처리
                 console.error('API Error:', result);

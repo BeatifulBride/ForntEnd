@@ -9,16 +9,16 @@ import LikeButton from "../../components/common/LikeButton";
 import {
     callDressLikeListAPI
 } from "../../apis/ProductAPICalls";
+import {callDressLikeAPI} from "../../apis/MemberAPICalls";
 
-import {ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES} from "../../modules/MemberModule";
 const DressLikeList = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const dressInfo = useSelector(state => state.productReducer);
-    console.log(dressInfo)
-    const dressList = dressInfo.data;
-    console.log("dressList는???", dressList)
+    const dressLikeInfo = useSelector(state => state.productReducer);
+    console.log("dressLikeInfo는???", dressLikeInfo)
+    const dressLikeList = dressLikeInfo.data;
+    console.log("dressLikeList는???", dressLikeList)
 
 
     const [currentItems, setCurrentItems] = useState([]);
@@ -26,37 +26,33 @@ const DressLikeList = () => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-
-        dispatch(callDressLikeListAPI());
+        setLoading(true);
+        dispatch(callDressLikeListAPI()).then(dressLikeList => {
+            console.log("API에서 반환하는 값은?" ,dressLikeList)
+            setCurrentItems(dressLikeList || []);
+            setLoading(false);
+        }).catch(error => {
+            console.error('Error fetching liked dresses:', error);
+            setLoading(false);
+        });
     }, [dispatch]);
 
-    // useEffect(() => {
-    //     setLoading(true);
-    //     dispatch(callDressLikeListAPI()).then(response => {
-    //         console.log(response)
-    //         setCurrentItems(response.likedDresses || []);
-    //         setLoading(false);
-    //     }).catch(error => {
-    //         console.error('Error fetching liked dresses:', error);
-    //         setLoading(false);
-    //     });
-    // }, [dispatch]);
 
     useEffect(() => {
-        if(dressList && dressList.length > 0) {
-            setCurrentItems(dressList.slice(0, 12));
+        if(dressLikeList && dressLikeList.length > 0) {
+            setCurrentItems(dressLikeList.slice(0, 12));
         }
-    }, [dressList]);
+    }, [dressLikeList]);
 
 
     const fetchMoreData = () => {
 
-        if (currentItems.length >= dressList.length) {
+        if (currentItems.length >= dressLikeList.length) {
             setHasMore(false);
             return;
         }
         setTimeout(() => {
-            setCurrentItems(currentItems.concat(dressList.slice(currentItems.length, currentItems.length + 12)));
+            setCurrentItems(currentItems.concat(dressLikeList.slice(currentItems.length, currentItems.length + 12)));
         }, 1500);
     };
 
@@ -71,6 +67,14 @@ const DressLikeList = () => {
         }
     };
 
+    const heartChange = (dressIndex) => {
+        dispatch(callDressLikeAPI(dressIndex)).then(() => {
+            const updatedDressList = currentItems.filter(item => item.dressIndex !== dressIndex);
+            setCurrentItems(updatedDressList);
+        }).catch((error) => {
+            console.error('Dress Like API call failed:', error);
+        });
+    };
 
     return (
         <div>
@@ -87,14 +91,15 @@ const DressLikeList = () => {
                 }
                 className={dresslist.container}
             >
-                {currentItems.map((dressData, index) => (
+                {currentItems && currentItems.map((dressData, index) => (
                     <div key={index} className={dresslist.card}>
-                        <img src={dressData.dressPath} alt={`Dress ${index}`} className={dresslist.image} />
+                        <img src={dressData.dressPath}  className={dresslist.image} />
                         <div className={dresslist.content}>
                             <div className={dresslist.info}>
                                 <div className={dresslist.name}>{dressData.dressName}</div>
-                                <div>Type: {dressData.dressLine}</div>
-                                <div>Company: {dressData.companyName}</div>
+                                <div>Pirce: {dressData.dressPrice}</div>
+                                <div>Address: {dressData.dressCompanyAddress}</div>
+                                <div>Company: {dressData.dressCompanyName}</div>
                             </div>
                             <button
                                 onClick={() => onClickTryOnHandler(dressData)}
@@ -103,6 +108,11 @@ const DressLikeList = () => {
                                 Try-on
                             </button>
                         </div>
+                        <LikeButton
+                            dressIndex={dressData.dressIndex}
+                            isLiked={true}
+                            onToggleLike={heartChange}
+                        />
                     </div>
                 ))}
             </InfiniteScroll>
