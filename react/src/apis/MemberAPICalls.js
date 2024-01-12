@@ -111,6 +111,7 @@ export const callDressLikeAPI = ( dressIndex ) => {
 /* 좋아요가 눌린 드레스 인덱스 */
 export const callDressLikeIndexAPI = () => {
     const requestURL = `http://1.214.19.22:6900/mem/mark/mymark`;
+
     return async(dispatch) => {
         try {
             const response = await fetch(requestURL, {

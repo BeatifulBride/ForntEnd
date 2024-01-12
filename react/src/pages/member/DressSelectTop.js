@@ -77,10 +77,9 @@ function DressSelectTop() {
             <div className={dress.best}>
                 {currentItems.slice(0,1).map((dressData, index) => (
                     <div key={index} className={dress.brideContainerbest}>
-                        <img src={dressData.dressPath} alt={`Dress ${index}`}/>
+                        <img src={`${process.env.REACT_APP_IMAGE_PATH_URL}/${dressData.dressImagePath}`} alt={`Dress ${index}`}/>
                         <div className={dress.textContainertu}>
                             <div><b>Dress Name: {dressData.dressName}</b></div>
-                            <div><b>Type: {dressData.dressLine}</b></div>
                             <div><b>Company: {dressData.companyName}</b></div>
                         </div>
                         <button onClick={() => onClickTryOnHandler(dressData)}>
@@ -93,10 +92,9 @@ function DressSelectTop() {
             <div className={dress.container}>
                 {currentItems.slice(1, 5).map((dressData, index) => (
                     <div key={index} className={dress.brideContainer}>
-                        <img src={dressData.dressPath} alt={`Dress ${index + 1}`}/>
+                        <img src={dressData.dressImagePath} alt={`Dress ${index + 1}`}/>
                         <div className={dress.textContainer}>
                             <div><b>Dress Name: {dressData.dressName}</b></div>
-                            <div><b>Type: {dressData.dressLine}</b></div>
                             <div><b>Company: {dressData.companyName}</b></div>
                         </div>
                         <button onClick={() => onClickTryOnHandler(dressData)}>

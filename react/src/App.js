@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {BrowserRouter, Routes, Route, useLocation, Navigate} from 'react-router-dom';
 import Layout from './layouts/Layout';
 import Login from './pages/member/Login';
 
@@ -11,9 +11,7 @@ import ForgotInfo from "./pages/member/ForgotInfo";
 import ForgotPassword from "./pages/member/ForgotPassword";
 import Mypage from "./components/common/Mypage";
 import DressList from "./components/common/DressList";
-import ResultList from "./pages/products/ResultList";
 import DressLikeList from "./pages/products/DressLikeList";
-import ResultSaveList from "./pages/products/ResultSaveList";
 import TryonResult from "./pages/products/TryonResult";
 import CompanyMypage from "./pages/company/CompanyMypage";
 import CompanyDressRe from "./pages/company/CompanyDressRe";
