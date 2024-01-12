@@ -1,0 +1,29 @@
+.back{
+
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.img-fade-in {
+    animation: fadeIn 4s ease-out;
+}
+
+.img-slide-in {
+    /* 스크롤에 따라 애니메이션을 적용하려면, 대상 요소가 viewport에 들어올 때 클래스를 추가해야 합니다. */
+    /* 이 클래스는 보통 JavaScript를 통해 동적으로 추가됩니다. */
+    opacity: 0; /* 기본 상태는 투명으로 설정합니다. */
+    visibility: hidden; /* 스크롤되기 전에는 보이지 않도록 설정합니다. */
+}
+
+/* 사용자가 스크롤해서 이미지가 viewport에 들어오면, 이 클래스를 추가합니다. */
+.visible {
+    animation: slideIn 4s ease-out forwards; /* 애니메이션 종료 후에도 최종 상태를 유지합니다. */
+    visibility: visible; /* 이제 이미지가 보여야 하므로, 보이도록 설정합니다. */
+}

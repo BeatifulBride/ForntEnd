@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import HeaderCSS from './Header.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import jwtDecode from "jwt-decode";
 import { calculateDaysLeft } from './DateUtils';
 
@@ -10,6 +10,8 @@ import {
     callLogoutAPI,
     callMainInfoAPI
 } from '../../apis/MemberAPICalls'
+import RegisterCSS from "../../pages/member/Register.module.css";
+import {Icon} from "@iconify/react";
 
 function Header() {
 
@@ -62,9 +64,17 @@ function Header() {
     function BeforeLogin() {
 
         return (
-            <div>
-                <NavLink to="/login">로그인</NavLink>
+            <div className={HeaderCSS.back}>
+                <div className={HeaderCSS.res}>
+                    <NavLink to="/register"><span className={HeaderCSS.a}>업체 회원 가입하기</span></NavLink>
+                    <Icon className={ HeaderCSS.res_icon} icon="game-icons:large-dress" />
+                    <NavLink to="/companyregister"><span className={HeaderCSS.a}>예비 신부 회원 가입하기</span></NavLink>
+                    <Icon className={ HeaderCSS.comres_icon} icon="material-symbols:girl"  />
+                    <NavLink to="/login"><span className={HeaderCSS.a}>로그인 하기</span></NavLink>
+                    <Icon className={ HeaderCSS.login_icon} icon="line-md:login" />
             </div>
+            </div>
+
         );
     }
 

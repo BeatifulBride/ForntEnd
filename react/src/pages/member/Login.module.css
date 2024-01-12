@@ -15,7 +15,7 @@
     margin: 0;
     padding: 0;
     /*background-color: #A8A8A9;*/
-    background-image: url('J:\frontend\ForntEnd\react\src\image\main.png');
+    background-image: url('../../image/main.png');
     filter: brightness(115%);
 
 }

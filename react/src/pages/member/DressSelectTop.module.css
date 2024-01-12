@@ -1,7 +1,7 @@
 .container {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr; /* 첫 번째 열이 나머지 열의 두 배의 너비를 가짐 */
-    grid-template-rows: 1fr 1fr; /* 두 개의 행, 각각 동일한 높이 */
+    grid-template-columns: 2fr 1fr 1fr; /* 첫 번째 카드가 더 크게 설정됩니다. */
+    grid-template-rows: auto auto; /* 두 개의 행을 정의합니다. */
     gap: 20px;
     padding: 30px;
     justify-content: center;
@@ -9,39 +9,90 @@
     margin: 0 auto;
 }
 
-/* 첫 번째 드레스 */
-.container > :first-child {
-    grid-column: 1; /* 첫 번째 열에 위치 */
-    grid-row: 1 / 3; /* 첫 번째 행과 두 번째 행을 차지함 */
+.back {
+    display: flex; /* Flex 컨테이너를 사용하여 자식 요소를 배치합니다. */
+    justify-content: center; /* 가로축의 중앙에 자식 요소를 배치합니다. */
+    align-items: center; /* 세로축의 중앙에 자식 요소를 배치합니다. */
+    width: 1300px;
+    height: 600px;
+    margin-bottom: 80px;
 }
 
-/* 두 번째 드레스 */
-.container > :nth-child(2) {
-    grid-column: 2; /* 두 번째 열에 위치 */
-    grid-row: 1; /* 첫 번째 행에 위치 */
+.best, .container {
+    height: 100%; /* 부모 요소인 .back의 높이에 맞춥니다. */
 }
 
-/* 세 번째 드레스 */
-.container > :nth-child(3) {
-    grid-column: 3; /* 세 번째 열에 위치 */
-    grid-row: 1; /* 첫 번째 행에 위치 */
+.best {
+    width: 50%; /* 너비를 50%로 설정하여 .back 안에서 반을 차지하도록 합니다. */
+    align-content: center;
+    text-align: center;
+    padding: 30px;
+    box-sizing: border-box; /* 패딩을 포함한 너비 계산을 위해 box-sizing 설정 */
 }
 
-/* 네 번째 드레스 */
-.container > :nth-child(4) {
-    grid-column: 2; /* 두 번째 열에 위치 */
-    grid-row: 2; /* 두 번째 행에 위치 */
+.brideContainer, .brideContainerbest {
+    /* 기존 스타일 유지 */
+    /* 애니메이션 속성 제거 */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    margin: auto;
+    overflow: hidden;
+    background: #fff;
 }
 
-/* 다섯 번째 드레스 */
-.container > :nth-child(5) {
-    grid-column: 3; /* 세 번째 열에 위치 */
-    grid-row: 2; /* 두 번째 행에 위치 */
+
+.brideContainerbest {
+    background-color: white;
+    width: 500px;
+    height: 500px;
+    margin: auto; /* 가로 중앙에 배치 */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    animation: fadeIn 2s ease-out;
+}
+.brideContainertu img {
+    width: 100%;
+    height: auto;
 }
 
+.textContainertu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 300px;
+    padding: 15px;
+}
 
+.brideContainerbest button {
+    width: 80%;
+    padding: 10px 20px;
+    margin: 0 auto 20px;
+    display: block;
+    background-color: #007bff; /* 버튼 기본 색상 */
+    color: white; /* 버튼 텍스트 색상 */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+}
 
+.container {
+    display: grid; /* Grid 컨테이너를 사용하여 자식 요소를 배치합니다. */
+    grid-template-columns: repeat(2, 1fr); /* 2개의 열을 동일한 크기로 설정합니다. */
+    grid-template-rows: repeat(2, 1fr); /* 2개의 행을 동일한 크기로 설정합니다. */
+    gap: 20px; /* 그리드 아이템 사이의 간격을 설정합니다. */
+    width: 50%; /* 너비를 50%로 설정하여 .back 안에서 반을 차지하도록 합니다. */
+    align-content: center;
+    padding: 30px;
+    box-sizing: border-box; /* 패딩을 포함한 너비 계산을 위해 box-sizing 설정 */
+}
 
+/* Grid 아이템들은 자동으로 배치됩니다. */
+.grid-item {
+    background-color: white;
+    /* 각 아이템의 크기와 정렬은 해당 아이템의 클래스 또는 인라인 스타일을 통해 조정할 수 있습니다. */
+}
 .brideContainer {
     display: flex;
     flex-direction: column;
@@ -50,6 +101,8 @@
     overflow: hidden;
     background: #fff;
     margin: 0 auto;
+    animation: fadeIn 2s ease-out;
+
 }
 
 .brideContainer img {
@@ -117,3 +170,20 @@
         grid-row: auto;
     }
 }
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.visible {
+    animation: slideIn 2s ease-out forwards; /* 이미지가 스크롤로 인해 나타날 때 설정합니다. */
+    visibility: visible; /* 이미지가 보여야 하므로, 보이도록 설정합니다. */
+}
+
+
