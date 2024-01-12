@@ -96,11 +96,10 @@ export const callTryOnAPI = (image, dressData) => {
         try {
             const formData = new FormData();
             formData.append('multipartfile', image);
-            formData.append('companyName', dressData.companyName);
             formData.append('dressIndex', dressData.dressIndex);
             formData.append('dressPath', dressData.dressImagePath);
+
             console.log('Image:', image);
-            console.log('Company Name:', dressData.companyName);
             console.log('Dress Index:', dressData.dressIndex);
             console.log('Dress Path:', dressData.dressImagePath);
 
@@ -109,7 +108,6 @@ export const callTryOnAPI = (image, dressData) => {
                 method: 'POST',
                 body: formData
             });
-
 
             const imageData = await response.blob();
             const imageSrc = URL.createObjectURL(imageData);
