@@ -1,11 +1,12 @@
 
 import {
     GET_DRESSLIST
-    , GET_DRESSSELECT, TRY_ON_FAIL, TRY_ON_SUCCESS
+    , GET_DRESSSELECT, TRY_ON_FAIL, TRY_ON_SUCCESS,GET_DRESSLIKELIST
 } from '../modules/ProductModule.js';
 
 
 
+/* 전체 드레스 리스트 */
 export const callDressListAPI = () => {
     const requestURL = `http://1.214.19.22:6900/dress/list`;
 
@@ -30,7 +31,33 @@ export const callDressListAPI = () => {
             console.error('Fetch Error:', error);
         }
     };
+}
 
+/* 좋아요가 눌린 드레스 리스트*/
+export const callDressLikeListAPI = () => {
+    const requestURL = `http://1.214.19.22:6900/mem/mypage/mymark/list`;
+    return async (dispatch, getState) => {
+        try {
+            const response = await fetch(requestURL, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": "Bearer " + window.sessionStorage.getItem("accessToken")
+                }
+            })
+            const result = await response.json()
+            if(response.ok) {
+                console.log('[ProductAPICalls] callDressLikeListAPI RESULT : ', result)
+                dispatch( { type: GET_DRESSLIKELIST, payload: result})
+            } else {
+                // 오류 처리
+                console.error('API Error:', result);
+            }
+        } catch (error) {
+            console.error('Fetch Error:', error);
+        }
+    };
 }
 
 export const callDressSelectTopAPI =() => {

@@ -51,7 +51,7 @@ export const callLogoutAPI = () => {
     };
 }
 
-
+/* 메인에 회원의 정보 */
 export const callMainInfoAPI = (accessToken) => {
     const requestURL = `http://1.214.19.22:6900/mem/maininfo`;
 
@@ -81,7 +81,7 @@ export const callMainInfoAPI = (accessToken) => {
 };
 
 
-
+/* 좋아요 버튼 */
 export const callDressLikeAPI = ( dressIndex ) => {
     const requestURL = `http://1.214.19.22:6900/mem/mark/${dressIndex}`;
     return async (dispatch) => {
@@ -108,6 +108,7 @@ export const callDressLikeAPI = ( dressIndex ) => {
     };
 };
 
+/* 좋아요가 눌린 드레스 인덱스 */
 export const callDressLikeIndexAPI = () => {
     const requestURL = `http://1.214.19.22:6900/mem/mark/mymark`;
     return async(dispatch) => {

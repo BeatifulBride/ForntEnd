@@ -3,6 +3,7 @@ import styles from '../products/Tryon.module.css';
 import {useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
+import LikeButton from "../../components/common/LikeButton"
 
 import {
     callTryOnAPI
@@ -15,6 +16,9 @@ function Tryon() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
+
+    const likedDresses = useSelector(state => state.memberReducer.likedDresses)
+    // const { selectedDress } = useSelector(state => state.productReducer.data)
 
     const [image, setImage] = useState(null);
     const [previewUrl, setPreviewUrl] = useState('');
@@ -96,6 +100,11 @@ function Tryon() {
                                 <div className={styles.heart} onClick={heartChange}>
                                     {heart ? <MdFavorite size="2.2em"/> : <MdFavoriteBorder size="2.2em"/>}
                                 </div>
+                                <LikeButton
+                                    dressIndex={selectedDress.dressIndex}
+                                    isLiked={likedDresses[selectedDress.dressIndex]}
+                                    onToggleLike={heartChange}
+                                />
                             </>
                         ) : (
                             <div className={styles.dressPlaceholder}>

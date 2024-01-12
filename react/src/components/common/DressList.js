@@ -6,6 +6,7 @@ import dresslist from "./DressList.module.css";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import LoadingDots from "../../pages/products/LoadingDots";
 
+
 import {
     callDressListAPI
 } from '../../apis/ProductAPICalls'
@@ -14,7 +15,8 @@ import {
     callDressLikeAPI
 } from "../../apis/MemberAPICalls";
 import {MdFavorite, MdFavoriteBorder} from "react-icons/md";
-
+import {ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES} from "../../modules/MemberModule";
+import LikeButton from "../../components/common/LikeButton"
 
 
 function DressList() {
@@ -25,20 +27,32 @@ function DressList() {
     const { data : dressList } = useSelector(state => state.productReducer)
     const likeDressIndex = useSelector(state => state.memberReducer);
     console.log("드레스리스트에 넘어오는 데이터 값은? : ", dressList)
-    console.log("드레스인덱스에 넘어오는 데이터 값은? : ", likeDressIndex())
+    console.log("드레스인덱스에 넘어오는 데이터 값은? : ", likeDressIndex)
 
     const [heart, setHeart] = useState(false)
     const [dressLike, setDressLike] = useState([])
     const [currentItems, setCurrentItems] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [loading, setLoading] = useState(false);
+    const [likedDresses, setLikedDresses] = useState({})
+
 
     useEffect(() => {
         async function fetchInitialData() {
-            setLoading(true);
-            await dispatch(callDressListAPI());
-            await dispatch(callDressLikeIndexAPI());
-            setLoading(false);
+            try {
+                setLoading(true);
+                await dispatch(callDressListAPI());
+                const response = await dispatch(callDressLikeIndexAPI());
+                setLoading(false);
+
+                let initialLikes = {};
+                response.forEach(index => {
+                    initialLikes[index] = true;
+                });
+                setLikedDresses(initialLikes);
+            } catch (error) {
+                console.error('Error fetching initial data:', error);
+            }
         }
         fetchInitialData();
     }, [dispatch]);
@@ -51,6 +65,7 @@ function DressList() {
     }, [dressList]);
 
 
+    /* 무한스크롤 동작 */
     const fetchMoreData = () => {
 
         if (currentItems.length >= dressList.length) {
@@ -77,17 +92,18 @@ function DressList() {
     /* 즐겨찾기버튼 핸들러 */
     const heartChange = (dressIndex) => {
         dispatch(callDressLikeAPI(dressIndex)).then((responseText) => {
+            let newLikedDresses = { ...likedDresses };
+
             if (responseText === "즐겨찾기에 추가 되었습니다.") {
-                setHeart(true)
-                alert(responseText)
-            } else if (responseText === "즐겨찾기가 이미 있습니다.") {
-                alert(responseText)
-            } else {
-                console.error('Unexpected response:' , responseText)
+                newLikedDresses[dressIndex] = true;
+                dispatch({ type: ADD_TO_FAVORITES, payload: dressIndex });
+            } else if (responseText === "즐겨찾기가 취소 되었습니다.") {
+                delete newLikedDresses[dressIndex];
+                dispatch({ type: REMOVE_FROM_FAVORITES, payload: dressIndex });
             }
+            setLikedDresses(newLikedDresses);
         }).catch((error) => {
-            console.error('Dress Like API call failed:', error)
-            setHeart(current => current)
+            console.error('Dress Like API call failed:', error);
         });
     };
 
@@ -121,8 +137,9 @@ function DressList() {
                         <div className={dresslist.content}>
                             <div className={dresslist.info}>
                                 <div className={dresslist.heart} onClick={() => heartChange(dressData.dressIndex)}>
-                                    {/*{heart ? <MdFavorite size="2.2em"/> : <MdFavoriteBorder size="2.2em"/>}*/}
-                                    {likeDressIndex.includes(dressData.dressIndex) ? <MdFavorite size="2.2em" className={dresslist.activeHeart} /> : <MdFavoriteBorder size="2.2em"/>}
+                                    {likedDresses[dressData.dressIndex] ?
+                                        <MdFavorite size="2.2em" className={dresslist.activeHeart}/> :
+                                        <MdFavoriteBorder size="2.2em"/>}
                                 </div>
 
                                 <div className={dresslist.name}>{dressData.dressName}</div>
@@ -135,6 +152,11 @@ function DressList() {
                             >
                                 Try-on
                             </button>
+                            <LikeButton
+                                dressIndex={dressData.dressIndex}
+                                isLiked={likedDresses[dressData.dressIndex]}
+                                onToggleLike={heartChange}
+                            />
                         </div>
                     </div>
                 ))}

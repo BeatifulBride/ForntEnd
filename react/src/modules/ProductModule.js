@@ -9,14 +9,15 @@ const initialState = {
 
 /* 액션 */
 export const GET_DRESSLIST   = 'product/GET_DRESSLIST';
+export const GET_DRESSLIKELIST = 'product/GET_DRESSLIKELIST';
 export const GET_DRESSSELECT = 'product/GET_DRESSSELECT'
-
 export const TRY_ON_SUCCESS = 'product/TRY_ON_SUCCESS';
 export const TRY_ON_FAIL = 'product/TRY_ON_FAIL';
 
 const actions = createActions({
     [GET_DRESSLIST]: payload => payload,
     [GET_DRESSSELECT]: payload => payload,
+    [GET_DRESSLIKELIST]: payload => payload,
     [TRY_ON_SUCCESS]: payload => payload,
     [TRY_ON_FAIL]: payload => payload
 });
@@ -26,6 +27,9 @@ const actions = createActions({
 const productReducer = handleActions(
     {
         [GET_DRESSLIST]: (state, { payload }) => {
+            return { ...state, data: payload };
+        },
+        [GET_DRESSLIKELIST]: (state, { payload }) => {
             return { ...state, data: payload };
         },
         [GET_DRESSSELECT]: (state, { payload }) => {

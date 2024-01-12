@@ -14,8 +14,9 @@ function Navbar() {
     const dispatch = useDispatch()
     const loginMember = useSelector(state => state.memberInfoReducer);  // 저장소에서 가져온 loginMember 정보(이름,디데이)
     const navigate = useNavigate();
+
     const accessToken = window.sessionStorage.getItem('accessToken');
-    console.log("토근값은:? " , accessToken)
+    console.log("토근값은? :" , accessToken)
 
     const daysUntilWedding = loginMember?.data?.memWeddingDate
         ? calculateDaysLeft(loginMember.data.memWeddingDate)

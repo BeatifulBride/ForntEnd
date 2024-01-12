@@ -1,27 +1,53 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {callDressListAPI} from "../../apis/ProductAPICalls";
 import LoadingDots from "./LoadingDots";
 import InfiniteScroll from "react-infinite-scroll-component";
 import dresslist from "../../components/common/DressList.module.css";
+import LikeButton from "../../components/common/LikeButton";
 
+import {
+    callDressLikeListAPI
+} from "../../apis/ProductAPICalls";
+
+import {ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES} from "../../modules/MemberModule";
 const DressLikeList = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const dressInfo = useSelector(state => state.productReducer);
+    console.log(dressInfo)
     const dressList = dressInfo.data;
+    console.log("dressList는???", dressList)
+
 
     const [currentItems, setCurrentItems] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+
+        dispatch(callDressLikeListAPI());
+    }, [dispatch]);
+
+    // useEffect(() => {
+    //     setLoading(true);
+    //     dispatch(callDressLikeListAPI()).then(response => {
+    //         console.log(response)
+    //         setCurrentItems(response.likedDresses || []);
+    //         setLoading(false);
+    //     }).catch(error => {
+    //         console.error('Error fetching liked dresses:', error);
+    //         setLoading(false);
+    //     });
+    // }, [dispatch]);
+
+    useEffect(() => {
         if(dressList && dressList.length > 0) {
             setCurrentItems(dressList.slice(0, 12));
         }
     }, [dressList]);
+
 
     const fetchMoreData = () => {
 
@@ -34,7 +60,6 @@ const DressLikeList = () => {
         }, 1500);
     };
 
-
     const onClickTryOnHandler = (dressData) => {
 
         const accessToken = window.sessionStorage.getItem('accessToken');
@@ -46,17 +71,13 @@ const DressLikeList = () => {
         }
     };
 
-    useEffect(() => {
-
-        dispatch(callDressListAPI());
-    }, [dispatch]);
-
 
     return (
         <div>
             {loading && <LoadingDots />}
             <InfiniteScroll
                 dataLength={currentItems.length}
+                // dataLength={currentItems ? currentItems.length : 0}
                 next={fetchMoreData}
                 hasMore={hasMore}
                 loader={<div className="loader">Loading...</div>}

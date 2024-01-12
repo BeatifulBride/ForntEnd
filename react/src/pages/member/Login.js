@@ -57,6 +57,7 @@ function Login({history}) {
             {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
+
                 },
             }
         )
@@ -66,6 +67,7 @@ function Login({history}) {
                 if (responseData && responseData.token) {
                     // 서버 응답에서 토큰과 company 정보를 꺼내기
                     const token = responseData.token;
+                    console.log("리플레이스한 토큰값은: ?" ,token)
                     const company = responseData.company;
 
                     try {
@@ -76,10 +78,10 @@ function Login({history}) {
 
                         // company에 따라 페이지 이동
                         if (company === "true") {
-                            sessionStorage.setItem("accessToken", JSON.stringify(token));
+                            sessionStorage.setItem("accessToken", token);
                             navigate('/company');
                         } else {
-                            sessionStorage.setItem("accessToken", JSON.stringify(token));
+                            sessionStorage.setItem("accessToken", token);
                             navigate('/');
                         }
                     } catch (decodeError) {
