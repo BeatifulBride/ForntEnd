@@ -15,6 +15,7 @@ const DressLikeList = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
     const dressLikeInfo = useSelector(state => state.productReducer);
     console.log("dressLikeInfo는???", dressLikeInfo)
     const dressLikeList = dressLikeInfo.data;
@@ -24,6 +25,7 @@ const DressLikeList = () => {
     const [currentItems, setCurrentItems] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [loading, setLoading] = useState(false);
+
 
     useEffect(() => {
         setLoading(true);
@@ -44,7 +46,7 @@ const DressLikeList = () => {
         }
     }, [dressLikeList]);
 
-
+    /* 무한스크롤 동작 */
     const fetchMoreData = () => {
 
         if (currentItems.length >= dressLikeList.length) {
@@ -56,6 +58,7 @@ const DressLikeList = () => {
         }, 1500);
     };
 
+    /* tryon버튼 핸들러 */
     const onClickTryOnHandler = (dressData) => {
 
         const accessToken = window.sessionStorage.getItem('accessToken');
@@ -67,7 +70,9 @@ const DressLikeList = () => {
         }
     };
 
+    /* 즐겨찾기버튼 핸들러 */
     const heartChange = (dressIndex) => {
+
         dispatch(callDressLikeAPI(dressIndex)).then(() => {
             const updatedDressList = currentItems.filter(item => item.dressIndex !== dressIndex);
             setCurrentItems(updatedDressList);
@@ -81,7 +86,6 @@ const DressLikeList = () => {
             {loading && <LoadingDots />}
             <InfiniteScroll
                 dataLength={currentItems.length}
-                // dataLength={currentItems ? currentItems.length : 0}
                 next={fetchMoreData}
                 hasMore={hasMore}
                 loader={<div className="loader">Loading...</div>}
@@ -93,7 +97,7 @@ const DressLikeList = () => {
             >
                 {currentItems && currentItems.map((dressData, index) => (
                     <div key={index} className={dresslist.card}>
-                        <img src={dressData.dressPath}  className={dresslist.image} />
+                        <img src={dressData.dressImagePath}  className={dresslist.image} />
                         <div className={dresslist.content}>
                             <div className={dresslist.info}>
                                 <div className={dresslist.name}>{dressData.dressName}</div>
@@ -107,12 +111,13 @@ const DressLikeList = () => {
                             >
                                 Try-on
                             </button>
+                            <LikeButton
+                                dressIndex={dressData.dressIndex}
+                                isLiked={true}
+                                onToggleLike={heartChange}
+                            />
                         </div>
-                        <LikeButton
-                            dressIndex={dressData.dressIndex}
-                            isLiked={true}
-                            onToggleLike={heartChange}
-                        />
+
                     </div>
                 ))}
             </InfiniteScroll>
