@@ -10,7 +10,6 @@ import {
 import {callDressLikeAPI} from "../../apis/MemberAPICalls";
 
 
-
 function Tryon() {
 
     const dispatch = useDispatch();
@@ -34,13 +33,20 @@ function Tryon() {
     console.log("넘어오는 데이터 값은", JSON.stringify(selectedDress, null, 2));
 
     useEffect(() => {
+
         if (selectedDress && likedDresses && selectedDress.dressIndex in likedDresses) {
             setHeart(likedDresses[selectedDress.dressIndex]);
         }
     }, [likedDresses, selectedDress]);
 
+    useEffect(() => {
 
+        if (selectedDress && 'isLiked' in selectedDress) {
+            setHeart(selectedDress.isLiked);
+        }
+    }, [selectedDress]);
 
+    /* 이미지 업로드 핸들러 */
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -49,6 +55,7 @@ function Tryon() {
         }
     };
 
+    /* tryon버튼 핸들러 */
     const handleTryOn = () => {
         if (image && dressData) {
             dispatch(callTryOnAPI(image, dressData)).then(() => {
@@ -59,8 +66,8 @@ function Tryon() {
         }
     };
 
-
-    const handleLikeToggle = () => {
+    /* 즐겨찾기버튼 핸들러 */
+    const heartChange = () => {
         dispatch(callDressLikeAPI(selectedDress.dressIndex)).then(() => {
                 console.log("여기는 뭐가나올까?", selectedDress.dressIndex)
             setHeart(currentHeart => !currentHeart);
@@ -104,7 +111,7 @@ function Tryon() {
                     <LikeButton
                         dressIndex={selectedDress.dressIndex}
                         isLiked={heart}
-                        onToggleLike={handleLikeToggle}
+                        onToggleLike={heartChange}
                     />
                 </div>
             </div>

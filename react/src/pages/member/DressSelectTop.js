@@ -1,31 +1,32 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import dress from '../member/DressSelectTop.module.css';
-import { useEffect } from "react";
-import {callDressSelectTopAPI} from "../../apis/ProductAPICalls";
-
+import {
+    callDressSelectTopAPI
+} from "../../apis/ProductAPICalls";
+import {
+    callDressLikeIndexAPI
+} from "../../apis/MemberAPICalls";
 
 function DressSelectTop() {
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
     const dressSelectTop = useSelector(state => state.productReducer);
     const dreesSelectList = dressSelectTop.data
-    console.log(dressSelectTop.data)
+    console.log("dressSelectTop은?",dressSelectTop.data)
+
+    const likedDresses = useSelector(state => state.memberReducer.likedDresses);
+    console.log("likedDresses는 뭐야?", likedDresses)
 
     const [currentItems, setCurrentItems] = useState([])
 
-    // Tryon하는 핸들러 (로그인 x 시 로그인 페이지로 이동)
-    const onClickTryOnHandler = (dressData) => {
-        const accessToken = window.sessionStorage.getItem('accessToken');
-        console.log(dressData)
-        if (accessToken) {
-            navigate("/tryon", { state: { selectedDress: dressData } });
-        } else {
-            navigate("/login");
-        }
-    };
 
+    useEffect(() => {
+        dispatch(callDressLikeIndexAPI());
+    }, [dispatch]);
 
     useEffect(() => {
         dispatch(callDressSelectTopAPI());
@@ -55,6 +56,21 @@ function DressSelectTop() {
         return () => elements.forEach((el) => observer.unobserve(el));
     }, []);
 
+    /* tryon버튼 핸들러 */
+    const onClickTryOnHandler = (dressData) => {
+        const accessToken = window.sessionStorage.getItem('accessToken');
+        if (accessToken) {
+            const selectedDressWithLikeStatus = {
+                ...dressData,
+                isLiked: likedDresses[dressData.dressIndex] // 이 부분이 추가됩니다
+
+            };
+            navigate("/tryon", { state: { selectedDress: selectedDressWithLikeStatus } });
+            console.log("이거는뭐야?",selectedDressWithLikeStatus)
+        } else {
+            navigate("/login");
+        }
+    };
 
     return(
         <div className={dress.back}>

@@ -89,7 +89,8 @@ export const callDressSelectTopAPI =() => {
 
 export const callTryOnAPI = (image, dressData) => {
     // const requestURL = 'http://1.214.19.22:6900/tryon/starttryon';
-    const requestURL = 'http://127.0.0.1:8000/tryon/starttryon';
+    // const requestURL = 'http://127.0.0.1:8000/tryon/starttryon';
+    const requestURL = 'http://lamdahi.iptime.org:6800/getimg'
 
     return async (dispatch) => {
         try {
@@ -97,11 +98,11 @@ export const callTryOnAPI = (image, dressData) => {
             formData.append('multipartfile', image);
             formData.append('companyName', dressData.companyName);
             formData.append('dressIndex', dressData.dressIndex);
-            formData.append('dressPath', dressData.dressPath);
+            formData.append('dressPath', dressData.dressImagePath);
             console.log('Image:', image);
             console.log('Company Name:', dressData.companyName);
             console.log('Dress Index:', dressData.dressIndex);
-            console.log('Dress Path:', dressData.dressPath);
+            console.log('Dress Path:', dressData.dressImagePath);
 
 
             const response = await fetch(requestURL, {
@@ -109,16 +110,17 @@ export const callTryOnAPI = (image, dressData) => {
                 body: formData
             });
 
-            const result = await response.json();
 
+            const imageData = await response.blob();
+            const imageSrc = URL.createObjectURL(imageData);
 
             if (response.ok) {
-                console.log('[TryOnAPICalls] callTryOnAPI RESULT: ', result);
-                dispatch({ type: TRY_ON_SUCCESS, payload: result });
+                console.log('[TryOnAPICalls] callTryOnAPI RESULT: ', imageSrc);
+                dispatch({ type: TRY_ON_SUCCESS, payload: imageSrc });
 
             } else {
                 const error = await response.json()
-                dispatch({ type: TRY_ON_FAIL, payload: result });
+                dispatch({ type: TRY_ON_FAIL, payload: imageSrc });
             }
         } catch (error) {
             console.error('Fetch Error:', error);

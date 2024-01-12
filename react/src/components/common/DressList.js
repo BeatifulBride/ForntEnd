@@ -5,7 +5,8 @@ import {useDispatch, useSelector} from "react-redux";
 import dresslist from "./DressList.module.css";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import LoadingDots from "../../pages/products/LoadingDots";
-
+import {ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES} from "../../modules/MemberModule";
+import LikeButton from "../../components/common/LikeButton"
 
 import {
     callDressListAPI
@@ -14,10 +15,6 @@ import {
     callDressLikeIndexAPI,
     callDressLikeAPI
 } from "../../apis/MemberAPICalls";
-import {MdFavorite, MdFavoriteBorder} from "react-icons/md";
-import {ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES} from "../../modules/MemberModule";
-import LikeButton from "../../components/common/LikeButton"
-
 
 function DressList() {
     const navigate = useNavigate();
@@ -34,7 +31,6 @@ function DressList() {
     const [hasMore, setHasMore] = useState(true);
     const [loading, setLoading] = useState(false);
     const [likedDresses, setLikedDresses] = useState({})
-
 
     useEffect(() => {
         async function fetchInitialData() {
@@ -106,16 +102,6 @@ function DressList() {
         });
     };
 
-     useEffect(() => {
-        dispatch(callDressListAPI());
-    }, [dispatch]);
-
-     useEffect(() => {
-         dispatch(callDressLikeIndexAPI());
-     }, [dispatch]);
-
-
-
     return (
         <div>
             {loading && <LoadingDots />}
@@ -132,12 +118,10 @@ function DressList() {
             >
                 {currentItems.map((dressData, index) => (
                     <div key={index} className={dresslist.card}>
-                        <img src={dressData.dressPath}  className={dresslist.image} />
+                        <img src={dressData.dressImagePath}  className={dresslist.image} />
                         <div className={dresslist.content}>
                             <div className={dresslist.info}>
-
                                 <div className={dresslist.name}>{dressData.dressName}</div>
-                                <div>Type: {dressData.dressLine}</div>
                                 <div>Company: {dressData.companyName}</div>
                             </div>
                             <button

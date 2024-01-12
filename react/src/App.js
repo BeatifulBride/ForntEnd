@@ -33,8 +33,6 @@ function App() {
           {/*마이페이지*/}
           <Route path="mypage" element={ <Mypage/> }>
             <Route index element={ <DressLikeList/>}/>
-            {/*<Route path="/mypage/dresslikelist" element={ <DressLikeList/>}/>*/}
-            {/*<Route path="/mypage/resultsavelist" element={ <ResultSaveList/>}/>*/}
           </Route>
           {/*Tryon*/}
           <Route path="tryon" element={ <Tryon /> }/>
