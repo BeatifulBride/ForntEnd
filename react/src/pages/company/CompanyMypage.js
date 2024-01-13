@@ -23,7 +23,7 @@ function  CompanyMypage() {
     const [dressImagePath, setDressImagePath] = useState('');
     const [dressName, setDressName] = useState('');
     const [markCount, setMarkCount] = useState('');
-    const [companyTop5DressList, setCompanyTop5DressList] = useState('');
+    const [topDresses, setTopDresses] = useState([]);
 
 
     const info = () => {
@@ -32,7 +32,9 @@ function  CompanyMypage() {
             {},
             {
                 headers: {
-                    'Authorization': `Bearer ${accessToken}`
+                    'Authorization': `Bearer ${accessToken}`,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
                 }
             }
         ).then((response) => {
@@ -43,9 +45,11 @@ function  CompanyMypage() {
                     companyAddress,
                     companyPhone,
                     dressAllRegistrationCount,
-                    latestUpload
-
+                    latestUpload,
+                    companyTop5DressList
                 } = response.data;
+
+                // Setting company information
                 setCompanyName(companyName);
                 setCompanyAddress(companyAddress);
                 setCompanyPhone(companyPhone);
@@ -55,7 +59,8 @@ function  CompanyMypage() {
 
                 // latestUpload에 대한 처리
                 if (latestUpload) {
-                    const {dressImagePath, dressName, dressInfoIndex, markCount} = latestUpload;
+                    const { dressImagePath, dressName, dressInfoIndex, markCount } = latestUpload;
+
                     setDressImagePath(dressImagePath);
                     setDressName(dressName);
                     setMarkCount(markCount);
@@ -72,27 +77,24 @@ function  CompanyMypage() {
 
                 // companyTop5DressList에 대한 처리
                 if (companyTop5DressList && companyTop5DressList.length > 0) {
-                    const firstDress = companyTop5DressList[0];
-                    const {dressImagePath, dressName, dressInfoIndex, markCount} = firstDress;
+                    // 단 한 번의 상태 업데이트로 모든 드레스 데이터를 설정
+                    setTopDresses(companyTop5DressList.slice(0, 5));
 
-                    setDressImagePath(dressImagePath);
-                    setDressName(dressName);
-                    setMarkCount(markCount);
-                    setLatestUpload(latestUpload);
-                    setDressInfoIndex(dressInfoIndex);
-
-                    console.log("First dress in companyTop5DressList:", {
-                        dressImagePath,
-                        dressName,
-                        dressInfoIndex,
-                        markCount
+                    // 필요한 경우, 추가적인 정보 로깅
+                    companyTop5DressList.slice(0, 5).forEach((dress, i) => {
+                        console.log(`Dress ${i + 1} in companyTop5DressList:`, {
+                            dressImagePath: dress.dressImagePath,
+                            dressName: dress.dressName,
+                            dressInfoIndex: dress.dressInfoIndex,
+                            markCount: dress.markCount
+                        });
                     });
                 }
 
                 console.log("companyTop5DressList:", companyTop5DressList);
             }
 
-        }).catch((error) => {
+    }).catch((error) => {
             // 에러 핸들링
             console.error("An error occurred:", error);
             alert('에러');
@@ -259,17 +261,30 @@ function  CompanyMypage() {
             {/*내 상품 top5*/}
             <div className={CompanyMypageCSS.Top}>
                 <h1 className={CompanyMypageCSS.Toph}>Top 5</h1>
-                {currentItems.map((dressData, index) => (
-                    <div key={index} className={CompanyMypageCSS.brideContainer}>
-                        <img src={dressData.dressPath} alt={`Dress ${index}`}/>
-                        <div className={CompanyMypageCSS.textContainer}>
-                            <div><b>Dress Name: {dressData.dressName}</b></div>
-                            <div><b>Type: {dressData.dressLine}</b></div>
-                            <div><b>Company: {dressData.companyName}</b></div>
+                {/* 첫 번째 드레스를 렌더링 */}
+                {topDresses.length > 0 && (
+                    <div key={topDresses[0].dressInfoIndex} className={CompanyMypageCSS.Tophcontainer1}>
+                        <img className={CompanyMypageCSS.Tophimg1} src={imageUrl} alt={`Dress ${topDresses[0].dressInfoIndex}`} />
+                        <div className={CompanyMypageCSS.TophtextContainertu1}>
+                            <div className={CompanyMypageCSS.Tophb11}><b>Dress Name:<br/> {topDresses[0].dressName}</b></div>
+                            <div className={CompanyMypageCSS.Tophb21}><b>markCount: {topDresses[0].markCount}</b></div>
+                            <div className={CompanyMypageCSS.Tophb31}><b>DressInfoIndex: {topDresses[0].dressInfoIndex}</b></div>
+                        </div>
+                    </div>
+                )}
+                {/* 두 번째부터 다섯 번째 드레스들을 렌더링 */}
+                {topDresses.slice(1, 5).map((dressData, index) => (
+                    <div key={dressData.dressInfoIndex} className={CompanyMypageCSS.Tophcontainer}>
+                        <img className={CompanyMypageCSS.Tophimg} src={imageUrl} alt={`Dress ${dressData.dressInfoIndex}`} />
+                        <div className={CompanyMypageCSS.TophtextContainertu}>
+                            <div className={CompanyMypageCSS.Tophb1}><b>Dress Name:<br/> {dressData.dressName}</b></div>
+                            <div className={CompanyMypageCSS.Tophb2}><b>markCount: {dressData.markCount}</b></div>
+                            <div className={CompanyMypageCSS.Tophb3}><b>DressInfoIndex: {dressData.dressInfoIndex}</b></div>
                         </div>
                     </div>
                 ))}
             </div>
+
         </div>
     );
 
