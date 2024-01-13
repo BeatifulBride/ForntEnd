@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import styles from './TryonResult.module.css';
-import { useNavigate } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 
 
@@ -8,9 +8,12 @@ import {useSelector} from "react-redux";
 function TryonResult() {
 
     const navigate = useNavigate();
-    const test = useSelector(state => state.productReducer.tryOnResult)
 
+    const tryOnResult = useSelector(state => state.productReducer.tryOnResult)
 
+    const { state } = useLocation();
+    const { dressData } = state || {};
+    // console.log("dressData값은 잘 넘어오고 있나????", dressData)
     const DressListHandle = () => {
         navigate("/dresslist");
     }
@@ -22,7 +25,11 @@ function TryonResult() {
     return (
         <div>
                 <div className={styles.card}>
-                    {test && <img src={test} alt="Try On Image" />}
+                    {tryOnResult && <img src={tryOnResult} alt="Try On Image" />}
+                </div>
+                <div>
+                    {<p>{dressData.dressName}</p>}
+                    {<p>{dressData.companyName}</p>}
                 </div>
                 <div>
                     <div className={styles.buttonsContainer}>
@@ -30,6 +37,7 @@ function TryonResult() {
                         <button className={styles.button} onClick={DressListHandle}>다른 드레스 탐색</button>
                     </div>
                 </div>
+
         </div>
     )
 }

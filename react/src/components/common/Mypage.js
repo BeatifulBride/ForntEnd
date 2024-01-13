@@ -8,22 +8,14 @@ const Mypage = () => {
     const [page, setPage] = useState('mypage');
 
     return (
-        <div className={styles.container}>
+        <div >
             <nav className={styles.navigation}>
-
                 <button
                     className={page === 'mypage' ? styles.active : styles.button}
                     onClick={() => setPage('mypage')}
                 >
                     좋아요목록
                 </button>
-
-                {/*<button*/}
-                {/*    className={page === '/mypage/resultsavelist' ? styles.active : styles.button}*/}
-                {/*    onClick={() => setPage('/mypage/resultsavelist')}*/}
-                {/*>*/}
-                {/*    결과물 저장 목록*/}
-                {/*</button>*/}
             </nav>
             <main className={styles.content}>
                 {page === 'mypage' && <DressLikeList/>}

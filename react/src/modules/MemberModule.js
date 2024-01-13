@@ -54,10 +54,6 @@ const memberReducer = handleActions(
 
             return payload;
         },
-        // [GET_DRESSLIKEINDEX]: (state, { payload }) => {
-        //
-        //     return [...payload];
-        // },
         [GET_DRESSLIKEINDEX]: (state, { payload }) => {
             let updatedLikedDresses = {};
             payload.forEach(dressIndex => {
@@ -65,14 +61,6 @@ const memberReducer = handleActions(
             });
             return { ...state, likedDresses: updatedLikedDresses };
         },
-        // [GET_DRESSLIKEINDEX]: (state, { payload }) => {
-        //     let updatedLikedDresses = {};
-        //     payload.likedDresses.forEach(dressIndex => {
-        //         updatedLikedDresses[dressIndex] = true;
-        //     });
-        //     return { ...state, likedDresses: updatedLikedDresses };
-        // },
-
         [ADD_TO_FAVORITES]: (state, { payload }) => {
             return { ...state, likedDresses: { ...state.likedDresses, [payload]: true }};
         },

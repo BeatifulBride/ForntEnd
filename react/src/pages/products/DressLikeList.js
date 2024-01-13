@@ -80,6 +80,13 @@ const DressLikeList = () => {
             console.error('Dress Like API call failed:', error);
         });
     };
+    /* 드레스 가격 원화로 변경 */
+    const formatPrice = (price) => {
+        return new Intl.NumberFormat('ko-KR', {
+            style: 'currency',
+            currency: 'KRW'
+        }).format(price);
+    };
 
     return (
         <div>
@@ -96,14 +103,14 @@ const DressLikeList = () => {
                 className={dresslist.container}
             >
                 {currentItems && currentItems.map((dressData, index) => (
-                    <div key={index} className={dresslist.card}>
-                        <img src={dressData.dressImagePath}  className={dresslist.image} />
+                    <div key={index} className={`${dresslist.card} ${dresslist.fadeInUp}`}>
+                        <img src={`${process.env.REACT_APP_IMAGE_PATH_URL}/${dressData.dressImagePath}`}  className={dresslist.image} />
                         <div className={dresslist.content}>
                             <div className={dresslist.info}>
                                 <div className={dresslist.name}>{dressData.dressName}</div>
-                                <div>Pirce: {dressData.dressPrice}</div>
-                                <div>Address: {dressData.dressCompanyAddress}</div>
                                 <div>Company: {dressData.dressCompanyName}</div>
+                                <div>Address: {dressData.dressCompanyAddress}</div>
+                                <div>Pirce: {formatPrice(dressData.dressPrice)}</div>
                             </div>
                             <button
                                 onClick={() => onClickTryOnHandler(dressData)}
