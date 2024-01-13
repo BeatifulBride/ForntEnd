@@ -280,13 +280,82 @@
 
 .Top{
     margin-top: 50px;
-    background-color: red;
     text-align: center;
     font-family: 'Hahmlet-Regular';
     font-weight: bold;
     font-size: 20px;
 }
 
-.Toph{
-    background-color: blue;
+.Top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* This will space your items evenly */
+    align-items: flex-start; /* Align items to the top */
+    gap: 20px; /* Provide some space between the cards */
+}
+
+.Toph {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.Tophcontainer {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center-align items */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width: 500px; /* Adjust width to your preference */
+    margin: 0; /* Reset margin to use gap from the container */
+}
+
+.Tophimg {
+    width: 250px;
+    height: 300px;
+}
+
+.TophtextContainertu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    padding: 15px;
+}
+
+.Tophb1, .Tophb2, .Tophb3 {
+    text-align: center;
+    font-family: 'Hahmlet-Regular';
+    margin: 5px 0; /* Provide a small margin between text elements */
+}
+
+.Tophcontainer1{
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center-align items */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width: 500px; /* Adjust width to your preference */
+    margin: 0; /* Reset margin to use gap from the container */
+}
+
+.Tophimg1{
+    width: 250px;
+    height: 300px;
+}
+
+.TophtextContainertu1{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    padding: 15px;
+}
+
+.Tophb11, .Tophb21, .Tophb31 {
+    text-align: center;
+    font-family: 'Hahmlet-Regular';
+    margin: 5px 0; /* Provide a small margin between text elements */
 }
