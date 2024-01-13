@@ -76,10 +76,10 @@ function Login({history}) {
 
                         // company에 따라 페이지 이동
                         if (company === "true") {
-                            sessionStorage.setItem("accessToken", JSON.stringify(token));
+                            sessionStorage.setItem("accessToken", token);
                             navigate('/company');
                         } else {
-                            sessionStorage.setItem("accessToken", JSON.stringify(token));
+                            sessionStorage.setItem("accessToken", token);
                             navigate('/');
                         }
                     } catch (decodeError) {
