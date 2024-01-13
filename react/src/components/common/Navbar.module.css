@@ -64,3 +64,19 @@ a:focus, a:hover {
     /* 기타 페이지 레이아웃 스타일 */
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0; /* 처음에는 투명 */
+    }
+    to {
+        opacity: 1; /* 최종적으로 완전히 불투명 */
+    }
+}
+
+/* .logo 클래스에 애니메이션 적용 */
+.logo {
+    margin-top: 50px;
+    margin-bottom: 30px;
+    animation-name: fadeIn; /* 애니메이션 이름 */
+    animation-duration: 2s; /* 애니메이션 지속 시간 */
+}

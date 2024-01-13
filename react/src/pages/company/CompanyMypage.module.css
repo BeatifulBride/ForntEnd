@@ -1,0 +1,292 @@
+@font-face {
+    font-family: 'Hahmlet-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/Hahmlet-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.backgroundDiv{
+    background-image: url('../../image/main.png');
+    filter: brightness(115%);
+    background-attachment: fixed;
+    padding-top: 50px;
+    /*height: 935px;*/
+    width: 1904px;
+}
+
+.companyDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    margin-top: -50px;
+    line-height: 40px;
+    min-width: 800px;
+    border-bottom: solid 1px #E9E9E9;
+    background-color: #E9E9E9;
+}
+
+.logout{
+    border: none;
+    font-size: 15px;
+    margin-left: 50px;
+    margin-bottom: 5px;
+}
+
+.icon_logout{
+    margin-bottom: 4px;
+    width: 20px;
+    height: 20px;
+    margin-left: -3px;
+}
+
+.logout:hover{
+    font-weight: bold;
+}
+
+.name {
+    width: 80px;
+    text-align: right;
+    margin-left: 1400px;
+    margin-bottom: 5px;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+
+}
+
+.a{
+    margin-bottom: 5px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.Info{
+    /*background-color: beige;*/
+    margin-top: 70px;
+    display: flex;
+    flex-direction: column; /* 추가: 요소들을 수직으로 쌓음 */
+    justify-content: center; /* 추가: 수직 방향에서 중앙 정렬 */
+    align-items: center; /* 가로 방향에서 중앙 정렬을 유지 */
+    height: 40vh; /* 필요하다면 높이 조정 */
+}
+
+.Infos{
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 400px;
+    width: 800px;
+    display: flex;
+    flex-direction: column; /* 추가: 요소들을 수직으로 쌓음 */
+    justify-content: center; /* 추가: 수직 방향에서 중앙 정렬 */
+    align-items: center; /* 가로 방향에서 중앙 정렬을 유지 */
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+}
+
+.infoh{
+    display: flex;
+    font-size: 40px;
+    font-family: 'Hahmlet-Regular';
+    font-weight: bold;
+}
+
+.changeInfo_btn{
+    height: 45px;
+    width: 250px;
+    font-family: 'Hahmlet-Regular';
+    font-weight: bold;
+    margin-top: 20px;
+    border: 1px solid #A8A8A9;
+    border-radius: 10px;
+    background: #A8A8A9;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding-bottom: 3px;
+}
+
+.name2{
+    font-family: 'Hahmlet-Regular';
+    font-width: bold;
+}
+
+.name4{
+    height: 45px;
+    width: 250px;
+    border-radius: 10px;
+    border: 1px solid #A8A8A9;
+    background: #F3F3F3;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding-bottom: 3px;
+
+}
+
+.address{
+    display: flex;
+    font-family: 'Hahmlet-Regular';
+    font-width: bold;
+    margin-left: -10px;
+
+}
+
+.address2{
+    display: flex;
+    margin-top: 20px;
+    margin-right: -100px;
+}
+
+.address_btn{
+    font-family: 'Hahmlet-Regular';
+    font-size: 15px;
+    padding-bottom: 3px;
+    position: relative;
+    margin-left:-80px;
+    margin-top: 20px;
+    height: 25px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: 1px solid #A8A8A9;
+    background: #A8A8A9;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.address3{
+    height: 45px;
+    width: 250px;
+    margin-top: 10px;
+    margin-left: 160px;
+    border-radius: 10px;
+    border: 1px solid #A8A8A9;
+    background: #F3F3F3;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding-bottom: 3px;
+}
+
+.phonenumber{
+    font-family: 'Hahmlet-Regular';
+    font-width: bold;
+
+}
+
+.phonenumber3{
+    height: 45px;
+    width: 250px;
+    margin-top: 10px;
+    margin-left: 5px;
+    border-radius: 10px;
+    border: 1px solid #A8A8A9;
+    background: #F3F3F3;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding-bottom: 3px;
+}
+
+.Upload{
+    margin-top: 50px;
+}
+
+.upload_h{
+    display: flex;
+    font-family: 'Hahmlet-Regular';
+    font-weight: bold;
+    font-size: 40px;
+    flex-direction: column; /* 추가: 요소들을 수직으로 쌓음 */
+    justify-content: center; /* 추가: 수직 방향에서 중앙 정렬 */
+    align-items: center; /* 가로 방향에서 중앙 정렬을 유지 */
+}
+
+.brideContainerbest{
+    display: flex;
+    background-color: white;
+    min-height: 200px; /* 적당한 최소 높이 설정 */
+    min-width: 200px; /* 적당한 최소 너비 설정 */
+    width: 500px;
+    height: 300px;
+    margin-left: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.all{
+
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+    margin-top: -300px;
+    margin-left: 1000px;
+    width: 500px;
+    height: 300px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.allh{
+    font-family: 'Hahmlet-Regular';
+    font-width: bold;
+
+}
+
+.alldress{
+    border: none;
+    margin-top: 30px;
+    border-radius: 50px;
+    font-size: 20px;
+    text-align: center;
+    width: 150px;
+    height: 40px;
+}
+
+.list{
+    height: 45px;
+    width: 250px;
+    font-family: 'Hahmlet-Regular';
+    font-weight: bold;
+    margin-top: 40px;
+    border: 1px solid #A8A8A9;
+    border-radius: 10px;
+    background: #A8A8A9;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding-bottom: 3px;
+}
+
+.img{
+    width: 250px;
+    height: 300px;
+}
+
+.textContainertu{
+    margin-left: 40px;
+    width: 180px;
+
+}
+
+.b1{
+    font-family: 'Hahmlet-Regular';
+    margin-left: 10px;
+    margin-top: 90px;
+}
+
+.b2{
+    font-family: 'Hahmlet-Regular';
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.b3{
+    font-family: 'Hahmlet-Regular';
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.Top{
+    margin-top: 50px;
+    background-color: red;
+    text-align: center;
+    font-family: 'Hahmlet-Regular';
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.Toph{
+    background-color: blue;
+}

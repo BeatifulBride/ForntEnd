@@ -53,7 +53,7 @@ function Navbar() {
         <>
             <div className={NavCSS.PageContainer}>
                 <div className={NavCSS.Centered}>
-                    {/*<MainLogo onClick={onClickMain}/>*/}
+                    <MainLogo onClick={onClickMain}/>
                 </div>
                 <div className={NavCSS.ContentRow}>
                     <div className={NavCSS.BridePicture}>

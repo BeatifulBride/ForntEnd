@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Hahmlet-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/Hahmlet-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .container {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr; /* 첫 번째 카드가 더 크게 설정됩니다. */

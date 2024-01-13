@@ -66,7 +66,7 @@ function Header() {
         return (
             <div className={HeaderCSS.back}>
                 <div className={HeaderCSS.res}>
-                    <NavLink to="/register"><span className={HeaderCSS.a}>업체 회원 가입하기</span></NavLink>
+                    <NavLink to="/selectregister"><span className={HeaderCSS.a}>업체 회원 가입하기</span></NavLink>
                     <Icon className={ HeaderCSS.res_icon} icon="game-icons:large-dress" />
                     <NavLink to="/companyregister"><span className={HeaderCSS.a}>예비 신부 회원 가입하기</span></NavLink>
                     <Icon className={ HeaderCSS.comres_icon} icon="material-symbols:girl"  />
