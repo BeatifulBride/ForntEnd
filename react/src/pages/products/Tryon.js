@@ -29,6 +29,7 @@ function Tryon() {
     const isLiked = likedDresses && likedDresses[selectedDress.dressIndex]
     console.log("isLiked는?" , isLiked)
 
+
     console.log("dressData로 오는 이거는 뭐야?", dressData)
     console.log("넘어오는 데이터 값은", JSON.stringify(selectedDress, null, 2));
 
@@ -49,10 +50,15 @@ function Tryon() {
 
     /* 이미지 업로드 핸들러 */
     const handleImageChange = (e) => {
+
         const file = e.target.files[0];
         if (file) {
-            setImage(file);
-            setPreviewUrl(URL.createObjectURL(file));
+            if (file.type.startsWith('image/')) {
+                setImage(file);
+                setPreviewUrl(URL.createObjectURL(file));
+            } else {
+                alert('업로드한 파일이 이미지가 아닙니다. 이미지 파일을 선택해주세요.');
+            }
         }
     };
 
@@ -60,10 +66,13 @@ function Tryon() {
     const handleTryOn = () => {
         if (image && dressData) {
             dispatch(callTryOnAPI(image, dressData)).then(() => {
-                navigate("/tryonresult");
+                console.log(dressData)
+                navigate("/tryonresult", {state : { dressData: dressData }});
             }).catch((error) => {
                 console.error('Try-on API call failed:', error);
             });
+        } else if(!image) {
+            alert("사용자 이미지를 등록해주세요")
         }
     };
 
@@ -97,6 +106,12 @@ function Tryon() {
 
 
                 <div className={`${styles.commonSectionStyle} ${styles.dressSection}`}>
+                    <LikeButton
+                        dressIndex={selectedDress.dressIndex}
+                        isLiked={heart}
+                        onToggleLike={heartChange}
+                    />
+
                     <div className={styles.dressInfoSection}>
                         {dressData ? (
                             <>
@@ -108,12 +123,6 @@ function Tryon() {
                             </div>
                         )}
                     </div>
-
-                    <LikeButton
-                        dressIndex={selectedDress.dressIndex}
-                        isLiked={heart}
-                        onToggleLike={heartChange}
-                    />
                 </div>
             </div>
         );

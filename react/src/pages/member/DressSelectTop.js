@@ -92,7 +92,7 @@ function DressSelectTop() {
             <div className={dress.container}>
                 {currentItems.slice(1, 5).map((dressData, index) => (
                     <div key={index} className={dress.brideContainer}>
-                        <img src={dressData.dressImagePath} alt={`Dress ${index + 1}`}/>
+                        <img src={`${process.env.REACT_APP_IMAGE_PATH_URL}/${dressData.dressImagePath}`} alt={`Dress ${index + 1}`}/>
                         <div className={dress.textContainer}>
                             <div><b>Dress Name: {dressData.dressName}</b></div>
                             <div><b>Company: {dressData.companyName}</b></div>

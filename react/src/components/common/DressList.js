@@ -86,9 +86,9 @@ function DressList() {
 
     /* 즐겨찾기버튼 핸들러 */
     const heartChange = (dressIndex) => {
+
         dispatch(callDressLikeAPI(dressIndex)).then((responseText) => {
             let newLikedDresses = { ...likedDresses };
-
             if (responseText === "즐겨찾기에 추가 되었습니다.") {
                 newLikedDresses[dressIndex] = true;
                 dispatch({ type: ADD_TO_FAVORITES, payload: dressIndex });
@@ -117,8 +117,9 @@ function DressList() {
                 className={dresslist.container}
             >
                 {currentItems.map((dressData, index) => (
-                    <div key={index} className={dresslist.card}>
-                        <img src={dressData.dressImagePath}  className={dresslist.image} />
+                    // <div key={index} className={dresslist.card}>
+                    <div key={index} className={`${dresslist.card} ${dresslist.fadeInUp}`}>
+                        <img src={`${process.env.REACT_APP_IMAGE_PATH_URL}/${dressData.dressImagePath}`}  className={dresslist.image} />
                         <div className={dresslist.content}>
                             <div className={dresslist.info}>
                                 <div className={dresslist.name}>{dressData.dressName}</div>
