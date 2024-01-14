@@ -7,6 +7,7 @@ function  CompanyDressRe() {
     /* 드레스 등록하기 */
 
     // 이미지 업로드
+    const accessToken = sessionStorage.getItem("accessToken");
     const [dressName, setDressName] = useState('');
     const [dressPNumber, setDressPNumber] = useState('');
     const [designer, setDesigner] = useState('');
@@ -73,6 +74,7 @@ function  CompanyDressRe() {
             formData,
             {
                 headers: {
+                    'Authorization': `Bearer ${accessToken}`,
                     'Content-Type': 'multipart/form-data',
                 },
             }
