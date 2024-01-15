@@ -1,4 +1,8 @@
 
+.main {
+    /*margin: 30px;*/
+}
+
 .card {
     display: flex;
     border: 1px solid #ddd;

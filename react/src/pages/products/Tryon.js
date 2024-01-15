@@ -8,6 +8,7 @@ import {
     callTryOnAPI
 } from "../../apis/ProductAPICalls";
 import {callDressLikeAPI} from "../../apis/MemberAPICalls";
+import Swal from "sweetalert2";
 
 
 function Tryon() {
@@ -65,10 +66,22 @@ function Tryon() {
     /* tryon버튼 핸들러 */
     const handleTryOn = () => {
         if (image && dressData) {
+
+            Swal.fire({
+                title: 'Processing...',
+                html: 'Please wait...',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                },
+            });
+
             dispatch(callTryOnAPI(image, dressData)).then(() => {
+                Swal.close();
                 console.log(dressData)
                 navigate("/tryonresult", {state : { dressData: dressData }});
             }).catch((error) => {
+                Swal.close();
                 console.error('Try-on API call failed:', error);
             });
         } else if(!image) {
@@ -92,10 +105,10 @@ function Tryon() {
                     <div className={styles.imageContainer}
                          onClick={() => document.getElementById('file-input').click()}>
                         {previewUrl && <img src={previewUrl} alt="Uploaded" className={styles.imagePreview}/>}
-                        {!previewUrl && <div className={styles.uploadPlaceholder}>사용자 전신 사진</div>}
-                        <div className={styles.uploadButtonWrapper}>
-                            <div className={styles.uploadButton}>+</div>
-                        </div>
+                        {!previewUrl && <div className={styles.uploadPlaceholder}>이미지를 업로드 해주세요.</div>}
+                        {/*<div className={styles.uploadButtonWrapper}>*/}
+                        {/*    <div className={styles.uploadButton}>+</div>*/}
+                        {/*</div>*/}
                     </div>
                     <input id="file-input" type="file" onChange={handleImageChange} style={{display: 'none'}}/>
                 </div>
@@ -106,27 +119,24 @@ function Tryon() {
 
 
                 <div className={`${styles.commonSectionStyle} ${styles.dressSection}`}>
-                    <LikeButton
-                        dressIndex={selectedDress.dressIndex}
-                        isLiked={heart}
-                        onToggleLike={heartChange}
-                    />
+
 
                     <div className={styles.dressInfoSection}>
-                        {dressData ? (
-                            <>
-                                <img src={dressData.dressImagePath} className={styles.dressImage}/>
-                            </>
-                        ) : (
-                            <div className={styles.dressPlaceholder}>
-                                <p>No dress data available</p>
-                            </div>
-                        )}
+                        <img src={`${process.env.REACT_APP_IMAGE_PATH_URL}/${dressData.dressImagePath}`}
+                                     className={styles.dressImage}/>
+
                     </div>
+                        <LikeButton
+                            dressIndex={selectedDress.dressIndex}
+                            isLiked={heart}
+                            onToggleLike={heartChange}
+                        />
+
+
                 </div>
             </div>
-        );
-    }
+    );
+}
 
 
 export default Tryon;
