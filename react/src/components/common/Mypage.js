@@ -9,14 +9,7 @@ const Mypage = () => {
 
     return (
         <div >
-            <nav className={styles.navigation}>
-                <button
-                    className={page === 'mypage' ? styles.active : styles.button}
-                    onClick={() => setPage('mypage')}
-                >
-                    좋아요목록
-                </button>
-            </nav>
+
             <main className={styles.content}>
                 {page === 'mypage' && <DressLikeList/>}
             </main>

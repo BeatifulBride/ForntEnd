@@ -23,14 +23,14 @@ function TryonResult() {
     }
 
     return (
-        <div>
+        <div className={styles.main}>
                 <div className={styles.card}>
                     {tryOnResult && <img src={tryOnResult} alt="Try On Image" />}
                 </div>
-                <div>
-                    {<p>{dressData.dressName}</p>}
-                    {<p>{dressData.companyName}</p>}
-                </div>
+                {/*<div>*/}
+                {/*    {<p>{dressData.dressName}</p>}*/}
+                {/*    {<p>{dressData.companyName}</p>}*/}
+                {/*</div>*/}
                 <div>
                     <div className={styles.buttonsContainer}>
                         <button className={styles.button} onClick={DressLikeListHandle}>나의 관심 상품</button>

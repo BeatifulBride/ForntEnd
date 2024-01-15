@@ -8,6 +8,7 @@ import {
 import {
     callDressLikeIndexAPI
 } from "../../apis/MemberAPICalls";
+import dresslist from "../../components/common/DressList.module.css";
 
 function DressSelectTop() {
 
@@ -82,7 +83,7 @@ function DressSelectTop() {
                             <div><b>Dress Name: {dressData.dressName}</b></div>
                             <div><b>Company: {dressData.companyName}</b></div>
                         </div>
-                        <button onClick={() => onClickTryOnHandler(dressData)}>
+                        <button  onClick={() => onClickTryOnHandler(dressData)} >
                             Try-on
                         </button>
                     </div>
