@@ -10,6 +10,8 @@ import {Link} from "react-router-dom";
 import {Icon} from "@iconify/react";
 import { Navigate } from "react-router-dom";
 import {NavLink, useNavigate} from 'react-router-dom';
+import Footer from "../../components/common/Footer";
+import Swal from "sweetalert2";
 function  CompanyMypage() {
 
     // 업체 정보를 가져오는 함수
@@ -26,6 +28,32 @@ function  CompanyMypage() {
     const [topDresses, setTopDresses] = useState([]);
 
 
+    const showAlert = () => {
+        if (!accessToken) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "유효한 토큰값이 없습니다.",
+                showConfirmButton: false,
+                timer: 3000,
+            }).then(() => {
+                // 3초 후에 실행
+                setTimeout(() => {
+                    window.location.href = '/login'; // '/login'은 로그인 페이지 경로에 따라 수정
+                }, 3000);
+            });
+        } else {
+
+        }
+    };
+
+
+    useEffect(() => {
+        showAlert()
+    }, []);
+
+
+    // 업체 정보 처음 렌더링시 가져오기
     const info = () => {
         axios.post(
             'http://1.214.19.22:6900/com/mypage',
@@ -55,8 +83,6 @@ function  CompanyMypage() {
                 setCompanyPhone(companyPhone);
                 setDressAllRegistrationCount(dressAllRegistrationCount);
 
-                console.log(companyName);
-
                 // latestUpload에 대한 처리
                 if (latestUpload) {
                     const { dressImagePath, dressName, dressInfoIndex, markCount } = latestUpload;
@@ -67,37 +93,23 @@ function  CompanyMypage() {
                     setLatestUpload(latestUpload);
                     setDressInfoIndex(dressInfoIndex);
 
-                    console.log("Latest Upload Values:", {
-                        dressImagePath,
-                        dressName,
-                        dressInfoIndex,
-                        markCount
-                    });
                 }
 
                 // companyTop5DressList에 대한 처리
                 if (companyTop5DressList && companyTop5DressList.length > 0) {
                     // 단 한 번의 상태 업데이트로 모든 드레스 데이터를 설정
                     setTopDresses(companyTop5DressList.slice(0, 5));
-
-                    // 필요한 경우, 추가적인 정보 로깅
-                    companyTop5DressList.slice(0, 5).forEach((dress, i) => {
-                        console.log(`Dress ${i + 1} in companyTop5DressList:`, {
-                            dressImagePath: dress.dressImagePath,
-                            dressName: dress.dressName,
-                            dressInfoIndex: dress.dressInfoIndex,
-                            markCount: dress.markCount
-                        });
-                    });
                 }
-
-                console.log("companyTop5DressList:", companyTop5DressList);
             }
 
     }).catch((error) => {
             // 에러 핸들링
-            console.error("An error occurred:", error);
-            alert('에러');
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "유효한 토큰값이 없습니다.",
+            });
+            // alert('유효한 토큰값이 없습니다.');
         });
     };
 
@@ -145,7 +157,6 @@ function  CompanyMypage() {
             fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
         }
 
-        console.log(fullAddress);
         setCompanyAddress(fullAddress);
 
     };
@@ -154,11 +165,7 @@ function  CompanyMypage() {
         open({ onComplete: handleComplete });
     };
 
-
-    const handlerChangeDressList = () =>{
-        // navigate("/companyregister", { replace: true })
-    }
-
+    // 이미지 데이터 통신
     let imageUrl = `http://1.214.19.22:6900/${dressImagePath}`;
 
 
@@ -182,22 +189,18 @@ function  CompanyMypage() {
             .then((response) => {
                 // HTTP 상태 코드가 200일 때 응답 데이터에서 정보를 추출합니다.
                 if (response.status === 200) {
-                    console.log('수정 성공')
-                    console.log("Company Name:", companyName);
-                    console.log("Address:", companyAddress);
-                    console.log("Phone Number:", companyPhone);
-
-
 
                 }
             })
             .catch((error) => {
                 // 에러 핸들링
-                console.error("An error occurred:", error);
-                alert('에러');
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "업체 정보 수정에 실패하였습니다. 다시한번 확인해주세요.",
+                });
             });
     };
-
 
     /*내 상품 top5*/
     const [currentItems, setCurrentItems] = useState([])
@@ -207,13 +210,41 @@ function  CompanyMypage() {
         // dressAllRegistrationCount();
     }, []); // 빈 배열은 컴포넌트가 처음 로드될 때만 실행
 
+    const handleLogout = () => {
+        Swal.fire({
+            title: "로그아웃 하시겠습니까?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes!",
+            cancelButtonText: "No!",
+        })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        "메인화면으로 돌아갑니다.",
+                        "로그아웃에 성공하였습니다.",
+                        "success"
+                    );
+                    // 로그아웃 처리 및 기타 작업 수행
+                    sessionStorage.clear();
+                    window.location.href = '/'; // 메인 페이지로 이동
+                } else {
+                    Swal.fire("취소되었습니다.", "Your imaginary file is safe :)", "info");
+                }
+            });
+    };
+
+
+
 
     return(
         <div className={CompanyMypageCSS.backgroundDiv}>
             {/*업체 환영*/}
             <div className={CompanyMypageCSS.companyDiv}>
                 <input type='text' className={CompanyMypageCSS.name} value={companyName} onChange={handleCompanyNameChange}/> <span className={CompanyMypageCSS.a}>님 환영합니다.</span>
-                <button className={CompanyMypageCSS.logout}>로그아웃</button>
+                <button className={CompanyMypageCSS.logout} onClick={handleLogout}>로그아웃</button>
                 <Icon className={CompanyMypageCSS.icon_logout} icon="line-md:logout" />
             </div>
             {/*업체 정보 수정*/}
@@ -253,7 +284,10 @@ function  CompanyMypage() {
                 <div className={CompanyMypageCSS.all}>
                 <h2 className={CompanyMypageCSS.allh}>Total Dress Registration Count  <input type="text" value={dressAllRegistrationCount} onChange={handlerChangeAllDress} className={CompanyMypageCSS.alldress} readOnly/></h2>
                 <Link to="/companylist">
-                    <button onClick={handlerChangeDressList} className={CompanyMypageCSS.list}>내 드레스 목록 보기</button>
+                    <button className={CompanyMypageCSS.list}>내 드레스 목록 보기</button>
+                </Link>
+                <Link to="/companydress">
+                    <button className={CompanyMypageCSS.dressre}>드레스 등록하기</button>
                 </Link>
                 </div>
             </div>
@@ -261,6 +295,7 @@ function  CompanyMypage() {
             {/*내 상품 top5*/}
             <div className={CompanyMypageCSS.Top}>
                 <h1 className={CompanyMypageCSS.Toph}>Top 5</h1>
+                <div className={CompanyMypageCSS.Top1}>
                 {/* 첫 번째 드레스를 렌더링 */}
                 {topDresses.length > 0 && (
                     <div key={topDresses[0].dressInfoIndex} className={CompanyMypageCSS.Tophcontainer1}>
@@ -272,6 +307,8 @@ function  CompanyMypage() {
                         </div>
                     </div>
                 )}
+                </div>
+                <div className={CompanyMypageCSS.second}>
                 {/* 두 번째부터 다섯 번째 드레스들을 렌더링 */}
                 {topDresses.slice(1, 5).map((dressData, index) => (
                     <div key={dressData.dressInfoIndex} className={CompanyMypageCSS.Tophcontainer}>
@@ -283,9 +320,12 @@ function  CompanyMypage() {
                         </div>
                     </div>
                 ))}
+                </div>
             </div>
 
+        <Footer/>
         </div>
+
     );
 
 }
