@@ -67,6 +67,7 @@ function  CompanyMypage() {
             }
         ).then((response) => {
             // HTTP 상태 코드가 200일 때 응답 데이터에서 정보를 추출합니다.
+            console.log("top5 데이터는 뭐가 나오나?" , response)
             if (response.status === 200) {
                 const {
                     companyName,
@@ -299,7 +300,7 @@ function  CompanyMypage() {
                 {/* 첫 번째 드레스를 렌더링 */}
                 {topDresses.length > 0 && (
                     <div key={topDresses[0].dressInfoIndex} className={CompanyMypageCSS.Tophcontainer1}>
-                        <img className={CompanyMypageCSS.Tophimg1} src={imageUrl} alt={`Dress ${topDresses[0].dressInfoIndex}`} />
+                        <img className={CompanyMypageCSS.Tophimg1} src={`http://1.214.19.22:6900/${topDresses[0].dressImagePath}`} alt={`Dress ${topDresses[0].dressInfoIndex}`} />
                         <div className={CompanyMypageCSS.TophtextContainertu1}>
                             <div className={CompanyMypageCSS.Tophb11}><b>Dress Name:<br/> {topDresses[0].dressName}</b></div>
                             <div className={CompanyMypageCSS.Tophb21}><b>markCount: {topDresses[0].markCount}</b></div>
@@ -312,7 +313,7 @@ function  CompanyMypage() {
                 {/* 두 번째부터 다섯 번째 드레스들을 렌더링 */}
                 {topDresses.slice(1, 5).map((dressData, index) => (
                     <div key={dressData.dressInfoIndex} className={CompanyMypageCSS.Tophcontainer}>
-                        <img className={CompanyMypageCSS.Tophimg} src={imageUrl} alt={`Dress ${dressData.dressInfoIndex}`} />
+                        <img className={CompanyMypageCSS.Tophimg} src={`http://1.214.19.22:6900/${dressData.dressImagePath}`} alt={`Dress ${dressData.dressInfoIndex}`} />
                         <div className={CompanyMypageCSS.TophtextContainertu}>
                             <div className={CompanyMypageCSS.Tophb1}><b>Dress Name:<br/> {dressData.dressName}</b></div>
                             <div className={CompanyMypageCSS.Tophb2}><b>markCount: {dressData.markCount}</b></div>
