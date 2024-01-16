@@ -74,7 +74,7 @@
 
 .dressInfoSection {
     width: 432px;
-    height: 576px;
+    height: 540px;
     display: flex;
     position: relative;
     background-color: #F0F0F0; /* 플레이스홀더의 배경색 */
@@ -103,7 +103,6 @@
 }
 
 .dressImage {
-
 
     width: 100%;
     height: auto;
@@ -148,7 +147,7 @@
 
 .imageContainer {
     width: 432px;
-    height: 615px;
+    height: 579px;
     /*width: 300px;*/
     /*height: 450px;*/
     background-color: #F0F0F0;
